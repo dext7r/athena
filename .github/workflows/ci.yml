@@ -60,6 +60,13 @@ jobs:
 
       - name: Build project
         run: deno task build
+        env:
+          GITHUB_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          GITHUB_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          APP_BASE_URL: ${{ secrets.APP_BASE_URL }}
+          SESSION_EXPIRE_TIME: ${{ secrets.SESSION_EXPIRE_TIME }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
