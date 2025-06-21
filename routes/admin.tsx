@@ -5,9 +5,9 @@
 
 import { Head } from "$fresh/runtime.ts";
 import { HandlerContext, PageProps } from "$fresh/server.ts";
-import Layout from ".@components/layout/Layout.tsx";
-import { getAuthContext } from ".@utils/middleware.ts";
-import type { AppUser } from ".@utils/auth.ts";
+import Layout from "@components/layout/Layout.tsx";
+import { getAuthContext } from "@utils/middleware.ts";
+import type { AppUser } from "@utils/auth.ts";
 
 // 管理员用户列表（在实际应用中应该从环境变量或数据库获取）
 const ADMIN_USERS = ["h7ml"]; // 添加您的 GitHub 用户名
