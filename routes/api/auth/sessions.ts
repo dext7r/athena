@@ -4,7 +4,7 @@
  */
 
 import { HandlerContext } from "$fresh/server.ts";
-import { getAuthContext } from "../../../utils/middleware.ts";
+import { getAuthContext, validateUserId } from "../../../utils/middleware.ts";
 import {
   cleanupExpiredSessions,
   deleteAllUserSessions,
@@ -30,6 +30,8 @@ export const handler = {
       }
 
       const userId = authContext.user.id;
+      const userIdError = validateUserId(userId);
+      if (userIdError) return userIdError;
 
       // 获取当前会话ID（从JWT令牌中提取）
       const token = extractTokenFromRequest(req);
@@ -42,8 +44,8 @@ export const handler = {
       cleanupExpiredSessions();
 
       // 获取用户会话
-      const sessions = getUserSessions(userId, currentSessionId);
-      const stats = getUserSessionStats(userId);
+      const sessions = getUserSessions(userId!, currentSessionId);
+      const stats = getUserSessionStats(userId!);
 
       return new Response(
         JSON.stringify({
@@ -78,6 +80,9 @@ export const handler = {
       }
 
       const userId = authContext.user.id;
+      const userIdError = validateUserId(userId);
+      if (userIdError) return userIdError;
+
       const url = new URL(req.url);
       const sessionId = url.searchParams.get("sessionId");
       const action = url.searchParams.get("action"); // "single", "others", "all"
@@ -87,12 +92,12 @@ export const handler = {
 
       if (action === "all") {
         // 删除所有会话
-        deletedCount = deleteAllUserSessions(userId);
+        deletedCount = deleteAllUserSessions(userId!);
         message = `已删除所有 ${deletedCount} 个会话`;
       } else if (action === "others") {
         // 删除其他会话（保留当前会话）
         const currentSessionId = url.searchParams.get("currentSessionId") || "";
-        deletedCount = deleteOtherUserSessions(userId, currentSessionId);
+        deletedCount = deleteOtherUserSessions(userId!, currentSessionId);
         message = `已删除其他 ${deletedCount} 个会话`;
       } else if (sessionId) {
         // 删除指定会话

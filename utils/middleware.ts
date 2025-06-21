@@ -17,6 +17,14 @@ export interface AuthContext {
   isAuthenticated: boolean;
   user: Partial<AppUser> | null;
   sessionId?: string;
+  isAdmin?: boolean;
+}
+
+// 扩展 HandlerContext 类型
+interface MiddlewareHandlerContext extends HandlerContext {
+  state: {
+    auth?: AuthContext;
+  };
 }
 
 /**
@@ -26,7 +34,7 @@ export interface AuthContext {
 export function requireAuth(redirectTo = "/") {
   return async function authMiddleware(
     req: Request,
-    ctx: HandlerContext,
+    ctx: MiddlewareHandlerContext,
   ): Promise<Response> {
     const authContext = await getAuthContext(req);
 
@@ -56,7 +64,7 @@ export function requireAuth(redirectTo = "/") {
 export function optionalAuth() {
   return async function optionalAuthMiddleware(
     req: Request,
-    ctx: HandlerContext,
+    ctx: MiddlewareHandlerContext,
   ): Promise<Response> {
     const authContext = await getAuthContext(req);
 
@@ -75,7 +83,7 @@ export function optionalAuth() {
 export function requireAdmin(adminUsers: string[] = []) {
   return async function adminMiddleware(
     req: Request,
-    ctx: HandlerContext,
+    ctx: MiddlewareHandlerContext,
   ): Promise<Response> {
     const authContext = await getAuthContext(req);
 
@@ -120,7 +128,7 @@ export function requireAdmin(adminUsers: string[] = []) {
 export function requireApiAuth() {
   return async function apiAuthMiddleware(
     req: Request,
-    ctx: HandlerContext,
+    ctx: MiddlewareHandlerContext,
   ): Promise<Response> {
     const authContext = await getAuthContext(req);
 
@@ -190,20 +198,44 @@ export async function getAuthContext(req: Request): Promise<AuthContext> {
 /**
  * 从上下文中获取当前用户
  */
-export function getCurrentUser(ctx: HandlerContext): Partial<AppUser> | null {
+export function getCurrentUser(
+  ctx: MiddlewareHandlerContext,
+): Partial<AppUser> | null {
   return ctx.state.auth?.user || null;
+}
+
+/**
+ * 从认证上下文中获取用户ID，确保类型安全
+ */
+export function getUserId(authContext: AuthContext): number | null {
+  return authContext.user?.id || null;
+}
+
+/**
+ * 验证用户ID是否有效，如果无效则返回错误响应
+ */
+export function validateUserId(
+  userId: number | undefined | null,
+): Response | null {
+  if (!userId) {
+    return new Response(
+      JSON.stringify({ error: "User ID not found" }),
+      { status: 400, headers: { "Content-Type": "application/json" } },
+    );
+  }
+  return null;
 }
 
 /**
  * 检查当前用户是否已登录
  */
-export function isAuthenticated(ctx: HandlerContext): boolean {
+export function isAuthenticated(ctx: MiddlewareHandlerContext): boolean {
   return ctx.state.auth?.isAuthenticated || false;
 }
 
 /**
  * 检查当前用户是否是管理员
  */
-export function isAdmin(ctx: HandlerContext): boolean {
+export function isAdmin(ctx: MiddlewareHandlerContext): boolean {
   return ctx.state.auth?.isAdmin || false;
 }

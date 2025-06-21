@@ -33,6 +33,13 @@ export const handler = {
       }
 
       const userId = authContext.user.id;
+      if (!userId) {
+        return new Response(
+          JSON.stringify({ error: "User ID not found" }),
+          { status: 400, headers: { "Content-Type": "application/json" } },
+        );
+      }
+
       const userMFA = getMFASettings(userId) || {
         enabled: false,
         createdAt: new Date(),
@@ -73,6 +80,13 @@ export const handler = {
       }
 
       const userId = authContext.user.id;
+      if (!userId) {
+        return new Response(
+          JSON.stringify({ error: "User ID not found" }),
+          { status: 400, headers: { "Content-Type": "application/json" } },
+        );
+      }
+
       const user = authContext.user;
 
       // 检查是否已经启用MFA
@@ -143,6 +157,12 @@ export const handler = {
       }
 
       const userId = authContext.user.id;
+      if (!userId) {
+        return new Response(
+          JSON.stringify({ error: "User ID not found" }),
+          { status: 400, headers: { "Content-Type": "application/json" } },
+        );
+      }
 
       // 删除MFA设置
       deleteMFASettings(userId);

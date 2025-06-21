@@ -15,6 +15,7 @@ export interface JWTPayload {
   avatar: string;
   iat: number; // 签发时间
   exp: number; // 过期时间
+  sessionId?: string; // 会话ID（可选）
 }
 
 /**
@@ -72,7 +73,7 @@ export async function verifyJWT(token: string): Promise<JWTPayload | null> {
       return null;
     }
 
-    return payload as JWTPayload;
+    return payload as unknown as JWTPayload;
   } catch (error) {
     console.error("JWT verification failed:", error);
     return null;

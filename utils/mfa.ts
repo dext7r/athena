@@ -5,7 +5,6 @@
 
 import { authenticator } from "otplib";
 import QRCode from "qrcode";
-import { encode as base32Encode } from "$std/encoding/base32.ts";
 
 // TOTP配置
 export interface TOTPConfig {
@@ -72,7 +71,13 @@ export function verifyTOTP(
   token: string,
   window: number = 1,
 ): boolean {
-  return authenticator.verify({ token, secret, window });
+  try {
+    authenticator.options = { window };
+    return authenticator.verify({ token, secret });
+  } catch (error) {
+    console.error("TOTP verification error:", error);
+    return false;
+  }
 }
 
 /**

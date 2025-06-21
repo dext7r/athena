@@ -4,7 +4,10 @@
  */
 
 import { HandlerContext } from "$fresh/server.ts";
-import { getAuthContext } from "../../../../utils/middleware.ts";
+import {
+  getAuthContext,
+  validateUserId,
+} from "../../../../utils/middleware.ts";
 import {
   type MFASettings,
   verifyBackupCode,
@@ -26,6 +29,9 @@ export const handler = {
       }
 
       const userId = authContext.user.id;
+      const userIdError = validateUserId(userId);
+      if (userIdError) return userIdError;
+
       const body = await req.json();
       const { code, type = "totp" } = body;
 
@@ -36,7 +42,7 @@ export const handler = {
         );
       }
 
-      const userMFA = getMFASettings(userId);
+      const userMFA = getMFASettings(userId!);
       if (!userMFA || !userMFA.secret) {
         return new Response(
           JSON.stringify({ error: "MFA not initialized" }),
@@ -77,7 +83,7 @@ export const handler = {
       // 启用MFA并更新最后使用时间
       updatedMFA.enabled = true;
       updatedMFA.lastUsedAt = new Date();
-      setMFASettings(userId, updatedMFA);
+      setMFASettings(userId!, updatedMFA);
 
       return new Response(
         JSON.stringify({
@@ -112,6 +118,9 @@ export const handler = {
       }
 
       const userId = authContext.user.id;
+      const userIdError = validateUserId(userId);
+      if (userIdError) return userIdError;
+
       const body = await req.json();
       const { code, type = "totp" } = body;
 
@@ -122,7 +131,7 @@ export const handler = {
         );
       }
 
-      const userMFA = getMFASettings(userId);
+      const userMFA = getMFASettings(userId!);
       if (!userMFA || !userMFA.enabled || !userMFA.secret) {
         return new Response(
           JSON.stringify({ error: "MFA not enabled" }),
@@ -162,7 +171,7 @@ export const handler = {
 
       // 更新最后使用时间
       updatedMFA.lastUsedAt = new Date();
-      setMFASettings(userId, updatedMFA);
+      setMFASettings(userId!, updatedMFA);
 
       return new Response(
         JSON.stringify({

@@ -4,7 +4,7 @@
  */
 
 import { HandlerContext } from "$fresh/server.ts";
-import { getAuthContext } from "../../../utils/middleware.ts";
+import { getAuthContext, validateUserId } from "../../../utils/middleware.ts";
 import { getClientIP } from "../../../utils/session.ts";
 import {
   emergencyLockAccount,
@@ -29,7 +29,10 @@ export const handler = {
       }
 
       const userId = authContext.user.id;
-      const lockStatus = getAccountLockStatus(userId);
+      const userIdError = validateUserId(userId);
+      if (userIdError) return userIdError;
+
+      const lockStatus = getAccountLockStatus(userId!);
 
       return new Response(
         JSON.stringify({
@@ -65,11 +68,14 @@ export const handler = {
       }
 
       const userId = authContext.user.id;
+      const userIdError = validateUserId(userId);
+      if (userIdError) return userIdError;
+
       const user = authContext.user;
       const ipAddress = getClientIP(req);
 
       // 检查账户是否已经被锁定
-      if (isAccountLocked(userId)) {
+      if (isAccountLocked(userId!)) {
         return new Response(
           JSON.stringify({ error: "Account is already locked" }),
           { status: 400, headers: { "Content-Type": "application/json" } },
@@ -81,7 +87,7 @@ export const handler = {
 
       // 紧急锁定账户
       const lockStatus = emergencyLockAccount(
-        userId,
+        userId!,
         user.username || user.name || `user-${userId}`,
         ipAddress,
         reason || "用户主动请求紧急锁定账户",
@@ -125,11 +131,14 @@ export const handler = {
       }
 
       const userId = authContext.user.id;
+      const userIdError = validateUserId(userId);
+      if (userIdError) return userIdError;
+
       const user = authContext.user;
       const ipAddress = getClientIP(req);
 
       // 检查账户是否被锁定
-      if (!isAccountLocked(userId)) {
+      if (!isAccountLocked(userId!)) {
         return new Response(
           JSON.stringify({ error: "Account is not locked" }),
           { status: 400, headers: { "Content-Type": "application/json" } },
@@ -141,7 +150,7 @@ export const handler = {
 
       // 解锁账户
       const success = unlockAccount(
-        userId,
+        userId!,
         reason || "用户请求解锁账户",
         {
           unlockedBy: userId,
