@@ -5,7 +5,7 @@
 
 import { JSX } from "preact";
 import { useEffect } from "preact/hooks";
-import { useAuthStore } from "../../stores/useAuthStore.ts";
+import { useAuthStore } from "@stores/useAuthStore.ts";
 import LoginButton from "./LoginButton.tsx";
 
 interface AuthGuardProps {

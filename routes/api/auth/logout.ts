@@ -4,7 +4,7 @@
  */
 
 import { HandlerContext } from "$fresh/server.ts";
-import { clearAuthCookie } from "../../../utils/jwt.ts";
+import { clearAuthCookie } from "@utils/jwt.ts";
 
 export const handler = {
   POST(req: Request, _ctx: HandlerContext): Response {

@@ -1,5 +1,5 @@
 import { JSX } from "preact";
-import SidebarNavigationIsland from "../../islands/SidebarNavigation.tsx";
+import SidebarNavigationIsland from "@islands/SidebarNavigation.tsx";
 
 interface SidebarProps {
   children?: JSX.Element | JSX.Element[];

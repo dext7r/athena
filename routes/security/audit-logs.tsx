@@ -5,10 +5,10 @@
 
 import { Head } from "$fresh/runtime.ts";
 import { HandlerContext, PageProps } from "$fresh/server.ts";
-import Layout from "../../components/layout/Layout.tsx";
-import { getAuthContext } from "../../utils/middleware.ts";
-import type { AppUser } from "../../utils/auth.ts";
-import AuditLogViewer from "../../islands/AuditLogViewer.tsx";
+import Layout from "@components/layout/Layout.tsx";
+import { getAuthContext } from "@utils/middleware.ts";
+import type { AppUser } from "@utils/auth.ts";
+import AuditLogViewer from "@islands/AuditLogViewer.tsx";
 
 interface AuditLogsPageProps {
   user: Partial<AppUser>;
@@ -39,7 +39,7 @@ export default function AuditLogsPage({ data }: PageProps<AuditLogsPageProps>) {
   return (
     <>
       <Head>
-        <title>安全审计日志 - Athena Template</title>
+        <title>安全审计日志 - Athena</title>
         <meta name="description" content="查看您的账户安全活动记录和审计日志" />
       </Head>
       <Layout title="安全审计日志">

@@ -5,7 +5,7 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { AppUser } from "../utils/auth.ts";
+import type { AppUser } from "@utils/auth.ts";
 
 // 认证状态接口
 export interface AuthState {

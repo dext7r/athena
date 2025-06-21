@@ -4,10 +4,7 @@
  */
 
 import { HandlerContext } from "$fresh/server.ts";
-import {
-  generateGitHubAuthUrl,
-  validateOAuthConfig,
-} from "../../../utils/auth.ts";
+import { generateGitHubAuthUrl, validateOAuthConfig } from "@utils/auth.ts";
 
 export const handler = {
   GET(req: Request, _ctx: HandlerContext): Response {

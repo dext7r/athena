@@ -32,7 +32,7 @@ jobs:
           SESSION_EXPIRE_TIME: ${{ secrets.SESSION_EXPIRE_TIME }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           NODE_ENV: ${{ secrets.NODE_ENV }}
-          
+
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:

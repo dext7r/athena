@@ -1,6 +1,6 @@
 # 快速开始
 
-本指南将帮助您在 5 分钟内快速上手 Athena Template。
+本指南将帮助您在 5 分钟内快速上手 Athena 。
 
 ## 🚀 第一步：环境准备
 
@@ -80,7 +80,7 @@ export default function MyPage() {
   return (
     <>
       <Head>
-        <title>我的页面 - Athena Template</title>
+        <title>我的页面 - Athena</title>
       </Head>
       <Layout title="我的页面">
         <div className="text-center">
@@ -224,4 +224,4 @@ deno task update
 
 ---
 
-恭喜！您已经成功开始使用 Athena Template 了！🎉
+恭喜！您已经成功开始使用 Athena 了！🎉

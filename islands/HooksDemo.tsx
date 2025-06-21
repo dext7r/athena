@@ -1,18 +1,18 @@
 import { useState } from "preact/hooks";
-import Button from "../components/ui/Button.tsx";
+import Button from "@components/ui/Button.tsx";
 import Card, {
   CardContent,
   CardHeader,
   CardTitle,
-} from "../components/ui/Card.tsx";
-import Input from "../components/ui/Input.tsx";
+} from "@components/ui/Card.tsx";
+import Input from "@components/ui/Input.tsx";
 import {
   useBreakpoint,
   useCounter,
   useDebounce,
   useLocalStorage,
   useToggle,
-} from "../hooks/index.ts";
+} from "@hooks/index.ts";
 
 export default function HooksDemo() {
   return (

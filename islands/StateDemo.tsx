@@ -1,10 +1,10 @@
-import Button from "../components/ui/Button.tsx";
+import Button from "@components/ui/Button.tsx";
 import Card, {
   CardContent,
   CardHeader,
   CardTitle,
-} from "../components/ui/Card.tsx";
-import { useAppStore, useThemeStore, useUserStore } from "../stores/index.ts";
+} from "@components/ui/Card.tsx";
+import { useAppStore, useThemeStore, useUserStore } from "@stores/index.ts";
 
 export default function StateDemo() {
   return (

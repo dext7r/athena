@@ -4,7 +4,7 @@
  */
 
 import { useState } from "preact/hooks";
-import { authUtils, useAuthStore } from "../../stores/useAuthStore.ts";
+import { authUtils, useAuthStore } from "@stores/useAuthStore.ts";
 
 interface UserProfileProps {
   className?: string;

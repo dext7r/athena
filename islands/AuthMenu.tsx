@@ -4,7 +4,7 @@
  */
 
 import { useEffect, useState } from "preact/hooks";
-import { LoginButton } from "../components/auth/index.ts";
+import { LoginButton } from "@components/auth/index.ts";
 
 // 用户信息接口
 interface User {

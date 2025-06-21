@@ -117,7 +117,7 @@ export async function fetchGitHubUser(
     headers: {
       "Authorization": `Bearer ${accessToken}`,
       "Accept": "application/vnd.github.v3+json",
-      "User-Agent": "Athena-Template",
+      "User-Agent": "Athena",
     },
   });
 

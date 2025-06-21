@@ -4,7 +4,7 @@ export default function Error403() {
   return (
     <>
       <Head>
-        <title>403 - 禁止访问 | Athena Template</title>
+        <title>403 - 禁止访问 | Athena</title>
         <meta
           name="description"
           content="403错误页面 - 您的权限不足，无法访问此资源，请联系管理员申请相应权限。"
@@ -13,7 +13,7 @@ export default function Error403() {
           name="keywords"
           content="403错误, 禁止访问, 权限不足, 访问被拒绝, 权限申请"
         />
-        <meta property="og:title" content="403 - 禁止访问 | Athena Template" />
+        <meta property="og:title" content="403 - 禁止访问 | Athena " />
         <meta
           property="og:description"
           content="403错误页面 - 您的权限不足，无法访问此资源，请联系管理员申请相应权限。"

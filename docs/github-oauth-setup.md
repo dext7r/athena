@@ -1,12 +1,11 @@
 # GitHub OAuth 设置指南
 
-本指南将帮助您设置 GitHub OAuth App，以便在 Athena Template 中使用 GitHub
-登录功能。
+本指南将帮助您设置 GitHub OAuth App，以便在 Athena 中使用 GitHub 登录功能。
 
 ## 📋 前置要求
 
 - GitHub 账户
-- 已部署的 Athena Template 应用（或本地开发环境）
+- 已部署的 Athena 应用（或本地开发环境）
 
 ## 🔧 创建 GitHub OAuth App
 
@@ -22,7 +21,7 @@
 
 | 字段                           | 值                                          | 说明             |
 | ------------------------------ | ------------------------------------------- | ---------------- |
-| **Application name**           | `Athena Template`                           | 应用名称         |
+| **Application name**           | `Athena`                                    | 应用名称         |
 | **Homepage URL**               | `https://your-domain.com`                   | 应用主页 URL     |
 | **Application description**    | `Modern React + Deno full-stack template`   | 应用描述（可选） |
 | **Authorization callback URL** | `https://your-domain.com/api/auth/callback` | OAuth 回调 URL   |

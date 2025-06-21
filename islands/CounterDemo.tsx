@@ -1,11 +1,11 @@
-import { useCounter } from "../hooks/useCounter.ts";
-import { useToggle } from "../hooks/useToggle.ts";
-import Button from "../components/ui/Button.tsx";
+import { useCounter } from "@hooks/useCounter.ts";
+import { useToggle } from "@hooks/useToggle.ts";
+import Button from "@components/ui/Button.tsx";
 import Card, {
   CardContent,
   CardHeader,
   CardTitle,
-} from "../components/ui/Card.tsx";
+} from "@components/ui/Card.tsx";
 
 const CounterDemo = () => {
   const { count, increment, decrement, reset, set } = useCounter(0, {

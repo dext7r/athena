@@ -1,10 +1,10 @@
 import { useState } from "preact/hooks";
-import Button from "../components/ui/Button.tsx";
+import Button from "@components/ui/Button.tsx";
 import Card, {
   CardContent,
   CardHeader,
   CardTitle,
-} from "../components/ui/Card.tsx";
+} from "@components/ui/Card.tsx";
 
 export default function SimpleStateDemo() {
   const [count, setCount] = useState(0);

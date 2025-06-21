@@ -4,7 +4,7 @@ export default function Error503() {
   return (
     <>
       <Head>
-        <title>503 - 服务不可用 | Athena Template</title>
+        <title>503 - 服务不可用 | Athena</title>
         <meta
           name="description"
           content="503错误页面 - 服务器暂时过载或维护中无法处理请求，请稍后重试。"
@@ -15,7 +15,7 @@ export default function Error503() {
         />
         <meta
           property="og:title"
-          content="503 - 服务不可用 | Athena Template"
+          content="503 - 服务不可用 | Athena "
         />
         <meta
           property="og:description"

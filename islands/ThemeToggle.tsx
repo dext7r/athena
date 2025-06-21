@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import Button from "../components/ui/Button.tsx";
+import Button from "@components/ui/Button.tsx";
 
 const ThemeToggle = () => {
   const [isDark, setIsDark] = useState(false);

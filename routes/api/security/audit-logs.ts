@@ -4,7 +4,7 @@
  */
 
 import { HandlerContext } from "$fresh/server.ts";
-import { getAuthContext } from "../../../utils/middleware.ts";
+import { getAuthContext } from "@utils/middleware.ts";
 import {
   AuditEventType,
   AuditLevel,
@@ -12,7 +12,7 @@ import {
   cleanupOldAuditLogs,
   getAuditLogStats,
   queryAuditLogs,
-} from "../../../utils/audit-log.ts";
+} from "@utils/audit-log.ts";
 
 export const handler = {
   // 获取审计日志

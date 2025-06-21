@@ -1,5 +1,5 @@
 import { useEffect } from "preact/hooks";
-import { useThemeStore } from "../stores/useThemeStore.ts";
+import { useThemeStore } from "@stores/useThemeStore.ts";
 
 /**
  * 主题Hook - 结合Zustand状态管理

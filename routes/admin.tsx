@@ -5,9 +5,9 @@
 
 import { Head } from "$fresh/runtime.ts";
 import { HandlerContext, PageProps } from "$fresh/server.ts";
-import Layout from "../components/layout/Layout.tsx";
-import { getAuthContext } from "../utils/middleware.ts";
-import type { AppUser } from "../utils/auth.ts";
+import Layout from ".@components/layout/Layout.tsx";
+import { getAuthContext } from ".@utils/middleware.ts";
+import type { AppUser } from ".@utils/auth.ts";
 
 // 管理员用户列表（在实际应用中应该从环境变量或数据库获取）
 const ADMIN_USERS = ["h7ml"]; // 添加您的 GitHub 用户名
@@ -38,7 +38,7 @@ export const handler = {
         `<!DOCTYPE html>
         <html>
         <head>
-          <title>访问被拒绝 - Athena Template</title>
+          <title>访问被拒绝 - Athena </title>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <script src="https://cdn.tailwindcss.com"></script>
@@ -73,7 +73,7 @@ export default function AdminPage({ data }: PageProps<AdminPageProps>) {
   return (
     <>
       <Head>
-        <title>管理员面板 - Athena Template</title>
+        <title>管理员面板 - Athena</title>
         <meta name="description" content="系统管理员控制面板" />
       </Head>
       <Layout title="管理员面板">

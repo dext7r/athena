@@ -4,7 +4,7 @@ export default function Error502() {
   return (
     <>
       <Head>
-        <title>502 - 网关错误 | Athena Template</title>
+        <title>502 - 网关错误 | Athena</title>
         <meta
           name="description"
           content="502错误页面 - 作为网关的服务器从上游服务器收到无效响应，请稍后重试。"
@@ -13,7 +13,7 @@ export default function Error502() {
           name="keywords"
           content="502错误, 网关错误, 服务器错误, 网络故障, 连接问题"
         />
-        <meta property="og:title" content="502 - 网关错误 | Athena Template" />
+        <meta property="og:title" content="502 - 网关错误 | Athena " />
         <meta
           property="og:description"
           content="502错误页面 - 作为网关的服务器从上游服务器收到无效响应，请稍后重试。"

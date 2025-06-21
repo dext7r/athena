@@ -4,7 +4,7 @@
  */
 
 import { HandlerContext } from "$fresh/server.ts";
-import { getAuthContext } from "../../../../utils/middleware.ts";
+import { getAuthContext } from "@utils/middleware.ts";
 import {
   createTOTPConfig,
   generateBackupCodes,
@@ -12,12 +12,12 @@ import {
   generateSecret,
   generateTOTPUri,
   type MFASettings,
-} from "../../../../utils/mfa.ts";
+} from "@utils/mfa.ts";
 import {
   deleteMFASettings,
   getMFASettings,
   setMFASettings,
-} from "../../../../utils/mfa-store.ts";
+} from "@utils/mfa-store.ts";
 
 export const handler = {
   // 获取MFA设置状态
@@ -105,7 +105,7 @@ export const handler = {
       // 创建TOTP配置
       const totpConfig = createTOTPConfig(
         secret,
-        "Athena Template", // 应用名称
+        "Athena ", // 应用名称
         user.username || user.name || `user-${userId}`,
       );
 

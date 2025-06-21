@@ -8,7 +8,7 @@ import {
   extractTokenFromRequest,
   userFromJWTPayload,
   verifyJWT,
-} from "../../../utils/jwt.ts";
+} from "@utils/jwt.ts";
 
 export const handler = {
   async GET(req: Request, _ctx: HandlerContext): Promise<Response> {

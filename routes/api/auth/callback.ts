@@ -8,9 +8,9 @@ import {
   exchangeCodeForToken,
   fetchGitHubUser,
   transformGitHubUser,
-} from "../../../utils/auth.ts";
-import { createAuthCookie, generateJWT } from "../../../utils/jwt.ts";
-import { createSession } from "../../../utils/session.ts";
+} from "@utils/auth.ts";
+import { createAuthCookie, generateJWT } from "@utils/jwt.ts";
+import { createSession } from "@utils/session.ts";
 
 export const handler = {
   async GET(req: Request, _ctx: HandlerContext): Promise<Response> {

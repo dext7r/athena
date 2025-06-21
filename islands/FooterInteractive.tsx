@@ -84,7 +84,7 @@ export default function FooterInteractive(
               </div>
               <div className="min-w-0">
                 <h3 className="text-lg md:text-xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                  Athena Template
+                  Athena
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
                   现代化的 Fresh + Deno 开发模板
@@ -160,7 +160,7 @@ export default function FooterInteractive(
                   </div>
                 </div>
                 <h3 className="text-lg font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-1">
-                  Athena Template
+                  Athena
                 </h3>
                 <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
                   现代化的 Fresh + Deno 开发模板
@@ -311,7 +311,7 @@ export default function FooterInteractive(
               <div className="border-t border-gray-200/60 dark:border-gray-700/60 pt-4">
                 <div className="text-center space-y-2">
                   <div className="text-xs text-gray-600 dark:text-gray-400">
-                    © 2025 Athena Template •{" "}
+                    © 2025 Athena •{" "}
                     <a
                       href="mailto:h7ml@qq.com"
                       className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors ml-1"
@@ -363,9 +363,6 @@ export default function FooterInteractive(
                       <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
                         Athena
                       </h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Template
-                      </p>
                     </div>
                   </div>
                   <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
@@ -556,7 +553,7 @@ export default function FooterInteractive(
               <div className="border-t border-gray-200/60 dark:border-gray-700/60 pt-6">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                   <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
-                    <span>© 2025 Athena Template</span>
+                    <span>© 2025 Athena</span>
                     <span className="hidden md:inline">•</span>
                     <a
                       href="mailto:h7ml@qq.com"

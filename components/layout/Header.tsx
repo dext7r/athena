@@ -1,8 +1,8 @@
 import { JSX } from "preact";
-import Button from "../ui/Button.tsx";
-import ThemeToggleIsland from "../../islands/ThemeToggle.tsx";
-import HeaderNavigationIsland from "../../islands/HeaderNavigation.tsx";
-import AuthMenuIsland from "../../islands/AuthMenu.tsx";
+import Button from "@components/ui/Button.tsx";
+import ThemeToggleIsland from "@islands/ThemeToggle.tsx";
+import HeaderNavigationIsland from "@islands/HeaderNavigation.tsx";
+import AuthMenuIsland from "@islands/AuthMenu.tsx";
 
 interface HeaderProps {
   title?: string;
@@ -15,7 +15,7 @@ interface HeaderProps {
 }
 
 const Header = ({
-  title = "Athena Template",
+  title = "Athena ",
   showSidebarToggle = true,
   onSidebarToggle,
   showThemeToggle = true,

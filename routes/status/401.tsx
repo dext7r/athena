@@ -4,7 +4,7 @@ export default function Error401() {
   return (
     <>
       <Head>
-        <title>401 - 未授权访问 | Athena Template</title>
+        <title>401 - 未授权访问 | Athena</title>
         <meta
           name="description"
           content="401错误页面 - 您没有权限访问此资源，请登录后重试或联系管理员获取权限。"
@@ -15,7 +15,7 @@ export default function Error401() {
         />
         <meta
           property="og:title"
-          content="401 - 未授权访问 | Athena Template"
+          content="401 - 未授权访问 | Athena "
         />
         <meta
           property="og:description"

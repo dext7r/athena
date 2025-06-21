@@ -6,14 +6,16 @@ interface FooterTestProps {
 
 export default function FooterTest({ className = "" }: FooterTestProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  
+
   const handleToggle = () => {
     console.log("Footer toggle clicked, current state:", isExpanded);
     setIsExpanded(!isExpanded);
   };
 
   return (
-    <footer className={`bg-gray-100 dark:bg-gray-900 border-t p-4 ${className}`}>
+    <footer
+      className={`bg-gray-100 dark:bg-gray-900 border-t p-4 ${className}`}
+    >
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -28,7 +30,7 @@ export default function FooterTest({ className = "" }: FooterTestProps) {
               </span>
             </button>
             <div>
-              <h3 className="font-bold">Athena Template</h3>
+              <h3 className="font-bold">Athena</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 现代化开发模板
               </p>
@@ -38,7 +40,7 @@ export default function FooterTest({ className = "" }: FooterTestProps) {
             © 2025 h7ml
           </div>
         </div>
-        
+
         {/* 展开内容 */}
         {isExpanded && (
           <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
@@ -50,17 +52,59 @@ export default function FooterTest({ className = "" }: FooterTestProps) {
               <div>
                 <h5 className="font-semibold mb-2">产品功能</h5>
                 <ul className="text-sm space-y-1">
-                  <li><a href="/components" className="text-blue-600 hover:text-blue-700">UI 组件库</a></li>
-                  <li><a href="/hooks" className="text-green-600 hover:text-green-700">React Hooks</a></li>
-                  <li><a href="/state" className="text-purple-600 hover:text-purple-700">状态管理</a></li>
+                  <li>
+                    <a
+                      href="/components"
+                      className="text-blue-600 hover:text-blue-700"
+                    >
+                      UI 组件库
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/hooks"
+                      className="text-green-600 hover:text-green-700"
+                    >
+                      React Hooks
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/state"
+                      className="text-purple-600 hover:text-purple-700"
+                    >
+                      状态管理
+                    </a>
+                  </li>
                 </ul>
               </div>
               <div>
                 <h5 className="font-semibold mb-2">支持帮助</h5>
                 <ul className="text-sm space-y-1">
-                  <li><a href="/about" className="text-indigo-600 hover:text-indigo-700">关于我们</a></li>
-                  <li><a href="https://github.com/dext7r/athena.git" className="text-gray-600 hover:text-gray-700">GitHub</a></li>
-                  <li><a href="mailto:h7ml@qq.com" className="text-blue-600 hover:text-blue-700">联系我们</a></li>
+                  <li>
+                    <a
+                      href="/about"
+                      className="text-indigo-600 hover:text-indigo-700"
+                    >
+                      关于我们
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://github.com/dext7r/athena.git"
+                      className="text-gray-600 hover:text-gray-700"
+                    >
+                      GitHub
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="mailto:h7ml@qq.com"
+                      className="text-blue-600 hover:text-blue-700"
+                    >
+                      联系我们
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>

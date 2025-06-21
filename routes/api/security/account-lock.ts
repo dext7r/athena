@@ -4,8 +4,8 @@
  */
 
 import { HandlerContext } from "$fresh/server.ts";
-import { getAuthContext, validateUserId } from "../../../utils/middleware.ts";
-import { getClientIP } from "../../../utils/session.ts";
+import { getAuthContext, validateUserId } from "@utils/middleware.ts";
+import { getClientIP } from "@utils/session.ts";
 import {
   emergencyLockAccount,
   getAccountLockStatus,
@@ -13,7 +13,7 @@ import {
   getLockReasonDescription,
   isAccountLocked,
   unlockAccount,
-} from "../../../utils/account-lock.ts";
+} from "@utils/account-lock.ts";
 
 export const handler = {
   // 获取账户锁定状态

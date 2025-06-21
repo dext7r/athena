@@ -39,7 +39,17 @@
     "start": "deno run -A --watch=static/,routes/ dev.ts",
     "build": "deno run -A dev.ts build",
     "preview": "deno run -A main.ts",
-    "update": "deno run -A -r https://fresh.deno.dev/update ."
+    "update": "deno run -A -r https://fresh.deno.dev/update .",
+    "test": "deno test --allow-all",
+    "test:watch": "deno test --allow-all --watch",
+    "test:coverage": "deno test --allow-all --coverage=coverage",
+    "test:coverage-report": "deno coverage coverage --html",
+    "test:unit": "deno test --allow-all test/hooks/ test/utils/ test/stores/",
+    "test:integration": "deno test --allow-all test/integration/",
+    "test:api": "deno test --allow-all test/api/",
+    "test:components": "deno test --allow-all test/components/",
+    "test:security": "deno test --allow-all test/security/",
+    "test:performance": "deno test --allow-all test/performance/"
   },
   "lint": {
     "rules": {
@@ -73,7 +83,17 @@
     "$std/": "https://deno.land/std@0.216.0/",
     "qrcode": "npm:qrcode@1.5.3",
     "otplib": "npm:otplib@12.0.1",
-    "thirty-two": "npm:thirty-two@1.0.2"
+    "thirty-two": "npm:thirty-two@1.0.2",
+    "@/": "./",
+    "@components/": "./components/",
+    "@islands/": "./islands/",
+    "@hooks/": "./hooks/",
+    "@stores/": "./stores/",
+    "@utils/": "./utils/",
+    "@styles/": "./styles/",
+    "@types/": "./types/",
+    "@routes/": "./routes/",
+    "@static/": "./static/"
   },
   "compilerOptions": {
     "jsx": "react-jsx",

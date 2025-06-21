@@ -5,10 +5,10 @@
 
 import { Head } from "$fresh/runtime.ts";
 import { HandlerContext, PageProps } from "$fresh/server.ts";
-import Layout from "../../components/layout/Layout.tsx";
-import { getAuthContext } from "../../utils/middleware.ts";
-import type { AppUser } from "../../utils/auth.ts";
-import AccountLockManager from "../../islands/AccountLockManager.tsx";
+import Layout from "@components/layout/Layout.tsx";
+import { getAuthContext } from "@utils/middleware.ts";
+import type { AppUser } from "@utils/auth.ts";
+import AccountLockManager from "@islands/AccountLockManager.tsx";
 
 interface EmergencyPageProps {
   user: Partial<AppUser>;
@@ -39,7 +39,7 @@ export default function EmergencyPage({ data }: PageProps<EmergencyPageProps>) {
   return (
     <>
       <Head>
-        <title>紧急锁定 - Athena Template</title>
+        <title>紧急锁定 - Athena</title>
         <meta
           name="description"
           content="紧急情况下立即锁定账户，保护您的数据安全"

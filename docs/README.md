@@ -1,6 +1,6 @@
-# Athena Template 文档
+# Athena 文档
 
-欢迎来到 Athena Template 的文档中心！这里包含了项目的详细文档和指南。
+欢迎来到 Athena 的文档中心！这里包含了项目的详细文档和指南。
 
 ## 📚 文档目录
 
@@ -79,4 +79,4 @@
 
 ---
 
-感谢您使用 Athena Template！🎉
+感谢您使用 Athena ！🎉

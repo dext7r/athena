@@ -1,0 +1,221 @@
+name: Test Suite
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # 每天 UTC 02:00 (北京时间 10:00) 运行
+    - cron: "0 2 * * *"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test Suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    strategy:
+      matrix:
+        deno-version: [v2.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: ${{ matrix.deno-version }}
+
+      - name: Cache Deno dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/deno
+          key: ${{ runner.os }}-deno-${{ hashFiles('**/deno.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-deno-
+
+      - name: Install dependencies
+        run: deno cache --reload main.ts
+
+      - name: Run all tests
+        run: deno task test
+
+      - name: Run unit tests
+        run: deno task test:unit
+
+      - name: Run integration tests
+        run: deno task test:integration
+
+      - name: Run API tests
+        run: deno task test:api
+
+      - name: Run component tests
+        run: deno task test:components
+
+      - name: Run security tests
+        run: deno task test:security
+
+      - name: Run performance tests
+        run: deno task test:performance
+
+      - name: Generate test coverage
+        run: deno task test:coverage
+
+      - name: Generate coverage report
+        run: deno task test:coverage-report
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: coverage/
+          retention-days: 30
+
+      - name: Comment PR with coverage
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            // 读取覆盖率信息
+            const coverageFile = path.join(process.cwd(), 'coverage', 'lcov.info');
+            if (fs.existsSync(coverageFile)) {
+              const coverage = fs.readFileSync(coverageFile, 'utf8');
+              const lines = coverage.split('\n');
+              const totalLines = lines.filter(line => line.startsWith('LF:')).reduce((sum, line) => sum + parseInt(line.split(':')[1]), 0);
+              const coveredLines = lines.filter(line => line.startsWith('LH:')).reduce((sum, line) => sum + parseInt(line.split(':')[1]), 0);
+              const percentage = totalLines > 0 ? ((coveredLines / totalLines) * 100).toFixed(2) : 0;
+
+              const comment = `
+              ## 📊 测试覆盖率报告
+
+              - **总行数**: ${totalLines}
+              - **覆盖行数**: ${coveredLines}
+              - **覆盖率**: ${percentage}%
+
+              ${percentage >= 80 ? '✅ 覆盖率良好' : percentage >= 60 ? '⚠️ 覆盖率中等' : '❌ 覆盖率偏低'}
+
+              详细报告请查看 Actions 中的 coverage-reports 工件。
+              `;
+
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
+
+  test-matrix:
+    name: Cross-platform Tests
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        deno-version: [v2.x]
+      fail-fast: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: ${{ matrix.deno-version }}
+
+      - name: Cache Deno dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/deno
+          key: ${{ runner.os }}-deno-${{ hashFiles('**/deno.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-deno-
+
+      - name: Install dependencies
+        run: deno cache --reload main.ts
+
+      - name: Run core tests
+        run: deno task test:unit
+
+      - name: Run performance tests
+        run: deno task test:performance
+
+  test-summary:
+    name: Test Summary
+    runs-on: ubuntu-latest
+    needs: [test, test-matrix]
+    if: always()
+
+    steps:
+      - name: Test Results Summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const testJob = context.payload.workflow_run ?
+              await github.rest.actions.getWorkflowRun({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                run_id: context.payload.workflow_run.id
+              }) : null;
+
+            const conclusion = '${{ needs.test.result }}' === 'success' &&
+                             '${{ needs.test-matrix.result }}' === 'success' ?
+                             'success' : 'failure';
+
+            console.log(`测试结果汇总:`);
+            console.log(`- 主测试套件: ${{ needs.test.result }}`);
+            console.log(`- 跨平台测试: ${{ needs.test-matrix.result }}`);
+            console.log(`- 总体结论: ${conclusion}`);
+
+            if (conclusion === 'failure') {
+              core.setFailed('一个或多个测试套件失败');
+            }
+
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `测试失败 - ${context.workflow} #${context.runNumber}`,
+              body: `
+              ## 🚨 测试失败通知
+
+              **工作流**: ${context.workflow}
+              **运行编号**: ${context.runNumber}
+              **分支**: ${context.ref}
+              **提交**: ${context.sha}
+
+              请检查测试日志并修复相关问题。
+
+              [查看工作流运行详情](${context.payload.repository.html_url}/actions/runs/${context.runId})
+              `,
+              labels: ['bug', 'ci/cd', 'test-failure']
+            };
+
+            // 只在主分支失败时创建 issue
+            if (context.ref === 'refs/heads/main') {
+              await github.rest.issues.create(issue);
+            }

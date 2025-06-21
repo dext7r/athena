@@ -40,6 +40,7 @@ import * as $ComponentsDemo from "./islands/ComponentsDemo.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $CounterDemo from "./islands/CounterDemo.tsx";
 import * as $FooterInteractive from "./islands/FooterInteractive.tsx";
+import * as $FooterTest from "./islands/FooterTest.tsx";
 import * as $HeaderNavigation from "./islands/HeaderNavigation.tsx";
 import * as $HooksDemo from "./islands/HooksDemo.tsx";
 import * as $LayoutManager from "./islands/LayoutManager.tsx";
@@ -95,6 +96,7 @@ const manifest = {
     "./islands/Counter.tsx": $Counter,
     "./islands/CounterDemo.tsx": $CounterDemo,
     "./islands/FooterInteractive.tsx": $FooterInteractive,
+    "./islands/FooterTest.tsx": $FooterTest,
     "./islands/HeaderNavigation.tsx": $HeaderNavigation,
     "./islands/HooksDemo.tsx": $HooksDemo,
     "./islands/LayoutManager.tsx": $LayoutManager,

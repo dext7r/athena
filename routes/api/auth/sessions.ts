@@ -4,7 +4,7 @@
  */
 
 import { HandlerContext } from "$fresh/server.ts";
-import { getAuthContext, validateUserId } from "../../../utils/middleware.ts";
+import { getAuthContext, validateUserId } from "@utils/middleware.ts";
 import {
   cleanupExpiredSessions,
   deleteAllUserSessions,
@@ -13,8 +13,8 @@ import {
   getSession,
   getUserSessions,
   getUserSessionStats,
-} from "../../../utils/session.ts";
-import { extractTokenFromRequest } from "../../../utils/jwt.ts";
+} from "@utils/session.ts";
+import { extractTokenFromRequest } from "@utils/jwt.ts";
 
 export const handler = {
   // 获取用户会话列表

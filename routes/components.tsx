@@ -1,12 +1,12 @@
 import { Head } from "$fresh/runtime.ts";
-import Layout from "../components/layout/Layout.tsx";
-import ComponentsDemo from "../islands/ComponentsDemo.tsx";
+import Layout from "@components/layout/Layout.tsx";
+import ComponentsDemo from "@islands/ComponentsDemo.tsx";
 
 export default function ComponentsPage() {
   return (
     <>
       <Head>
-        <title>组件展示 - Athena Template</title>
+        <title>组件展示 - Athena</title>
         <meta
           name="description"
           content="展示所有可用的UI组件及其不同变体，包括按钮、卡片、输入框、模态框等丰富的组件库。"
@@ -15,7 +15,7 @@ export default function ComponentsPage() {
           name="keywords"
           content="UI组件, 按钮, 卡片, 输入框, 模态框, React组件, 组件库"
         />
-        <meta property="og:title" content="组件展示 - Athena Template" />
+        <meta property="og:title" content="组件展示 - Athena " />
         <meta
           property="og:description"
           content="展示所有可用的UI组件及其不同变体，包括按钮、卡片、输入框、模态框等丰富的组件库。"

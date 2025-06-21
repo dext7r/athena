@@ -1,6 +1,6 @@
 # 贡献指南
 
-感谢您对 Athena Template 项目的关注！我们欢迎所有形式的贡献，包括但不限于：
+感谢您对 Athena 项目的关注！我们欢迎所有形式的贡献，包括但不限于：
 
 - 🐛 Bug 报告
 - 💡 功能建议
@@ -170,7 +170,7 @@ docs(readme): update installation guide
 
 ## 致谢
 
-感谢所有为 Athena Template 做出贡献的开发者！您的贡献让这个项目变得更好。
+感谢所有为 Athena 做出贡献的开发者！您的贡献让这个项目变得更好。
 
 ---
 

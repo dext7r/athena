@@ -5,10 +5,10 @@
 
 import { Head } from "$fresh/runtime.ts";
 import { HandlerContext, PageProps } from "$fresh/server.ts";
-import Layout from "../../components/layout/Layout.tsx";
-import { getAuthContext } from "../../utils/middleware.ts";
-import type { AppUser } from "../../utils/auth.ts";
-import SessionManager from "../../islands/SessionManager.tsx";
+import Layout from "@components/layout/Layout.tsx";
+import { getAuthContext } from "@utils/middleware.ts";
+import type { AppUser } from "@utils/auth.ts";
+import SessionManager from "@islands/SessionManager.tsx";
 
 interface SessionsPageProps {
   user: Partial<AppUser>;
@@ -39,7 +39,7 @@ export default function SessionsPage({ data }: PageProps<SessionsPageProps>) {
   return (
     <>
       <Head>
-        <title>会话管理 - Athena Template</title>
+        <title>会话管理 - Athena</title>
         <meta
           name="description"
           content="管理您的登录设备和活跃会话，确保账户安全"

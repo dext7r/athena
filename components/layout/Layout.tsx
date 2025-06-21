@@ -1,5 +1,5 @@
 import { JSX } from "preact";
-import LayoutManager from "../../islands/LayoutManager.tsx";
+import LayoutManager from "@islands/LayoutManager.tsx";
 
 interface LayoutProps {
   children: JSX.Element | JSX.Element[] | string;

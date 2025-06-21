@@ -4,16 +4,9 @@
  */
 
 import { HandlerContext } from "$fresh/server.ts";
-import {
-  getAuthContext,
-  validateUserId,
-} from "../../../../utils/middleware.ts";
-import {
-  type MFASettings,
-  verifyBackupCode,
-  verifyTOTP,
-} from "../../../../utils/mfa.ts";
-import { getMFASettings, setMFASettings } from "../../../../utils/mfa-store.ts";
+import { getAuthContext, validateUserId } from "@utils/middleware.ts";
+import { type MFASettings, verifyBackupCode, verifyTOTP } from "@utils/mfa.ts";
+import { getMFASettings, setMFASettings } from "@utils/mfa-store.ts";
 
 export const handler = {
   // 验证MFA代码并启用MFA

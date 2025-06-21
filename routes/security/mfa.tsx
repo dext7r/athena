@@ -4,10 +4,10 @@
 
 import { Head } from "$fresh/runtime.ts";
 import { HandlerContext, PageProps } from "$fresh/server.ts";
-import Layout from "../../components/layout/Layout.tsx";
-import { getAuthContext } from "../../utils/middleware.ts";
-import type { AppUser } from "../../utils/auth.ts";
-import MFASetup from "../../islands/MFASetup.tsx";
+import Layout from "@components/layout/Layout.tsx";
+import { getAuthContext } from "@utils/middleware.ts";
+import type { AppUser } from "@utils/auth.ts";
+import MFASetup from "@islands/MFASetup.tsx";
 
 interface MFAPageProps {
   user: Partial<AppUser>;
@@ -35,7 +35,7 @@ export default function MFAPage({ data }: PageProps<MFAPageProps>) {
   return (
     <>
       <Head>
-        <title>多因素认证设置 - Athena Template</title>
+        <title>多因素认证设置 - Athena</title>
         <meta
           name="description"
           content="设置和管理多因素认证，为您的账户添加额外的安全保护"

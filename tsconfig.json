@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2022"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -14,7 +18,42 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
-    "types": ["node"]
+    "types": [
+      "node"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@islands/*": [
+        "./islands/*"
+      ],
+      "@hooks/*": [
+        "./hooks/*"
+      ],
+      "@stores/*": [
+        "./stores/*"
+      ],
+      "@utils/*": [
+        "./utils/*"
+      ],
+      "@styles/*": [
+        "./styles/*"
+      ],
+      "@types/*": [
+        "./types/*"
+      ],
+      "@routes/*": [
+        "./routes/*"
+      ],
+      "@static/*": [
+        "./static/*"
+      ]
+    }
   },
   "include": [
     "**/*.ts",

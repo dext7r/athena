@@ -1,13 +1,16 @@
 <div align="center">
 
-# 🏛️ Athena Template
+# 🏛️ Athena
 
 <p align="center">
   <img src="https://img.shields.io/badge/version-0.0.1-blue.svg" alt="Version">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
   <img src="https://img.shields.io/badge/deno-2.0+-black.svg" alt="Deno">
   <img src="https://img.shields.io/badge/fresh-1.7.3-yellow.svg" alt="Fresh">
+  <img src="https://github.com/dext7r/athena/actions/workflows/ci.yml/badge.svg" alt="CI">
+  <img src="https://github.com/dext7r/athena/actions/workflows/test.yml/badge.svg" alt="Tests">
   <img src="https://github.com/dext7r/athena/actions/workflows/deploy.yml/badge.svg" alt="Deploy">
+  <img src="https://codecov.io/gh/dext7r/athena/branch/main/graph/badge.svg" alt="Coverage">
 </p>
 
 <p align="center">

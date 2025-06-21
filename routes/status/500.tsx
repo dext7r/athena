@@ -4,7 +4,7 @@ export default function Error500() {
   return (
     <>
       <Head>
-        <title>500 - 服务器错误 | Athena Template</title>
+        <title>500 - 服务器错误 | Athena</title>
         <meta
           name="description"
           content="500错误页面 - 服务器遇到意外情况无法完成请求，我们正在努力修复这个问题。"
@@ -15,7 +15,7 @@ export default function Error500() {
         />
         <meta
           property="og:title"
-          content="500 - 服务器错误 | Athena Template"
+          content="500 - 服务器错误 | Athena "
         />
         <meta
           property="og:description"

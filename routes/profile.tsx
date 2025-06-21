@@ -5,9 +5,9 @@
 
 import { Head } from "$fresh/runtime.ts";
 import { HandlerContext, PageProps } from "$fresh/server.ts";
-import Layout from "../components/layout/Layout.tsx";
-import { getAuthContext } from "../utils/middleware.ts";
-import type { AppUser } from "../utils/auth.ts";
+import Layout from "@components/layout/Layout.tsx";
+import { getAuthContext } from "@utils/middleware.ts";
+import type { AppUser } from "@utils/auth.ts";
 
 interface ProfilePageProps {
   user: Partial<AppUser>;
@@ -53,7 +53,7 @@ export default function ProfilePage({ data }: PageProps<ProfilePageProps>) {
   return (
     <>
       <Head>
-        <title>用户资料 - {user.name || user.username} - Athena Template</title>
+        <title>用户资料 - {user.name || user.username} - Athena</title>
         <meta
           name="description"
           content={`${user.name || user.username} 的用户资料页面`}

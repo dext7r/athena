@@ -1,4 +1,4 @@
-import FooterInteractive from "../../islands/FooterInteractive.tsx";
+import FooterInteractive from "@islands/FooterInteractive.tsx";
 
 interface FooterProps {
   className?: string;

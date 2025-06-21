@@ -1,29 +1,29 @@
 import { Head } from "$fresh/runtime.ts";
-import Layout from "../components/layout/Layout.tsx";
+import Layout from "@components/layout/Layout.tsx";
 import Card, {
   CardContent,
   CardHeader,
   CardTitle,
-} from "../components/ui/Card.tsx";
-import Button from "../components/ui/Button.tsx";
+} from "@components/ui/Card.tsx";
+import Button from "@components/ui/Button.tsx";
 
 export default function AboutPage() {
   return (
     <>
       <Head>
-        <title>关于项目 - Athena Template</title>
+        <title>关于项目 - Athena</title>
         <meta
           name="description"
-          content="Athena Template是一个现代化的全栈开发模板，集成了Fresh、Preact、TailwindCSS、Sass、Zustand等最新技术栈和最佳实践。"
+          content="Athena 是一个现代化的全栈开发模板，集成了Fresh、Preact、TailwindCSS、Sass、Zustand等最新技术栈和最佳实践。"
         />
         <meta
           name="keywords"
-          content="Athena Template, Fresh, Preact, TailwindCSS, Sass, Zustand, Deno, TypeScript, 全栈开发, 模板"
+          content="Athena , Fresh, Preact, TailwindCSS, Sass, Zustand, Deno, TypeScript, 全栈开发, 模板"
         />
-        <meta property="og:title" content="关于项目 - Athena Template" />
+        <meta property="og:title" content="关于项目 - Athena " />
         <meta
           property="og:description"
-          content="Athena Template是一个现代化的全栈开发模板，集成了Fresh、Preact、TailwindCSS、Sass、Zustand等最新技术栈和最佳实践。"
+          content="Athena 是一个现代化的全栈开发模板，集成了Fresh、Preact、TailwindCSS、Sass、Zustand等最新技术栈和最佳实践。"
         />
         <meta property="og:type" content="website" />
         <meta name="author" content="h7ml <h7ml@qq.com>" />
@@ -52,8 +52,6 @@ export default function AboutPage() {
                 <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
                   Athena
                 </span>
-                <br />
-                <span className="text-gray-900 dark:text-white">Template</span>
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
                 一个现代化的{" "}
