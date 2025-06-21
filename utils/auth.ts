@@ -6,7 +6,9 @@
 export const GITHUB_OAUTH_CONFIG = {
   clientId: Deno.env.get("GITHUB_CLIENT_ID") || "",
   clientSecret: Deno.env.get("GITHUB_CLIENT_SECRET") || "",
-  redirectUri: `${Deno.env.get("APP_BASE_URL") || "http://localhost:8000"}/api/auth/callback`,
+  redirectUri: `${
+    Deno.env.get("APP_BASE_URL") || "http://localhost:8000"
+  }/api/auth/callback`,
   scope: "user:email",
   authorizeUrl: "https://github.com/login/oauth/authorize",
   tokenUrl: "https://github.com/login/oauth/access_token",
@@ -89,13 +91,17 @@ export async function exchangeCodeForToken(code: string): Promise<string> {
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to exchange code for token: ${response.statusText}`);
+    throw new Error(
+      `Failed to exchange code for token: ${response.statusText}`,
+    );
   }
 
   const data = await response.json();
-  
+
   if (data.error) {
-    throw new Error(`GitHub OAuth error: ${data.error_description || data.error}`);
+    throw new Error(
+      `GitHub OAuth error: ${data.error_description || data.error}`,
+    );
   }
 
   return data.access_token;
@@ -104,7 +110,9 @@ export async function exchangeCodeForToken(code: string): Promise<string> {
 /**
  * 使用访问令牌获取用户信息
  */
-export async function fetchGitHubUser(accessToken: string): Promise<GitHubUser> {
+export async function fetchGitHubUser(
+  accessToken: string,
+): Promise<GitHubUser> {
   const response = await fetch(GITHUB_OAUTH_CONFIG.userApiUrl, {
     headers: {
       "Authorization": `Bearer ${accessToken}`,

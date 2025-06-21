@@ -220,7 +220,7 @@ deno task update
 
 - 查看 [常见问题](faq.md)
 - 提交 [Issue](https://github.com/dext7r/athena/issues)
-- 联系维护者：h7ml@h7ml.com
+- 联系维护者：h7ml@qq.com
 
 ---
 

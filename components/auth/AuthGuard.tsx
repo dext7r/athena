@@ -34,8 +34,11 @@ export default function AuthGuard({
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[200px]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-        <span className="ml-2 text-gray-600 dark:text-gray-400">Checking authentication...</span>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600">
+        </div>
+        <span className="ml-2 text-gray-600 dark:text-gray-400">
+          Checking authentication...
+        </span>
       </div>
     );
   }
@@ -74,14 +77,18 @@ export default function AuthGuard({
               Authentication Required
             </h2>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              You need to sign in with your GitHub account to access this content.
+              You need to sign in with your GitHub account to access this
+              content.
             </p>
 
             {/* 登录按钮 */}
             <LoginButton
               variant="primary"
               size="lg"
-              redirectTo={redirectTo || (typeof globalThis.location !== "undefined" ? globalThis.location.pathname : "/")}
+              redirectTo={redirectTo ||
+                (typeof globalThis.location !== "undefined"
+                  ? globalThis.location.pathname
+                  : "/")}
               className="w-full max-w-xs"
             />
 
@@ -119,7 +126,8 @@ export function InlineAuthGuard({
   if (isLoading) {
     return (
       <div className={`flex items-center gap-2 ${className}`}>
-        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600">
+        </div>
         <span className="text-sm text-gray-500">Loading...</span>
       </div>
     );
@@ -159,7 +167,8 @@ export function GuestOnlyGuard({
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[200px]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600">
+        </div>
       </div>
     );
   }

@@ -4,13 +4,19 @@
  */
 
 import { HandlerContext } from "$fresh/server.ts";
-import { extractTokenFromRequest, verifyJWT, userFromJWTPayload } from "./jwt.ts";
+import {
+  extractTokenFromRequest,
+  userFromJWTPayload,
+  verifyJWT,
+} from "./jwt.ts";
 import type { AppUser } from "./auth.ts";
+import { updateSessionActivity } from "./session.ts";
 
 // 认证上下文接口
 export interface AuthContext {
   isAuthenticated: boolean;
   user: Partial<AppUser> | null;
+  sessionId?: string;
 }
 
 /**
@@ -20,13 +26,15 @@ export interface AuthContext {
 export function requireAuth(redirectTo = "/") {
   return async function authMiddleware(
     req: Request,
-    ctx: HandlerContext
+    ctx: HandlerContext,
   ): Promise<Response> {
     const authContext = await getAuthContext(req);
-    
+
     if (!authContext.isAuthenticated) {
       // 未登录，重定向到登录页面
-      const loginUrl = `/api/auth/github?redirect=${encodeURIComponent(req.url)}`;
+      const loginUrl = `/api/auth/github?redirect=${
+        encodeURIComponent(req.url)
+      }`;
       return new Response(null, {
         status: 302,
         headers: { "Location": loginUrl },
@@ -35,7 +43,7 @@ export function requireAuth(redirectTo = "/") {
 
     // 已登录，将用户信息添加到上下文中
     ctx.state.auth = authContext;
-    
+
     // 继续处理请求
     return await ctx.next();
   };
@@ -48,13 +56,13 @@ export function requireAuth(redirectTo = "/") {
 export function optionalAuth() {
   return async function optionalAuthMiddleware(
     req: Request,
-    ctx: HandlerContext
+    ctx: HandlerContext,
   ): Promise<Response> {
     const authContext = await getAuthContext(req);
-    
+
     // 将认证信息添加到上下文中（无论是否登录）
     ctx.state.auth = authContext;
-    
+
     // 继续处理请求
     return await ctx.next();
   };
@@ -67,13 +75,15 @@ export function optionalAuth() {
 export function requireAdmin(adminUsers: string[] = []) {
   return async function adminMiddleware(
     req: Request,
-    ctx: HandlerContext
+    ctx: HandlerContext,
   ): Promise<Response> {
     const authContext = await getAuthContext(req);
-    
+
     if (!authContext.isAuthenticated || !authContext.user) {
       // 未登录，重定向到登录页面
-      const loginUrl = `/api/auth/github?redirect=${encodeURIComponent(req.url)}`;
+      const loginUrl = `/api/auth/github?redirect=${
+        encodeURIComponent(req.url)
+      }`;
       return new Response(null, {
         status: 302,
         headers: { "Location": loginUrl },
@@ -91,13 +101,13 @@ export function requireAdmin(adminUsers: string[] = []) {
         {
           status: 403,
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
     }
 
     // 是管理员，将认证信息添加到上下文中
     ctx.state.auth = { ...authContext, isAdmin: true };
-    
+
     // 继续处理请求
     return await ctx.next();
   };
@@ -110,10 +120,10 @@ export function requireAdmin(adminUsers: string[] = []) {
 export function requireApiAuth() {
   return async function apiAuthMiddleware(
     req: Request,
-    ctx: HandlerContext
+    ctx: HandlerContext,
   ): Promise<Response> {
     const authContext = await getAuthContext(req);
-    
+
     if (!authContext.isAuthenticated) {
       return new Response(
         JSON.stringify({
@@ -123,13 +133,13 @@ export function requireApiAuth() {
         {
           status: 401,
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
     }
 
     // 已登录，将用户信息添加到上下文中
     ctx.state.auth = authContext;
-    
+
     // 继续处理请求
     return await ctx.next();
   };
@@ -143,14 +153,14 @@ export async function getAuthContext(req: Request): Promise<AuthContext> {
   try {
     // 从请求中提取 JWT 令牌
     const token = extractTokenFromRequest(req);
-    
+
     if (!token) {
       return { isAuthenticated: false, user: null };
     }
 
     // 验证 JWT 令牌
     const payload = await verifyJWT(token);
-    
+
     if (!payload) {
       return { isAuthenticated: false, user: null };
     }
@@ -158,9 +168,18 @@ export async function getAuthContext(req: Request): Promise<AuthContext> {
     // 从 JWT 载荷重建用户信息
     const user = userFromJWTPayload(payload);
 
+    // 获取会话ID（如果JWT中包含）
+    const sessionId = payload.sessionId as string | undefined;
+
+    // 更新会话活动时间（如果有会话ID）
+    if (sessionId) {
+      updateSessionActivity(sessionId);
+    }
+
     return {
       isAuthenticated: true,
       user,
+      sessionId,
     };
   } catch (error) {
     console.error("Auth context error:", error);

@@ -101,6 +101,4 @@ const MenuIcon = () => (
   </svg>
 );
 
-
-
 export default Header;

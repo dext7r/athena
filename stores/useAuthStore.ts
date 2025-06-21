@@ -14,7 +14,7 @@ export interface AuthState {
   isLoading: boolean;
   user: Partial<AppUser> | null;
   error: string | null;
-  
+
   // 操作方法
   login: (user: Partial<AppUser>) => void;
   logout: () => void;
@@ -22,7 +22,7 @@ export interface AuthState {
   setError: (error: string | null) => void;
   clearError: () => void;
   updateUser: (updates: Partial<AppUser>) => void;
-  
+
   // 异步操作
   checkAuth: () => Promise<void>;
   performLogout: (redirectTo?: string) => Promise<void>;
@@ -86,9 +86,9 @@ export const useAuthStore = create<AuthState>()(
       // 检查认证状态
       checkAuth: async () => {
         const { setLoading, login, logout, setError } = get();
-        
+
         setLoading(true);
-        
+
         try {
           const response = await fetch("/api/auth/me", {
             method: "GET",
@@ -117,9 +117,9 @@ export const useAuthStore = create<AuthState>()(
       // 执行退出登录
       performLogout: async (redirectTo = "/") => {
         const { setLoading, logout, setError } = get();
-        
+
         setLoading(true);
-        
+
         try {
           const response = await fetch("/api/auth/logout", {
             method: "POST",
@@ -152,8 +152,8 @@ export const useAuthStore = create<AuthState>()(
         isAuthenticated: state.isAuthenticated,
         user: state.user,
       }),
-    }
-  )
+    },
+  ),
 );
 
 // 认证相关的工具函数
@@ -190,7 +190,9 @@ export const authUtils = {
     if (user?.avatar) {
       return `${user.avatar}&s=${size}`;
     }
-    return `https://github.com/identicons/${user?.username || "anonymous"}.png?size=${size}`;
+    return `https://github.com/identicons/${
+      user?.username || "anonymous"
+    }.png?size=${size}`;
   },
 
   /**
@@ -205,7 +207,9 @@ export const authUtils = {
    * 启动 GitHub 登录流程
    */
   startGitHubLogin: (redirectTo = "/") => {
-    const loginUrl = `/api/auth/github?redirect=${encodeURIComponent(redirectTo)}`;
+    const loginUrl = `/api/auth/github?redirect=${
+      encodeURIComponent(redirectTo)
+    }`;
     if (typeof globalThis.location !== "undefined") {
       globalThis.location.href = loginUrl;
     }

@@ -25,7 +25,7 @@
    - 点击 "Report a vulnerability"
    - 填写详细信息
 
-2. **邮件报告**: 发送邮件至 h7ml@h7ml.com
+2. **邮件报告**: 发送邮件至 h7ml@qq.com
    - 邮件主题：`[SECURITY] Athena Template 安全漏洞报告`
    - 请在邮件中包含尽可能多的信息
 
@@ -135,7 +135,7 @@
 
 如果您对我们的安全政策有任何疑问，请联系：
 
-- **邮箱**: h7ml@h7ml.com
+- **邮箱**: h7ml@qq.com
 - **GitHub**: [@h7ml](https://github.com/h7ml)
 
 ---

@@ -4,7 +4,11 @@
  */
 
 import { HandlerContext } from "$fresh/server.ts";
-import { extractTokenFromRequest, verifyJWT, userFromJWTPayload } from "../../../utils/jwt.ts";
+import {
+  extractTokenFromRequest,
+  userFromJWTPayload,
+  verifyJWT,
+} from "../../../utils/jwt.ts";
 
 export const handler = {
   async GET(req: Request, _ctx: HandlerContext): Promise<Response> {
@@ -20,7 +24,7 @@ export const handler = {
           {
             status: 401,
             headers: { "Content-Type": "application/json" },
-          }
+          },
         );
       }
 
@@ -36,7 +40,7 @@ export const handler = {
           {
             status: 401,
             headers: { "Content-Type": "application/json" },
-          }
+          },
         );
       }
 
@@ -54,7 +58,7 @@ export const handler = {
         {
           status: 200,
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
     } catch (error) {
       console.error("Get user info error:", error);
@@ -67,7 +71,7 @@ export const handler = {
         {
           status: 500,
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
     }
   },

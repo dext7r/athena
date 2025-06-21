@@ -10,12 +10,22 @@ import * as $api_auth_callback from "./routes/api/auth/callback.ts";
 import * as $api_auth_github from "./routes/api/auth/github.ts";
 import * as $api_auth_logout from "./routes/api/auth/logout.ts";
 import * as $api_auth_me from "./routes/api/auth/me.ts";
+import * as $api_auth_mfa_setup from "./routes/api/auth/mfa/setup.ts";
+import * as $api_auth_mfa_verify from "./routes/api/auth/mfa/verify.ts";
+import * as $api_auth_sessions from "./routes/api/auth/sessions.ts";
 import * as $api_joke from "./routes/api/joke.ts";
+import * as $api_security_account_lock from "./routes/api/security/account-lock.ts";
+import * as $api_security_audit_logs from "./routes/api/security/audit-logs.ts";
 import * as $components from "./routes/components.tsx";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $hooks from "./routes/hooks.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $profile from "./routes/profile.tsx";
+import * as $security_audit_logs from "./routes/security/audit-logs.tsx";
+import * as $security_emergency from "./routes/security/emergency.tsx";
+import * as $security_index from "./routes/security/index.tsx";
+import * as $security_mfa from "./routes/security/mfa.tsx";
+import * as $security_sessions from "./routes/security/sessions.tsx";
 import * as $state from "./routes/state.tsx";
 import * as $status_401 from "./routes/status/401.tsx";
 import * as $status_403 from "./routes/status/403.tsx";
@@ -23,14 +33,19 @@ import * as $status_500 from "./routes/status/500.tsx";
 import * as $status_502 from "./routes/status/502.tsx";
 import * as $status_503 from "./routes/status/503.tsx";
 import * as $status_index from "./routes/status/index.tsx";
+import * as $AccountLockManager from "./islands/AccountLockManager.tsx";
+import * as $AuditLogViewer from "./islands/AuditLogViewer.tsx";
 import * as $AuthMenu from "./islands/AuthMenu.tsx";
 import * as $ComponentsDemo from "./islands/ComponentsDemo.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $CounterDemo from "./islands/CounterDemo.tsx";
+import * as $FooterInteractive from "./islands/FooterInteractive.tsx";
 import * as $HeaderNavigation from "./islands/HeaderNavigation.tsx";
 import * as $HooksDemo from "./islands/HooksDemo.tsx";
 import * as $LayoutManager from "./islands/LayoutManager.tsx";
+import * as $MFASetup from "./islands/MFASetup.tsx";
 import * as $NavigationState from "./islands/NavigationState.tsx";
+import * as $SessionManager from "./islands/SessionManager.tsx";
 import * as $SidebarNavigation from "./islands/SidebarNavigation.tsx";
 import * as $SimpleStateDemo from "./islands/SimpleStateDemo.tsx";
 import * as $StateDemo from "./islands/StateDemo.tsx";
@@ -48,12 +63,22 @@ const manifest = {
     "./routes/api/auth/github.ts": $api_auth_github,
     "./routes/api/auth/logout.ts": $api_auth_logout,
     "./routes/api/auth/me.ts": $api_auth_me,
+    "./routes/api/auth/mfa/setup.ts": $api_auth_mfa_setup,
+    "./routes/api/auth/mfa/verify.ts": $api_auth_mfa_verify,
+    "./routes/api/auth/sessions.ts": $api_auth_sessions,
     "./routes/api/joke.ts": $api_joke,
+    "./routes/api/security/account-lock.ts": $api_security_account_lock,
+    "./routes/api/security/audit-logs.ts": $api_security_audit_logs,
     "./routes/components.tsx": $components,
     "./routes/greet/[name].tsx": $greet_name_,
     "./routes/hooks.tsx": $hooks,
     "./routes/index.tsx": $index,
     "./routes/profile.tsx": $profile,
+    "./routes/security/audit-logs.tsx": $security_audit_logs,
+    "./routes/security/emergency.tsx": $security_emergency,
+    "./routes/security/index.tsx": $security_index,
+    "./routes/security/mfa.tsx": $security_mfa,
+    "./routes/security/sessions.tsx": $security_sessions,
     "./routes/state.tsx": $state,
     "./routes/status/401.tsx": $status_401,
     "./routes/status/403.tsx": $status_403,
@@ -63,14 +88,19 @@ const manifest = {
     "./routes/status/index.tsx": $status_index,
   },
   islands: {
+    "./islands/AccountLockManager.tsx": $AccountLockManager,
+    "./islands/AuditLogViewer.tsx": $AuditLogViewer,
     "./islands/AuthMenu.tsx": $AuthMenu,
     "./islands/ComponentsDemo.tsx": $ComponentsDemo,
     "./islands/Counter.tsx": $Counter,
     "./islands/CounterDemo.tsx": $CounterDemo,
+    "./islands/FooterInteractive.tsx": $FooterInteractive,
     "./islands/HeaderNavigation.tsx": $HeaderNavigation,
     "./islands/HooksDemo.tsx": $HooksDemo,
     "./islands/LayoutManager.tsx": $LayoutManager,
+    "./islands/MFASetup.tsx": $MFASetup,
     "./islands/NavigationState.tsx": $NavigationState,
+    "./islands/SessionManager.tsx": $SessionManager,
     "./islands/SidebarNavigation.tsx": $SidebarNavigation,
     "./islands/SimpleStateDemo.tsx": $SimpleStateDemo,
     "./islands/StateDemo.tsx": $StateDemo,

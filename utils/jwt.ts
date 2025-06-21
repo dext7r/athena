@@ -4,7 +4,7 @@
  */
 
 import { create, verify } from "djwt";
-import { JWT_CONFIG, type AppUser } from "./auth.ts";
+import { type AppUser, JWT_CONFIG } from "./auth.ts";
 
 // JWT 载荷接口
 export interface JWTPayload {
@@ -20,10 +20,13 @@ export interface JWTPayload {
 /**
  * 生成 JWT 令牌
  */
-export async function generateJWT(user: AppUser): Promise<string> {
+export async function generateJWT(
+  user: AppUser,
+  sessionId?: string,
+): Promise<string> {
   const now = Math.floor(Date.now() / 1000);
-  
-  const payload: JWTPayload = {
+
+  const payload: Record<string, unknown> = {
     sub: user.id.toString(),
     username: user.username,
     name: user.name,
@@ -33,12 +36,17 @@ export async function generateJWT(user: AppUser): Promise<string> {
     exp: now + JWT_CONFIG.expiresIn,
   };
 
+  // 如果提供了会话ID，添加到JWT中
+  if (sessionId) {
+    payload.sessionId = sessionId;
+  }
+
   const key = await crypto.subtle.importKey(
     "raw",
     new TextEncoder().encode(JWT_CONFIG.secret),
     { name: "HMAC", hash: "SHA-256" },
     false,
-    ["sign", "verify"]
+    ["sign", "verify"],
   );
 
   return await create({ alg: "HS256", typ: "JWT" }, payload, key);
@@ -54,11 +62,11 @@ export async function verifyJWT(token: string): Promise<JWTPayload | null> {
       new TextEncoder().encode(JWT_CONFIG.secret),
       { name: "HMAC", hash: "SHA-256" },
       false,
-      ["sign", "verify"]
+      ["sign", "verify"],
     );
 
     const payload = await verify(token, key);
-    
+
     // 检查令牌是否过期
     if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) {
       return null;
@@ -96,8 +104,8 @@ export function extractTokenFromRequest(request: Request): string | null {
  */
 function parseCookies(cookieHeader: string): Record<string, string> {
   const cookies: Record<string, string> = {};
-  
-  cookieHeader.split(";").forEach(cookie => {
+
+  cookieHeader.split(";").forEach((cookie) => {
     const [name, value] = cookie.trim().split("=");
     if (name && value) {
       cookies[name] = decodeURIComponent(value);
@@ -110,11 +118,18 @@ function parseCookies(cookieHeader: string): Record<string, string> {
 /**
  * 创建认证 Cookie
  */
-export function createAuthCookie(token: string, maxAge: number = JWT_CONFIG.expiresIn): string {
+export function createAuthCookie(
+  token: string,
+  maxAge: number = JWT_CONFIG.expiresIn,
+): string {
   const secure = Deno.env.get("NODE_ENV") === "production";
   const sameSite = "lax";
-  
-  return `auth_token=${encodeURIComponent(token)}; Max-Age=${maxAge}; Path=/; HttpOnly; SameSite=${sameSite}${secure ? "; Secure" : ""}`;
+
+  return `auth_token=${
+    encodeURIComponent(token)
+  }; Max-Age=${maxAge}; Path=/; HttpOnly; SameSite=${sameSite}${
+    secure ? "; Secure" : ""
+  }`;
 }
 
 /**

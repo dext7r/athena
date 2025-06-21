@@ -26,7 +26,7 @@ export const handler = {
             "Content-Type": "application/json",
             "Set-Cookie": clearAuthCookie(),
           },
-        }
+        },
       );
 
       return response;
@@ -40,7 +40,7 @@ export const handler = {
         {
           status: 500,
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
     }
   },

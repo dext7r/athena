@@ -9,7 +9,8 @@ import {
   fetchGitHubUser,
   transformGitHubUser,
 } from "../../../utils/auth.ts";
-import { generateJWT, createAuthCookie } from "../../../utils/jwt.ts";
+import { createAuthCookie, generateJWT } from "../../../utils/jwt.ts";
+import { createSession } from "../../../utils/session.ts";
 
 export const handler = {
   async GET(req: Request, _ctx: HandlerContext): Promise<Response> {
@@ -32,7 +33,10 @@ export const handler = {
 
       // 检查必需参数
       if (!code || !state) {
-        console.error("❌ Missing required parameters:", { code: !!code, state: !!state });
+        console.error("❌ Missing required parameters:", {
+          code: !!code,
+          state: !!state,
+        });
         return new Response(null, {
           status: 302,
           headers: {
@@ -65,8 +69,11 @@ export const handler = {
       // 转换为应用用户格式
       const appUser = transformGitHubUser(githubUser);
 
-      // 生成 JWT 令牌
-      const jwt = await generateJWT(appUser);
+      // 创建会话
+      const session = createSession(appUser.id, req);
+
+      // 生成 JWT 令牌（包含会话ID）
+      const jwt = await generateJWT(appUser, session.id);
 
       // 创建响应，设置认证 Cookie 并清除临时 Cookie
       const authCookie = createAuthCookie(jwt);
@@ -80,12 +87,18 @@ export const handler = {
 
       // 设置多个 Cookie，每个都需要单独的 Set-Cookie 头
       response.headers.append("Set-Cookie", authCookie);
-      response.headers.append("Set-Cookie", "oauth_state=; Max-Age=0; Path=/; HttpOnly; SameSite=lax");
-      response.headers.append("Set-Cookie", "oauth_redirect=; Max-Age=0; Path=/; HttpOnly; SameSite=lax");
+      response.headers.append(
+        "Set-Cookie",
+        "oauth_state=; Max-Age=0; Path=/; HttpOnly; SameSite=lax",
+      );
+      response.headers.append(
+        "Set-Cookie",
+        "oauth_redirect=; Max-Age=0; Path=/; HttpOnly; SameSite=lax",
+      );
       return response;
     } catch (error) {
       console.error("GitHub OAuth callback error:", error);
-      
+
       // 根据错误类型返回不同的错误信息
       let errorMessage = "authentication_failed";
       if (error instanceof Error) {
@@ -111,10 +124,10 @@ export const handler = {
  */
 function parseCookies(cookieHeader: string): Record<string, string> {
   const cookies: Record<string, string> = {};
-  
+
   if (!cookieHeader) return cookies;
 
-  cookieHeader.split(";").forEach(cookie => {
+  cookieHeader.split(";").forEach((cookie) => {
     const [name, value] = cookie.trim().split("=");
     if (name && value) {
       cookies[name] = decodeURIComponent(value);

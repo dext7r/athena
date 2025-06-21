@@ -71,7 +71,7 @@
 
 1. 提交 [Issue](https://github.com/dext7r/athena/issues)
 2. 提交 Pull Request
-3. 联系维护者：h7ml@h7ml.com
+3. 联系维护者：h7ml@qq.com
 
 ## 📝 文档更新
 

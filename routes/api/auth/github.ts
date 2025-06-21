@@ -4,16 +4,21 @@
  */
 
 import { HandlerContext } from "$fresh/server.ts";
-import { generateGitHubAuthUrl, validateOAuthConfig } from "../../../utils/auth.ts";
+import {
+  generateGitHubAuthUrl,
+  validateOAuthConfig,
+} from "../../../utils/auth.ts";
 
 export const handler = {
   GET(req: Request, _ctx: HandlerContext): Response {
-
     try {
       // 验证 OAuth 配置
       const configValidation = validateOAuthConfig();
       if (!configValidation.valid) {
-        console.error("❌ OAuth configuration errors:", configValidation.errors);
+        console.error(
+          "❌ OAuth configuration errors:",
+          configValidation.errors,
+        );
         return new Response(
           JSON.stringify({
             error: "OAuth configuration error",
@@ -22,16 +27,16 @@ export const handler = {
           {
             status: 500,
             headers: { "Content-Type": "application/json" },
-          }
+          },
         );
       }
       // 生成状态参数用于防止 CSRF 攻击
       const state = crypto.randomUUID();
-      
+
       // 获取重定向 URL（如果有）
       const url = new URL(req.url);
       const redirectTo = url.searchParams.get("redirect") || "/";
-      
+
       // 生成 GitHub 授权 URL
       const authUrl = generateGitHubAuthUrl(state);
       // 创建响应，设置状态和重定向信息到 Cookie
@@ -43,8 +48,16 @@ export const handler = {
       });
 
       // 设置多个 Cookie，每个都需要单独的 Set-Cookie 头
-      response.headers.append("Set-Cookie", `oauth_state=${state}; Max-Age=600; Path=/; HttpOnly; SameSite=lax`);
-      response.headers.append("Set-Cookie", `oauth_redirect=${encodeURIComponent(redirectTo)}; Max-Age=600; Path=/; HttpOnly; SameSite=lax`);
+      response.headers.append(
+        "Set-Cookie",
+        `oauth_state=${state}; Max-Age=600; Path=/; HttpOnly; SameSite=lax`,
+      );
+      response.headers.append(
+        "Set-Cookie",
+        `oauth_redirect=${
+          encodeURIComponent(redirectTo)
+        }; Max-Age=600; Path=/; HttpOnly; SameSite=lax`,
+      );
       return response;
     } catch (error) {
       console.error("GitHub OAuth initiation error:", error);
@@ -56,7 +69,7 @@ export const handler = {
         {
           status: 500,
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
     }
   },

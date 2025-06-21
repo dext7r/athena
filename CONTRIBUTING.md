@@ -166,7 +166,7 @@ docs(readme): update installation guide
 
 - 在相关 Issue 中提问
 - 创建新的 Discussion
-- 联系项目维护者：h7ml@h7ml.com
+- 联系项目维护者：h7ml@qq.com
 
 ## 致谢
 

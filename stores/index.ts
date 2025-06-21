@@ -2,4 +2,4 @@
 export { useAppStore } from "./useAppStore.ts";
 export { useThemeStore } from "./useThemeStore.ts";
 export { useUserStore } from "./useUserStore.ts";
-export { useAuthStore, authUtils } from "./useAuthStore.ts";
+export { authUtils, useAuthStore } from "./useAuthStore.ts";

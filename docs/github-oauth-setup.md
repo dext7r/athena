@@ -1,6 +1,7 @@
 # GitHub OAuth 设置指南
 
-本指南将帮助您设置 GitHub OAuth App，以便在 Athena Template 中使用 GitHub 登录功能。
+本指南将帮助您设置 GitHub OAuth App，以便在 Athena Template 中使用 GitHub
+登录功能。
 
 ## 📋 前置要求
 
@@ -19,25 +20,26 @@
 
 ### 2. 填写应用信息
 
-| 字段 | 值 | 说明 |
-|------|-----|------|
-| **Application name** | `Athena Template` | 应用名称 |
-| **Homepage URL** | `https://your-domain.com` | 应用主页 URL |
-| **Application description** | `Modern React + Deno full-stack template` | 应用描述（可选） |
-| **Authorization callback URL** | `https://your-domain.com/api/auth/callback` | OAuth 回调 URL |
+| 字段                           | 值                                          | 说明             |
+| ------------------------------ | ------------------------------------------- | ---------------- |
+| **Application name**           | `Athena Template`                           | 应用名称         |
+| **Homepage URL**               | `https://your-domain.com`                   | 应用主页 URL     |
+| **Application description**    | `Modern React + Deno full-stack template`   | 应用描述（可选） |
+| **Authorization callback URL** | `https://your-domain.com/api/auth/callback` | OAuth 回调 URL   |
 
 ### 3. 开发环境配置
 
 如果是本地开发，请使用以下配置：
 
-| 字段 | 值 |
-|------|-----|
-| **Homepage URL** | `http://localhost:8000` |
+| 字段                           | 值                                        |
+| ------------------------------ | ----------------------------------------- |
+| **Homepage URL**               | `http://localhost:8000`                   |
 | **Authorization callback URL** | `http://localhost:8000/api/auth/callback` |
 
 ### 4. 获取凭据
 
 创建成功后，您将获得：
+
 - **Client ID** - 公开的应用标识符
 - **Client Secret** - 私密的应用密钥（点击 "Generate a new client secret"）
 
@@ -97,6 +99,7 @@ deno task start
 ### 2. 验证配置
 
 访问 `http://localhost:8000`，您应该能看到：
+
 - 登录按钮
 - 点击登录按钮会跳转到 GitHub 授权页面
 
@@ -131,6 +134,7 @@ deno task start
 ### 1. 更新 OAuth App 设置
 
 在 GitHub OAuth App 设置中：
+
 - 将 Homepage URL 更新为生产域名
 - 将 Authorization callback URL 更新为生产回调地址
 
@@ -149,15 +153,19 @@ NODE_ENV=production
 ## 🐛 常见问题
 
 ### Q: 授权后跳转到错误页面
+
 **A**: 检查 OAuth App 的回调 URL 是否与 `APP_BASE_URL` 匹配
 
 ### Q: 登录后立即退出
+
 **A**: 检查 JWT_SECRET 是否正确设置，确保不是默认值
 
 ### Q: 无法获取用户信息
+
 **A**: 检查 GitHub API 权限，确保 OAuth scope 包含 `user:email`
 
 ### Q: 本地开发无法登录
+
 **A**: 确保 GitHub OAuth App 配置了正确的本地回调 URL
 
 ## 📚 相关文档

@@ -31,7 +31,7 @@
 <table>
 <tr>
 <td><strong>👤 作者</strong></td>
-<td>h7ml &lt;<a href="mailto:h7ml@h7ml.com">h7ml@h7ml.com</a>&gt;</td>
+<td>h7ml &lt;<a href="mailto:h7ml@qq.com">h7ml@qq.com</a>&gt;</td>
 </tr>
 <tr>
 <td><strong>🔗 仓库</strong></td>
@@ -51,16 +51,16 @@
 
 <div align="center">
 
-| 🛠️ 技术 | 📦 版本 | 📝 描述 |
-|:---:|:---:|:---|
-| **[Fresh](https://fresh.deno.dev/)** | `1.7.3` | 🌊 Deno 的现代 Web 框架 |
-| **[Preact](https://preactjs.com/)** | `10.22.0` | ⚛️ 轻量级 React 替代方案 |
-| **[TailwindCSS](https://tailwindcss.com/)** | `3.4.1` | 🎨 原子化 CSS 框架 |
-| **[Sass](https://sass-lang.com/)** | `1.69.5` | 💅 CSS 预处理器 |
-| **[Zustand](https://zustand-demo.pmnd.rs/)** | `4.4.7` | 🐻 轻量级状态管理 |
-| **[TypeScript](https://www.typescriptlang.org/)** | `Latest` | 🔷 类型安全的 JavaScript |
-| **[Preact Signals](https://preactjs.com/guide/v10/signals/)** | `1.2.2` | 📡 响应式状态管理 |
-| **[Deno Standard Library](https://deno.land/std)** | `0.216.0` | 📚 Deno 标准库 |
+|                            🛠️ 技术                            |  📦 版本  | 📝 描述                  |
+| :-----------------------------------------------------------: | :-------: | :----------------------- |
+|             **[Fresh](https://fresh.deno.dev/)**              |  `1.7.3`  | 🌊 Deno 的现代 Web 框架  |
+|              **[Preact](https://preactjs.com/)**              | `10.22.0` | ⚛️ 轻量级 React 替代方案 |
+|          **[TailwindCSS](https://tailwindcss.com/)**          |  `3.4.1`  | 🎨 原子化 CSS 框架       |
+|              **[Sass](https://sass-lang.com/)**               | `1.69.5`  | 💅 CSS 预处理器          |
+|         **[Zustand](https://zustand-demo.pmnd.rs/)**          |  `4.4.7`  | 🐻 轻量级状态管理        |
+|       **[TypeScript](https://www.typescriptlang.org/)**       | `Latest`  | 🔷 类型安全的 JavaScript |
+| **[Preact Signals](https://preactjs.com/guide/v10/signals/)** |  `1.2.2`  | 📡 响应式状态管理        |
+|      **[Deno Standard Library](https://deno.land/std)**       | `0.216.0` | 📚 Deno 标准库           |
 
 </div>
 
@@ -68,10 +68,10 @@
 
 <div align="center">
 
-| 🎨 UI 组件 | 🔧 开发工具 | 🌙 用户体验 | ⚡ 性能优化 |
-|:---:|:---:|:---:|:---:|
+|                    🎨 UI 组件                     |                          🔧 开发工具                           |               🌙 用户体验                |           ⚡ 性能优化            |
+| :-----------------------------------------------: | :------------------------------------------------------------: | :--------------------------------------: | :------------------------------: |
 | **丰富的组件库**<br>Button、Card、Input、Modal 等 | **实用 Hooks 库**<br>useLocalStorage、useDebounce、useFetch 等 | **主题切换系统**<br>亮色、暗色、系统主题 | **Islands 架构**<br>最佳性能表现 |
-| **响应式设计**<br>完美适配多端设备 | **类型安全**<br>全面 TypeScript 支持 | **状态持久化**<br>自动保存用户偏好 | **SSR 兼容**<br>服务端渲染支持 |
+|        **响应式设计**<br>完美适配多端设备         |              **类型安全**<br>全面 TypeScript 支持              |    **状态持久化**<br>自动保存用户偏好    |  **SSR 兼容**<br>服务端渲染支持  |
 
 </div>
 
@@ -82,6 +82,7 @@
 <td width="50%">
 
 **🎨 UI & 设计**
+
 - ✅ 丰富的 UI 组件库
 - ✅ 响应式设计系统
 - ✅ 主题切换支持
@@ -92,6 +93,7 @@
 <td width="50%">
 
 **🔧 开发体验**
+
 - ✅ TypeScript 类型安全
 - ✅ 热重载开发服务器
 - ✅ 代码格式化和 Lint
@@ -104,6 +106,7 @@
 <td>
 
 **⚡ 性能优化**
+
 - ✅ Islands 架构
 - ✅ 服务端渲染 (SSR)
 - ✅ 按需加载
@@ -114,6 +117,7 @@
 <td>
 
 **�️ 工具集成**
+
 - ✅ 实用 Hooks 库
 - ✅ 状态管理 (Zustand)
 - ✅ 样式系统 (TailwindCSS + Sass)
@@ -157,14 +161,14 @@ deno task start
 
 <div align="center">
 
-| 🎯 命令 | 📝 描述 | 🔧 用途 |
-|:---:|:---|:---|
-| `deno task start` | 🔥 启动开发服务器 | 开发时使用，支持热重载 |
-| `deno task build` | 📦 构建生产版本 | 生产环境构建 |
-| `deno task preview` | 👀 预览生产版本 | 本地预览生产构建 |
-| `deno task check` | ✅ 代码质量检查 | 格式化、Lint、类型检查 |
-| `deno task manifest` | 📋 生成清单文件 | Fresh 框架清单 |
-| `deno task update` | 🔄 更新框架 | 更新到最新版本 |
+|       🎯 命令        | 📝 描述           | 🔧 用途                |
+| :------------------: | :---------------- | :--------------------- |
+|  `deno task start`   | 🔥 启动开发服务器 | 开发时使用，支持热重载 |
+|  `deno task build`   | 📦 构建生产版本   | 生产环境构建           |
+| `deno task preview`  | 👀 预览生产版本   | 本地预览生产构建       |
+|  `deno task check`   | ✅ 代码质量检查   | 格式化、Lint、类型检查 |
+| `deno task manifest` | 📋 生成清单文件   | Fresh 框架清单         |
+|  `deno task update`  | 🔄 更新框架       | 更新到最新版本         |
 
 </div>
 
@@ -203,17 +207,16 @@ function MyComponent() {
 #### 🔧 **2. 自定义 Hooks**
 
 ```tsx
-import {
-  useDebounce,
-  useLocalStorage
-} from "../hooks/index.ts";
+import { useDebounce, useLocalStorage } from "../hooks/index.ts";
 
 function MyComponent() {
   const [value, setValue] = useLocalStorage(
-    "key", "default"
+    "key",
+    "default",
   );
   const debouncedValue = useDebounce(
-    value, 500
+    value,
+    500,
   );
 
   return <div>{debouncedValue}</div>;
@@ -258,12 +261,10 @@ function MyComponent() {
 <td width="50%" align="center">
 
 ### 🌊 TailwindCSS
+
 **原子化 CSS 框架**
 
-✅ 快速原型开发
-✅ 原子化样式类
-✅ 响应式设计
-✅ 暗色主题支持
+✅ 快速原型开发 ✅ 原子化样式类 ✅ 响应式设计 ✅ 暗色主题支持
 
 ```html
 <div class="bg-blue-500 text-white p-4 rounded-lg">
@@ -275,17 +276,17 @@ function MyComponent() {
 <td width="50%" align="center">
 
 ### 🎯 Sass
+
 **CSS 预处理器**
 
-✅ 复杂样式逻辑
-✅ 主题变量管理
-✅ 组件特定样式
-✅ 嵌套和混入
+✅ 复杂样式逻辑 ✅ 主题变量管理 ✅ 组件特定样式 ✅ 嵌套和混入
 
 ```scss
 .custom-component {
   @include theme-colors;
-  &:hover { transform: scale(1.05); }
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 ```
 
@@ -360,30 +361,22 @@ function MyComponent() {
 
 #### 🔷 TypeScript
 
-✅ JSX 运行时：`react-jsx`
-✅ JSX 导入源：`preact`
-✅ 自动生成 node_modules
-✅ 严格类型检查
+✅ JSX 运行时：`react-jsx` ✅ JSX 导入源：`preact` ✅ 自动生成 node_modules ✅
+严格类型检查
 
 </td>
 <td width="33%" align="center">
 
 #### 📏 代码规范
 
-✅ Fresh 推荐规则
-✅ 自动排除构建目录
-✅ 代码格式化
-✅ 质量检查
+✅ Fresh 推荐规则 ✅ 自动排除构建目录 ✅ 代码格式化 ✅ 质量检查
 
 </td>
 <td width="33%" align="center">
 
 #### 🚀 部署支持
 
-✅ Deno Deploy 集成
-✅ 入口文件：`main.ts`
-✅ 自动排除依赖
-✅ CI/CD 工作流
+✅ Deno Deploy 集成 ✅ 入口文件：`main.ts` ✅ 自动排除依赖 ✅ CI/CD 工作流
 
 </td>
 </tr>
@@ -435,32 +428,27 @@ deno task preview
 <tr>
 <td align="center" width="20%">
 
-**1️⃣ Fork**
-🍴 Fork 本仓库
+**1️⃣ Fork** 🍴 Fork 本仓库
 
 </td>
 <td align="center" width="20%">
 
-**2️⃣ 分支**
-🌿 创建特性分支
+**2️⃣ 分支** 🌿 创建特性分支
 
 </td>
 <td align="center" width="20%">
 
-**3️⃣ 开发**
-💻 编写代码
+**3️⃣ 开发** 💻 编写代码
 
 </td>
 <td align="center" width="20%">
 
-**4️⃣ 提交**
-📝 提交更改
+**4️⃣ 提交** 📝 提交更改
 
 </td>
 <td align="center" width="20%">
 
-**5️⃣ PR**
-🔄 创建 Pull Request
+**5️⃣ PR** 🔄 创建 Pull Request
 
 </td>
 </tr>
@@ -490,8 +478,7 @@ git push origin feature/AmazingFeature
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-**本项目采用 MIT 许可证**
-查看 [LICENSE](LICENSE) 文件了解详情
+**本项目采用 MIT 许可证** 查看 [LICENSE](LICENSE) 文件了解详情
 
 </div>
 
