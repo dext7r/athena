@@ -1,0 +1,329 @@
+/* 现代化鼠标样式系统 */
+
+/* 基础光标样式 */
+* {
+  cursor: none;
+}
+
+/* 自定义光标容器 */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: rgba(59, 130, 246, 0.8);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: all 0.1s ease;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: rgba(59, 130, 246, 1);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transition: all 0.15s ease;
+  transform: translate(-50%, -50%);
+}
+
+/* 悬停状态 */
+.cursor-hover .cursor {
+  width: 40px;
+  height: 40px;
+  background: rgba(59, 130, 246, 0.3);
+  border: 2px solid rgba(59, 130, 246, 0.8);
+}
+
+.cursor-hover .cursor-follower {
+  width: 12px;
+  height: 12px;
+}
+
+/* 点击状态 */
+.cursor-click .cursor {
+  width: 30px;
+  height: 30px;
+  background: rgba(239, 68, 68, 0.8);
+}
+
+.cursor-click .cursor-follower {
+  width: 6px;
+  height: 6px;
+  background: rgba(239, 68, 68, 1);
+}
+
+/* 文本选择状态 */
+.cursor-text .cursor {
+  width: 2px;
+  height: 20px;
+  border-radius: 2px;
+  background: rgba(59, 130, 246, 0.8);
+}
+
+.cursor-text .cursor-follower {
+  display: none;
+}
+
+/* 链接悬停状态 */
+.cursor-link .cursor {
+  width: 50px;
+  height: 50px;
+  background: rgba(16, 185, 129, 0.2);
+  border: 2px solid rgba(16, 185, 129, 0.8);
+}
+
+.cursor-link .cursor-follower {
+  width: 16px;
+  height: 16px;
+  background: rgba(16, 185, 129, 1);
+}
+
+/* 按钮悬停状态 */
+.cursor-button .cursor {
+  width: 45px;
+  height: 45px;
+  background: rgba(168, 85, 247, 0.2);
+  border: 2px solid rgba(168, 85, 247, 0.8);
+}
+
+.cursor-button .cursor-follower {
+  width: 14px;
+  height: 14px;
+  background: rgba(168, 85, 247, 1);
+}
+
+/* 禁用状态 */
+.cursor-disabled .cursor {
+  width: 30px;
+  height: 30px;
+  background: rgba(156, 163, 175, 0.5);
+  border: 2px solid rgba(156, 163, 175, 0.8);
+}
+
+.cursor-disabled .cursor-follower {
+  background: rgba(156, 163, 175, 1);
+}
+
+/* 加载状态 */
+.cursor-loading .cursor {
+  width: 35px;
+  height: 35px;
+  background: transparent;
+  border: 3px solid rgba(59, 130, 246, 0.3);
+  border-top: 3px solid rgba(59, 130, 246, 0.8);
+  animation: spin 1s linear infinite;
+}
+
+.cursor-loading .cursor-follower {
+  display: none;
+}
+
+/* 拖拽状态 */
+.cursor-grab .cursor {
+  width: 35px;
+  height: 35px;
+  background: rgba(245, 158, 11, 0.3);
+  border: 2px solid rgba(245, 158, 11, 0.8);
+}
+
+.cursor-grabbing .cursor {
+  width: 30px;
+  height: 30px;
+  background: rgba(245, 158, 11, 0.5);
+}
+
+/* 调整大小状态 */
+.cursor-resize .cursor {
+  width: 20px;
+  height: 20px;
+  background: rgba(139, 92, 246, 0.8);
+  border-radius: 2px;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* 特殊交互元素的光标样式 */
+a,
+button,
+[role="button"],
+.clickable {
+  cursor: none !important;
+}
+
+input,
+textarea,
+[contenteditable] {
+  cursor: none !important;
+}
+
+.resize-handle {
+  cursor: none !important;
+}
+
+/* 暗色模式适配 */
+.dark .cursor {
+  background: rgba(147, 197, 253, 0.8);
+  border-color: rgba(147, 197, 253, 0.8);
+}
+
+.dark .cursor-follower {
+  background: rgba(147, 197, 253, 1);
+}
+
+.dark .cursor-hover .cursor {
+  background: rgba(147, 197, 253, 0.3);
+  border-color: rgba(147, 197, 253, 0.8);
+}
+
+.dark .cursor-link .cursor {
+  background: rgba(52, 211, 153, 0.2);
+  border-color: rgba(52, 211, 153, 0.8);
+}
+
+.dark .cursor-link .cursor-follower {
+  background: rgba(52, 211, 153, 1);
+}
+
+/* 移动端隐藏自定义光标 */
+@media (max-width: 768px) {
+
+  .cursor,
+  .cursor-follower {
+    display: none;
+  }
+
+  * {
+    cursor: auto !important;
+  }
+}
+
+/* 触摸设备隐藏自定义光标 */
+@media (hover: none) and (pointer: coarse) {
+
+  .cursor,
+  .cursor-follower {
+    display: none;
+  }
+
+  * {
+    cursor: auto !important;
+  }
+}
+
+/* 光标动画关键帧 */
+@keyframes cursorPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* 脉冲效果 */
+.cursor-pulse .cursor {
+  animation: cursorPulse 1s ease-in-out infinite;
+}
+
+/* 光标轨迹效果 */
+.cursor-trail {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: rgba(59, 130, 246, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9997;
+  transition: all 0.3s ease;
+  transform: translate(-50%, -50%);
+}
+
+/* 磁性吸附效果 */
+.magnetic-element {
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* 光标指示器 */
+.cursor-indicator {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9996;
+  font-size: 12px;
+  color: rgba(59, 130, 246, 0.8);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4px 8px;
+  border-radius: 4px;
+  transform: translate(-50%, -100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.cursor-indicator.show {
+  opacity: 1;
+}
+
+/* 特效光标 */
+.cursor-sparkle .cursor::before {
+  content: '✨';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* 彩虹光标 */
+.cursor-rainbow .cursor {
+  background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+  background-size: 200% 200%;
+  animation: rainbowMove 2s ease-in-out infinite;
+}
+
+@keyframes rainbowMove {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* 性能优化 */
+.cursor,
+.cursor-follower,
+.cursor-trail {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}

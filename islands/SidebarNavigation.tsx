@@ -1,5 +1,5 @@
-import { useEffect, useState } from "preact/hooks";
 import { JSX } from "preact";
+import { useEffect, useState } from "preact/hooks";
 
 // 导航状态钩子
 function useNavigationState() {
@@ -39,11 +39,11 @@ interface MenuItem {
   children?: MenuItem[];
 }
 
-// 图标映射
+// 图标映射 - 优化图标设计
 const iconMap: Record<string, JSX.Element> = {
   home: (
     <svg
-      className="w-5 h-5"
+      className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -58,7 +58,7 @@ const iconMap: Record<string, JSX.Element> = {
   ),
   components: (
     <svg
-      className="w-5 h-5"
+      className="w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -73,7 +73,7 @@ const iconMap: Record<string, JSX.Element> = {
   ),
   hooks: (
     <svg
-      className="w-5 h-5"
+      className="w-5 h-5 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-12"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -88,7 +88,7 @@ const iconMap: Record<string, JSX.Element> = {
   ),
   state: (
     <svg
-      className="w-5 h-5"
+      className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -103,7 +103,7 @@ const iconMap: Record<string, JSX.Element> = {
   ),
   status: (
     <svg
-      className="w-5 h-5"
+      className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -118,7 +118,7 @@ const iconMap: Record<string, JSX.Element> = {
   ),
   info: (
     <svg
-      className="w-5 h-5"
+      className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -133,7 +133,7 @@ const iconMap: Record<string, JSX.Element> = {
   ),
   overview: (
     <svg
-      className="w-4 h-4"
+      className="w-4 h-4 transition-transform duration-300 group-hover:scale-110"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -148,7 +148,7 @@ const iconMap: Record<string, JSX.Element> = {
   ),
   lock: (
     <svg
-      className="w-4 h-4"
+      className="w-4 h-4 transition-transform duration-300 group-hover:scale-110"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -163,7 +163,7 @@ const iconMap: Record<string, JSX.Element> = {
   ),
   ban: (
     <svg
-      className="w-4 h-4"
+      className="w-4 h-4 transition-transform duration-300 group-hover:scale-110"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -178,7 +178,7 @@ const iconMap: Record<string, JSX.Element> = {
   ),
   search: (
     <svg
-      className="w-4 h-4"
+      className="w-4 h-4 transition-transform duration-300 group-hover:scale-110"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -193,7 +193,7 @@ const iconMap: Record<string, JSX.Element> = {
   ),
   error: (
     <svg
-      className="w-4 h-4"
+      className="w-4 h-4 transition-transform duration-300 group-hover:scale-110"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -208,7 +208,7 @@ const iconMap: Record<string, JSX.Element> = {
   ),
   gateway: (
     <svg
-      className="w-4 h-4"
+      className="w-4 h-4 transition-transform duration-300 group-hover:scale-110"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -223,7 +223,7 @@ const iconMap: Record<string, JSX.Element> = {
   ),
   maintenance: (
     <svg
-      className="w-4 h-4"
+      className="w-4 h-4 transition-transform duration-300 group-hover:scale-110"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -281,32 +281,65 @@ export default function SidebarNavigation() {
   ];
 
   return (
-    <nav className="space-y-1">
-      {menuItems.map((item) => {
+    <nav className="space-y-2">
+      {menuItems.map((item, index) => {
         const hasChildren = item.children && item.children.length > 0;
         const isExpanded = expandedItems.includes(item.label);
         const isActive = item.href ? isPathActive(item.href) : isStatusActive();
 
         if (hasChildren) {
           return (
-            <div key={item.label}>
+            <div key={item.label} className="space-y-1">
               <button
                 type="button"
                 onClick={() => toggleExpanded(item.label)}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-lg transition-colors ${
+                className={`
+                  w-full flex items-center justify-between px-4 py-3 rounded-xl 
+                  transition-all duration-300 ease-out group relative overflow-hidden
+                  font-medium
+                  ${
                   isActive
-                    ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
-                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25 transform scale-[1.02]"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/30 dark:hover:to-purple-900/30 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-md hover:scale-[1.02]"
                 }`}
               >
-                <div className="flex items-center gap-3">
-                  {iconMap[item.icon]}
-                  <span className="font-medium">{item.label}</span>
+                {/* 活跃状态的发光效果 */}
+                {isActive && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-700 opacity-50 blur-sm">
+                  </div>
+                )}
+
+                {/* 悬停时的动画背景 */}
+                <div
+                  className={`
+                  absolute inset-0 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-800/30 dark:to-purple-800/30
+                  transform origin-left scale-x-0 group-hover:scale-x-100
+                  transition-transform duration-300 ease-out rounded-xl
+                  ${isActive ? "opacity-0" : "opacity-100"}
+                `}
+                >
                 </div>
+
+                <div className="relative z-10 flex items-center gap-3">
+                  <div
+                    className={`p-1 rounded-lg transition-all duration-300 ${
+                      isActive
+                        ? "bg-white/20"
+                        : "group-hover:bg-blue-100 dark:group-hover:bg-blue-900/50"
+                    }`}
+                  >
+                    {iconMap[item.icon]}
+                  </div>
+                  <span className="tracking-wide">{item.label}</span>
+                </div>
+
                 <svg
-                  className={`w-4 h-4 transition-transform ${
-                    isExpanded ? "rotate-90" : ""
-                  }`}
+                  className={`
+                    relative z-10 w-5 h-5 transition-all duration-300 
+                    ${
+                    isExpanded ? "rotate-90 scale-110" : "group-hover:scale-110"
+                  }
+                  `}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -320,24 +353,60 @@ export default function SidebarNavigation() {
                 </svg>
               </button>
 
-              {isExpanded && (
-                <div className="ml-6 mt-1 space-y-1">
-                  {item.children?.map((child) => (
-                    <a
-                      key={child.href}
-                      href={child.href}
-                      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
+              {/* 子菜单 - 改进动画 */}
+              <div
+                className={`
+                ml-4 border-l-2 border-gradient-to-b from-blue-200 to-purple-200 dark:from-blue-700 dark:to-purple-700 pl-4
+                overflow-hidden transition-all duration-300 ease-out space-y-1
+                ${isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}
+              `}
+              >
+                {item.children?.map((child, childIndex) => (
+                  <a
+                    key={child.href}
+                    href={child.href}
+                    className={`
+                      flex items-center gap-3 px-3 py-2 rounded-lg 
+                      transition-all duration-300 ease-out group relative overflow-hidden
+                      text-sm font-medium
+                      ${
+                      child.href && isPathActive(child.href)
+                        ? "bg-gradient-to-r from-blue-400 to-purple-500 text-white shadow-md transform scale-[1.02]"
+                        : "text-gray-600 dark:text-gray-400 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-800/30 dark:hover:to-purple-800/30 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-sm hover:scale-[1.02]"
+                    }
+                    `}
+                    style={{
+                      animationDelay: `${childIndex * 50}ms`,
+                      animation: isExpanded
+                        ? "slideUp 0.3s ease-out forwards"
+                        : "none",
+                    }}
+                  >
+                    {/* 活跃状态指示器 */}
+                    {child.href && isPathActive(child.href) && (
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-white rounded-r-full">
+                      </div>
+                    )}
+
+                    {/* 悬停背景动画 */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-800/30 dark:to-purple-800/30 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-lg">
+                    </div>
+
+                    <div
+                      className={`relative z-10 p-1 rounded transition-all duration-300 ${
                         child.href && isPathActive(child.href)
-                          ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
-                          : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-200"
+                          ? "bg-white/20"
+                          : "group-hover:bg-blue-100 dark:group-hover:bg-blue-900/50"
                       }`}
                     >
                       {iconMap[child.icon]}
-                      <span className="text-sm">{child.label}</span>
-                    </a>
-                  ))}
-                </div>
-              )}
+                    </div>
+                    <span className="relative z-10 tracking-wide">
+                      {child.label}
+                    </span>
+                  </a>
+                ))}
+              </div>
             </div>
           );
         }
@@ -346,14 +415,54 @@ export default function SidebarNavigation() {
           <a
             key={item.label}
             href={item.href}
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
+            className={`
+              flex items-center gap-3 px-4 py-3 rounded-xl 
+              transition-all duration-300 ease-out group relative overflow-hidden
+              font-medium
+              ${
               isActive
-                ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
-                : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-            }`}
+                ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25 transform scale-[1.02]"
+                : "text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/30 dark:hover:to-purple-900/30 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-md hover:scale-[1.02]"
+            }
+            `}
+            style={{
+              animationDelay: `${index * 100}ms`,
+              animation: "slideUp 0.5s ease-out forwards",
+            }}
           >
-            {iconMap[item.icon]}
-            <span className="font-medium">{item.label}</span>
+            {/* 活跃状态的发光效果 */}
+            {isActive && (
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-700 opacity-50 blur-sm">
+              </div>
+            )}
+
+            {/* 悬停时的动画背景 */}
+            <div
+              className={`
+              absolute inset-0 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-800/30 dark:to-purple-800/30
+              transform origin-left scale-x-0 group-hover:scale-x-100
+              transition-transform duration-300 ease-out rounded-xl
+              ${isActive ? "opacity-0" : "opacity-100"}
+            `}
+            >
+            </div>
+
+            <div
+              className={`relative z-10 p-1 rounded-lg transition-all duration-300 ${
+                isActive
+                  ? "bg-white/20"
+                  : "group-hover:bg-blue-100 dark:group-hover:bg-blue-900/50"
+              }`}
+            >
+              {iconMap[item.icon]}
+            </div>
+            <span className="relative z-10 tracking-wide">{item.label}</span>
+
+            {/* 底部装饰线 */}
+            {!isActive && (
+              <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-full">
+              </div>
+            )}
           </a>
         );
       })}

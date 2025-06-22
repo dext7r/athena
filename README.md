@@ -438,7 +438,7 @@ deno task preview
 <tr>
 <td align="center" width="20%">
 
-**1️⃣ Fork** 🍴 Fork 本仓库
+**1️⃣ Fork** 🍴 [Fork](https://github.com/dext7r/athena/fork) 本仓库
 
 </td>
 <td align="center" width="20%">
@@ -458,7 +458,7 @@ deno task preview
 </td>
 <td align="center" width="20%">
 
-**5️⃣ PR** 🔄 创建 Pull Request
+**5️⃣ PR** 🔄 创建 [Pull Request](https://github.com/dext7r/athena/pulls)
 
 </td>
 </tr>
@@ -466,7 +466,7 @@ deno task preview
 
 ```bash
 # 🍴 Fork 并克隆
-git clone https://github.com/YOUR_USERNAME/athena.git
+git clone https://github.com/dext7r/athena.git
 
 # 🌿 创建分支
 git checkout -b feature/AmazingFeature

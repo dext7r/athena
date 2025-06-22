@@ -1,8 +1,8 @@
-import { useEffect, useState } from "preact/hooks";
-import { JSX } from "preact";
+import Footer from "@components/layout/Footer.tsx";
 import Header from "@components/layout/Header.tsx";
 import Sidebar from "@components/layout/Sidebar.tsx";
-import Footer from "@components/layout/Footer.tsx";
+import { JSX } from "preact";
+import { useEffect, useState } from "preact/hooks";
 
 interface LayoutManagerProps {
   children: JSX.Element | JSX.Element[] | string;
@@ -86,17 +86,23 @@ const LayoutManager = (
   };
 
   return (
-    <div className="h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+    <div className="
+      h-screen max-h-screen flex flex-col 
+      bg-gradient-to-br from-neutral-50 via-white to-neutral-50
+      dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900
+      transition-all duration-500 ease-out
+      overflow-hidden
+    ">
       {/* 固定头部 */}
       <Header
         title={title}
         showSidebarToggle
         onSidebarToggle={toggleSidebar}
-        className="flex-shrink-0"
+        className="flex-shrink-0 z-30"
       />
 
-      {/* 中间内容区域 - 可滚动 */}
-      <div className="flex flex-1 overflow-hidden">
+      {/* 中间内容区域 - 受限高度 */}
+      <div className="flex flex-1 min-h-0 overflow-hidden">
         {/* 侧边栏 */}
         {sidebarVisible && (
           <Sidebar
@@ -105,22 +111,32 @@ const LayoutManager = (
           />
         )}
 
-        {/* 主内容区域 - 可滚动 */}
-        <main className="flex-1 overflow-y-auto transition-all duration-300 ease-in-out">
+        {/* 主内容区域 - 严格控制高度 */}
+        <main className="
+          flex-1 overflow-y-auto 
+          transition-all duration-300 ease-in-out
+          h-full max-h-full
+          scrollbar-hide scroll-animate
+        ">
           <div
             className={`
-            py-6 px-4 md:px-6 min-h-full transition-all duration-300 ease-in-out
-            ${sidebarVisible ? "lg:pl-6 lg:pr-6" : ""}
-            max-w-none w-full
-          `}
+              py-6 px-4 md:px-6 
+              h-full min-h-full
+              transition-all duration-300 ease-in-out
+              ${sidebarVisible ? "lg:pl-6 lg:pr-6" : ""}
+              max-w-none w-full
+              flex flex-col
+            `}
           >
-            {children}
+            <div className="flex-1 animate-fade-in animate-delay-100">
+              {children}
+            </div>
           </div>
         </main>
       </div>
 
       {/* 固定底部 */}
-      <Footer className="flex-shrink-0" />
+      <Footer className="flex-shrink-0 z-20" />
     </div>
   );
 };

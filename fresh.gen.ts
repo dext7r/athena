@@ -36,11 +36,13 @@ import * as $status_index from "./routes/status/index.tsx";
 import * as $AccountLockManager from "./islands/AccountLockManager.tsx";
 import * as $AuditLogViewer from "./islands/AuditLogViewer.tsx";
 import * as $AuthMenu from "./islands/AuthMenu.tsx";
+import * as $CodeBlock from "./islands/CodeBlock.tsx";
 import * as $ComponentsDemo from "./islands/ComponentsDemo.tsx";
+import * as $CopyButton from "./islands/CopyButton.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $CounterDemo from "./islands/CounterDemo.tsx";
+import * as $CustomCursor from "./islands/CustomCursor.tsx";
 import * as $FooterInteractive from "./islands/FooterInteractive.tsx";
-import * as $FooterTest from "./islands/FooterTest.tsx";
 import * as $HeaderNavigation from "./islands/HeaderNavigation.tsx";
 import * as $HooksDemo from "./islands/HooksDemo.tsx";
 import * as $LayoutManager from "./islands/LayoutManager.tsx";
@@ -92,11 +94,13 @@ const manifest = {
     "./islands/AccountLockManager.tsx": $AccountLockManager,
     "./islands/AuditLogViewer.tsx": $AuditLogViewer,
     "./islands/AuthMenu.tsx": $AuthMenu,
+    "./islands/CodeBlock.tsx": $CodeBlock,
     "./islands/ComponentsDemo.tsx": $ComponentsDemo,
+    "./islands/CopyButton.tsx": $CopyButton,
     "./islands/Counter.tsx": $Counter,
     "./islands/CounterDemo.tsx": $CounterDemo,
+    "./islands/CustomCursor.tsx": $CustomCursor,
     "./islands/FooterInteractive.tsx": $FooterInteractive,
-    "./islands/FooterTest.tsx": $FooterTest,
     "./islands/HeaderNavigation.tsx": $HeaderNavigation,
     "./islands/HooksDemo.tsx": $HooksDemo,
     "./islands/LayoutManager.tsx": $LayoutManager,

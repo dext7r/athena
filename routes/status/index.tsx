@@ -1,10 +1,5 @@
 import { Head } from "$fresh/runtime.ts";
 import Layout from "@components/layout/Layout.tsx";
-import Card, {
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@components/ui/Card.tsx";
 
 export default function StatusCodesPage() {
   const statusCodes = [
@@ -15,21 +10,8 @@ export default function StatusCodesPage() {
       color: "from-red-500 to-orange-500",
       bgColor: "bg-red-50 dark:bg-red-900/20",
       textColor: "text-red-600 dark:text-red-400",
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-          />
-        </svg>
-      ),
+      icon: "🔒",
+      category: "客户端错误",
     },
     {
       code: "403",
@@ -38,21 +20,8 @@ export default function StatusCodesPage() {
       color: "from-yellow-500 to-red-500",
       bgColor: "bg-yellow-50 dark:bg-yellow-900/20",
       textColor: "text-yellow-600 dark:text-yellow-400",
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"
-          />
-        </svg>
-      ),
+      icon: "🚫",
+      category: "客户端错误",
     },
     {
       code: "404",
@@ -61,21 +30,8 @@ export default function StatusCodesPage() {
       color: "from-blue-500 to-purple-500",
       bgColor: "bg-blue-50 dark:bg-blue-900/20",
       textColor: "text-blue-600 dark:text-blue-400",
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.291-1.007-5.691-2.709M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-          />
-        </svg>
-      ),
+      icon: "🔍",
+      category: "客户端错误",
     },
     {
       code: "500",
@@ -84,21 +40,8 @@ export default function StatusCodesPage() {
       color: "from-red-500 to-pink-500",
       bgColor: "bg-red-50 dark:bg-red-900/20",
       textColor: "text-red-600 dark:text-red-400",
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-          />
-        </svg>
-      ),
+      icon: "💥",
+      category: "服务器错误",
     },
     {
       code: "502",
@@ -107,21 +50,8 @@ export default function StatusCodesPage() {
       color: "from-orange-500 to-red-500",
       bgColor: "bg-orange-50 dark:bg-orange-900/20",
       textColor: "text-orange-600 dark:text-orange-400",
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"
-          />
-        </svg>
-      ),
+      icon: "🌐",
+      category: "服务器错误",
     },
     {
       code: "503",
@@ -130,27 +60,8 @@ export default function StatusCodesPage() {
       color: "from-purple-500 to-blue-500",
       bgColor: "bg-purple-50 dark:bg-purple-900/20",
       textColor: "text-purple-600 dark:text-purple-400",
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-          />
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-          />
-        </svg>
-      ),
+      icon: "🔧",
+      category: "服务器错误",
     },
   ];
 
@@ -174,131 +85,485 @@ export default function StatusCodesPage() {
         <meta property="og:type" content="website" />
       </Head>
       <Layout title="HTTP状态码演示">
-        <div className="space-y-16">
-          {/* 页面标题 */}
-          <div className="relative overflow-hidden">
-            {/* 背景装饰 */}
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 dark:from-gray-900 dark:via-yellow-900/20 dark:to-orange-900/20">
-            </div>
+        <div className="space-y-32">
+          {/* Hero区域 - 全新设计 */}
+          <section className="relative overflow-hidden min-h-screen flex items-center">
+            {/* 复杂背景层 */}
             <div className="absolute inset-0">
-              <div className="absolute top-0 left-1/4 w-64 h-64 bg-yellow-400/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse">
-              </div>
-              <div className="absolute top-0 right-1/4 w-64 h-64 bg-orange-400/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000">
-              </div>
-            </div>
-
-            <div className="relative text-center space-y-6 py-16 px-4">
-              <div className="inline-flex items-center px-4 py-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-full text-yellow-800 dark:text-yellow-200 text-sm font-medium">
-                🚨 HTTP状态码
-              </div>
-              <h1 className="text-5xl md:text-6xl font-extrabold">
-                <span className="bg-gradient-to-r from-yellow-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
-                  状态码演示
-                </span>
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                展示常见的{" "}
-                <span className="font-semibold text-yellow-600 dark:text-yellow-400">
-                  HTTP错误状态码
-                </span>{" "}
-                页面设计， 包括{" "}
-                <span className="font-semibold text-orange-600 dark:text-orange-400">
-                  401、403、404、500、502、503
-                </span>{" "}
-                等状态码的用户友好页面
-              </p>
-            </div>
-          </div>
-
-          {/* 状态码网格 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {statusCodes.map((status) => (
-              <a
-                key={status.code}
-                href={`/status/${status.code}`}
-                className="group block"
+              {/* 主背景渐变 */}
+              <div
+                className="absolute inset-0 opacity-95"
+                style={{
+                  background: `
+                    radial-gradient(circle at 25% 25%, rgba(245, 101, 101, 0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 75% 25%, rgba(251, 146, 60, 0.12) 0%, transparent 50%),
+                    radial-gradient(circle at 50% 75%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 25% 75%, rgba(220, 38, 38, 0.08) 0%, transparent 50%),
+                    linear-gradient(135deg, rgba(254, 242, 242, 0.9) 0%, rgba(255, 237, 213, 0.7) 50%, rgba(253, 230, 138, 0.8) 100%)
+                  `,
+                }}
               >
-                <Card className="h-full transition-all duration-300 hover:shadow-xl hover:scale-105 group-hover:shadow-2xl">
-                  <CardHeader className={`${status.bgColor} rounded-t-lg`}>
-                    <div className="flex items-center justify-between">
-                      <div className={`${status.textColor}`}>
-                        {status.icon}
-                      </div>
-                      <div
-                        className={`text-2xl font-bold bg-gradient-to-r ${status.color} bg-clip-text text-transparent`}
-                      >
-                        {status.code}
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="p-6">
-                    <CardTitle className="text-lg mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                      {status.title}
-                    </CardTitle>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">
-                      {status.description}
-                    </p>
-                    <div className="mt-4 flex items-center text-sm text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300">
-                      <span>查看演示页面</span>
-                      <svg
-                        className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </div>
-                  </CardContent>
-                </Card>
-              </a>
-            ))}
-          </div>
+              </div>
 
-          {/* 说明信息 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>关于HTTP状态码</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <p className="text-gray-600 dark:text-gray-300">
-                  HTTP状态码是服务器对客户端请求的响应代码，用于表示请求的处理结果。
-                  这些页面展示了常见错误状态码的用户友好设计。
-                </p>
+              {/* 深色模式背景 */}
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-900/98 via-red-950/95 via-orange-950/92 to-yellow-950/95 dark:opacity-100 opacity-0 transition-opacity duration-500">
+              </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                  <div>
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-                      4xx 客户端错误
-                    </h4>
-                    <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
-                      <li>• 401 - 需要身份验证</li>
-                      <li>• 403 - 服务器拒绝请求</li>
-                      <li>• 404 - 资源不存在</li>
-                    </ul>
+              {/* 动态网格 */}
+              <div
+                className="absolute inset-0 opacity-[0.06] dark:opacity-[0.12]"
+                style={{
+                  backgroundImage: `
+                    linear-gradient(rgba(245, 101, 101, 0.5) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(245, 101, 101, 0.5) 1px, transparent 1px),
+                    linear-gradient(rgba(251, 146, 60, 0.3) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(251, 146, 60, 0.3) 1px, transparent 1px)
+                  `,
+                  backgroundSize: "60px 60px, 60px 60px, 20px 20px, 20px 20px",
+                }}
+              >
+              </div>
+
+              {/* 动画装饰元素 */}
+              <div className="absolute top-1/6 left-1/8 w-96 h-96 bg-gradient-to-br from-red-400/12 via-orange-400/10 to-yellow-400/12 dark:from-red-500/8 dark:via-orange-500/6 dark:to-yellow-500/8 rounded-full blur-3xl animate-pulse">
+              </div>
+              <div className="absolute top-1/4 right-1/8 w-80 h-80 bg-gradient-to-br from-orange-400/10 via-yellow-400/8 to-amber-400/10 dark:from-orange-500/6 dark:via-yellow-500/4 dark:to-amber-500/6 rounded-full blur-3xl animate-pulse delay-1000">
+              </div>
+              <div className="absolute bottom-1/4 left-1/2 transform -translate-x-1/2 w-72 h-72 bg-gradient-to-br from-yellow-400/10 via-amber-400/8 to-orange-400/10 dark:from-yellow-500/6 dark:via-amber-500/4 dark:to-orange-500/6 rounded-full blur-2xl animate-pulse delay-2000">
+              </div>
+              <div className="absolute top-2/3 right-1/4 w-64 h-64 bg-gradient-to-br from-red-400/8 via-pink-400/6 to-rose-400/8 dark:from-red-500/4 dark:via-pink-500/3 dark:to-rose-500/4 rounded-full blur-2xl animate-pulse delay-3000">
+              </div>
+
+              {/* 装饰线条和形状 */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500/50 via-orange-500/50 via-yellow-500/40 to-transparent">
+              </div>
+              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-orange-500/40 via-yellow-500/50 via-amber-500/40 to-transparent">
+              </div>
+
+              {/* 浮动几何形状 */}
+              <div className="absolute top-1/3 left-1/5 w-4 h-4 bg-red-500/30 rotate-45 animate-bounce delay-500">
+              </div>
+              <div className="absolute top-1/2 right-1/5 w-6 h-6 bg-orange-500/25 rounded-full animate-ping delay-1500">
+              </div>
+              <div className="absolute bottom-1/3 left-2/3 w-3 h-3 bg-yellow-500/35 rotate-12 animate-pulse delay-2500">
+              </div>
+            </div>
+
+            {/* Hero内容 */}
+            <div className="relative text-center space-y-16 py-32 md:py-40 px-6 max-w-7xl mx-auto w-full">
+              {/* 动态徽章 */}
+              <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-50/80 to-orange-50/80 dark:from-red-900/40 dark:to-orange-900/40 backdrop-blur-md rounded-2xl text-red-800 dark:text-red-200 text-base font-bold border border-red-200/60 dark:border-red-700/60 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
+                <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse">
+                </div>
+                <span className="text-lg">🚨</span>
+                <span>HTTP状态码</span>
+                <div className="w-1 h-6 bg-red-300 dark:bg-red-600 rounded-full">
+                </div>
+                <span className="text-orange-600 dark:text-orange-400 font-black text-lg">
+                  错误页面
+                </span>
+                <div className="w-3 h-3 bg-orange-500 rounded-full animate-pulse delay-500">
+                </div>
+              </div>
+
+              {/* 主标题 */}
+              <div className="space-y-8">
+                <h1 className="text-7xl md:text-9xl lg:text-[10rem] font-black tracking-tight leading-none">
+                  <span
+                    className="bg-gradient-to-r from-red-600 via-orange-600 via-yellow-600 via-amber-600 to-orange-600 bg-clip-text text-transparent"
+                    style={{
+                      backgroundSize: "300% 300%",
+                      animation: "gradient-flow 8s ease-in-out infinite",
+                    }}
+                  >
+                    状态码
+                  </span>
+                  <br />
+                  <span
+                    className="bg-gradient-to-r from-orange-500 via-yellow-500 via-amber-500 to-red-500 bg-clip-text text-transparent"
+                    style={{
+                      backgroundSize: "300% 300%",
+                      animation:
+                        "gradient-flow 8s ease-in-out infinite reverse",
+                    }}
+                  >
+                    演示
+                  </span>
+                </h1>
+
+                <div className="space-y-6">
+                  <p className="text-2xl md:text-3xl lg:text-4xl text-gray-700 dark:text-gray-200 max-w-6xl mx-auto leading-relaxed font-semibold">
+                    展示常见的{" "}
+                    <span className="font-black text-transparent bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text">
+                      HTTP错误状态码
+                    </span>{" "}
+                    页面设计
+                  </p>
+                  <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-5xl mx-auto leading-relaxed">
+                    包括{" "}
+                    <span className="font-bold text-transparent bg-gradient-to-r from-orange-600 to-yellow-600 bg-clip-text">
+                      401、403、404、500、502、503
+                    </span>{" "}
+                    等状态码
+                    <br className="hidden md:block" />
+                    提供用户友好的错误页面体验
+                  </p>
+                </div>
+              </div>
+
+              {/* 状态码分类标签 */}
+              <div className="flex flex-wrap justify-center gap-4 max-w-6xl mx-auto">
+                {[
+                  {
+                    name: "4xx错误",
+                    color: "from-red-500 to-orange-500",
+                    icon: "⚠️",
+                    desc: "客户端错误",
+                  },
+                  {
+                    name: "5xx错误",
+                    color: "from-orange-500 to-yellow-500",
+                    icon: "💥",
+                    desc: "服务器错误",
+                  },
+                  {
+                    name: "用户友好",
+                    color: "from-yellow-500 to-amber-500",
+                    icon: "😊",
+                    desc: "友好的错误提示",
+                  },
+                  {
+                    name: "美观设计",
+                    color: "from-amber-500 to-orange-500",
+                    icon: "🎨",
+                    desc: "现代化设计",
+                  },
+                  {
+                    name: "响应式",
+                    color: "from-orange-500 to-red-500",
+                    icon: "📱",
+                    desc: "多端适配",
+                  },
+                ].map((category, index) => (
+                  <div
+                    key={category.name}
+                    className={`group inline-flex flex-col items-center gap-3 px-6 py-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl text-sm font-bold border border-gray-200/60 dark:border-gray-700/60 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-110 hover:-translate-y-2 cursor-pointer`}
+                    style={{ animationDelay: `${index * 150}ms` }}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl group-hover:scale-125 transition-transform duration-300">
+                        {category.icon}
+                      </span>
+                      <span
+                        className={`text-transparent bg-gradient-to-r ${category.color} bg-clip-text text-lg`}
+                      >
+                        {category.name}
+                      </span>
+                    </div>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors">
+                      {category.desc}
+                    </span>
                   </div>
+                ))}
+              </div>
 
-                  <div>
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-                      5xx 服务器错误
-                    </h4>
-                    <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
-                      <li>• 500 - 服务器内部错误</li>
-                      <li>• 502 - 网关错误</li>
-                      <li>• 503 - 服务不可用</li>
-                    </ul>
+              {/* 导航按钮 */}
+              <div className="flex flex-wrap justify-center gap-6 pt-12">
+                <a
+                  href="#status-codes"
+                  className="group transform hover:scale-105 transition-all duration-300"
+                >
+                  <button className="px-8 py-4 bg-gradient-to-r from-red-500 via-orange-500 to-red-600 text-white font-bold rounded-2xl shadow-2xl hover:shadow-red-500/25 transform hover:scale-105 transition-all duration-500 flex items-center gap-3 text-lg">
+                    <span className="text-xl">📋</span>
+                    <span>查看状态码</span>
+                    <svg
+                      className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"
+                      />
+                    </svg>
+                  </button>
+                </a>
+                <a
+                  href="#error-guide"
+                  className="group transform hover:scale-105 transition-all duration-300"
+                >
+                  <button className="px-8 py-4 bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-600 text-white font-bold rounded-2xl shadow-2xl hover:shadow-orange-500/25 transform hover:scale-105 transition-all duration-500 flex items-center gap-3 text-lg">
+                    <span className="text-xl">📚</span>
+                    <span>错误处理指南</span>
+                    <svg
+                      className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"
+                      />
+                    </svg>
+                  </button>
+                </a>
+              </div>
+
+              {/* 滚动指示器 */}
+              <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <div className="w-6 h-10 border-2 border-red-500/50 rounded-full flex justify-center">
+                  <div className="w-1 h-3 bg-red-500 rounded-full mt-2 animate-pulse">
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </section>
+
+          {/* 错误处理指南 */}
+          <section id="error-guide" className="relative py-24">
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="text-center space-y-8 mb-20">
+                <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-100 to-orange-100 dark:from-red-900/30 dark:to-orange-900/30 rounded-full text-red-800 dark:text-red-200 font-semibold">
+                  <span className="text-xl">📚</span>
+                  <span>错误处理指南</span>
+                </div>
+                <h2 className="text-5xl md:text-6xl font-black text-gray-900 dark:text-white">
+                  如何设计{" "}
+                  <span className="text-transparent bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text">
+                    友好的错误页面
+                  </span>
+                </h2>
+                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
+                  良好的错误页面设计能显著提升用户体验
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[
+                  {
+                    title: "清晰的错误信息",
+                    icon: "💬",
+                    description: "用简单易懂的语言解释发生了什么问题",
+                    gradient: "from-red-500 to-orange-500",
+                    bgGradient:
+                      "from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20",
+                    tips: [
+                      "避免技术术语",
+                      "提供具体原因",
+                      "使用友好语调",
+                      "保持简洁明了",
+                    ],
+                  },
+                  {
+                    title: "提供解决方案",
+                    icon: "🛠️",
+                    description: "告诉用户可以采取什么行动来解决问题",
+                    gradient: "from-orange-500 to-yellow-500",
+                    bgGradient:
+                      "from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20",
+                    tips: [
+                      "明确的行动指引",
+                      "多种解决路径",
+                      "联系方式",
+                      "返回选项",
+                    ],
+                  },
+                  {
+                    title: "保持品牌一致性",
+                    icon: "🎨",
+                    description: "错误页面应该与网站整体设计风格保持一致",
+                    gradient: "from-yellow-500 to-amber-500",
+                    bgGradient:
+                      "from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20",
+                    tips: [
+                      "统一的色彩方案",
+                      "一致的字体",
+                      "相同的导航",
+                      "品牌元素",
+                    ],
+                  },
+                  {
+                    title: "添加人性化元素",
+                    icon: "😊",
+                    description: "使用插图、动画或幽默来缓解用户的挫败感",
+                    gradient: "from-amber-500 to-orange-500",
+                    bgGradient:
+                      "from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20",
+                    tips: ["有趣的插图", "适度的幽默", "表情符号", "动画效果"],
+                  },
+                  {
+                    title: "提供导航选项",
+                    icon: "🧭",
+                    description: "帮助用户快速找到他们想要的内容",
+                    gradient: "from-orange-500 to-red-500",
+                    bgGradient:
+                      "from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20",
+                    tips: ["返回首页", "热门页面", "搜索功能", "网站地图"],
+                  },
+                  {
+                    title: "监控和改进",
+                    icon: "📊",
+                    description: "跟踪错误页面的表现并持续优化",
+                    gradient: "from-red-500 to-pink-500",
+                    bgGradient:
+                      "from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20",
+                    tips: ["错误统计", "用户反馈", "A/B测试", "定期更新"],
+                  },
+                ].map((guide, index) => (
+                  <div
+                    key={guide.title}
+                    className={`group relative p-8 bg-gradient-to-br ${guide.bgGradient} rounded-3xl border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2`}
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <div className="space-y-6">
+                      <div
+                        className={`w-16 h-16 bg-gradient-to-r ${guide.gradient} rounded-2xl flex items-center justify-center text-3xl shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                      >
+                        {guide.icon}
+                      </div>
+                      <div className="space-y-3">
+                        <h3
+                          className={`text-2xl font-bold text-transparent bg-gradient-to-r ${guide.gradient} bg-clip-text`}
+                        >
+                          {guide.title}
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                          {guide.description}
+                        </p>
+                      </div>
+                      <div className="space-y-2">
+                        {guide.tips.map((tip, tipIndex) => (
+                          <div
+                            key={tipIndex}
+                            className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400"
+                          >
+                            <div
+                              className={`w-2 h-2 bg-gradient-to-r ${guide.gradient} rounded-full`}
+                            >
+                            </div>
+                            <span>{tip}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-r ${guide.gradient} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-500`}
+                    >
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* 状态码展示 */}
+          <section
+            id="status-codes"
+            className="relative py-24 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900"
+          >
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="text-center space-y-8 mb-16">
+                <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-100 to-orange-100 dark:from-red-900/30 dark:to-orange-900/30 rounded-full text-red-800 dark:text-red-200 font-semibold">
+                  <span className="text-xl">📋</span>
+                  <span>状态码展示</span>
+                </div>
+                <h2 className="text-5xl md:text-6xl font-black text-gray-900 dark:text-white">
+                  常见的{" "}
+                  <span className="text-transparent bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text">
+                    HTTP状态码
+                  </span>
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {statusCodes.map((status, index) => (
+                  <a
+                    key={status.code}
+                    href={`/status/${status.code}`}
+                    className="group block"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <div
+                      className={`relative p-8 ${status.bgColor} rounded-3xl border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2`}
+                    >
+                      <div className="space-y-6">
+                        <div className="flex items-center gap-4">
+                          <div
+                            className={`w-16 h-16 bg-gradient-to-r ${status.color} rounded-2xl flex items-center justify-center text-3xl shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                          >
+                            {status.icon}
+                          </div>
+                          <div>
+                            <div
+                              className={`text-3xl font-black ${status.textColor}`}
+                            >
+                              {status.code}
+                            </div>
+                            <div className="text-sm text-gray-500 dark:text-gray-400">
+                              {status.category}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="space-y-3">
+                          <h3
+                            className={`text-2xl font-bold ${status.textColor}`}
+                          >
+                            {status.title}
+                          </h3>
+                          <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                            {status.description}
+                          </p>
+                        </div>
+
+                        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors">
+                          <span>查看演示页面</span>
+                          <svg
+                            className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 5l7 7-7 7"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        className={`absolute inset-0 bg-gradient-to-r ${status.color} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-500`}
+                      >
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </section>
         </div>
+
+        {/* 自定义样式 */}
+        <style jsx>
+          {`
+          @keyframes gradient-flow {
+            0%, 100% {
+              background-position: 0% 50%;
+            }
+            50% {
+              background-position: 100% 50%;
+            }
+          }
+        `}
+        </style>
       </Layout>
     </>
   );

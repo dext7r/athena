@@ -8,84 +8,177 @@ export default function FooterInteractive(
   { className = "" }: FooterInteractiveProps,
 ) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const handleToggle = () => {
-    console.log("Footer toggle clicked, current state:", isExpanded);
+    if (isAnimating) return; // 防止动画期间重复点击
+
+    setIsAnimating(true);
     setIsExpanded(!isExpanded);
+
+    // 动画完成后重置状态
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 500);
+  };
+
+  // 键盘导航支持
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleToggle();
+    }
   };
 
   return (
     <footer
-      className={`relative bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950/20 border-t border-gray-200/60 dark:border-gray-700/60 overflow-hidden ${className}`}
+      className={`
+        relative overflow-hidden 
+        glass backdrop-blur-xl
+        bg-gradient-to-br from-white/95 via-neutral-50/80 to-white/95
+        dark:from-neutral-900/95 dark:via-neutral-800/80 dark:to-neutral-900/95
+        border-t border-neutral-200/60 dark:border-neutral-700/60
+        shadow-glass hover:shadow-glow-lg
+        transition-all duration-500 ease-out
+        ${className}
+      `}
     >
-      {/* 高级背景效果 */}
-      <div className="absolute inset-0">
-        {/* 主渐变背景 */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/40 via-indigo-50/30 to-purple-50/40 dark:from-blue-950/30 dark:via-indigo-950/20 dark:to-purple-950/30">
+      {/* 动态背景装饰 */}
+      <div className="absolute inset-0 opacity-40">
+        {/* 顶部装饰线 */}
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-500/50 to-transparent animate-gradient-flow">
         </div>
 
-        {/* 玻璃态效果 */}
-        <div className="absolute inset-0 backdrop-blur-[1px] bg-white/10 dark:bg-black/10">
-        </div>
-
-        {/* 顶部装饰线 - 彩虹渐变 */}
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/60 via-purple-500/60 via-pink-500/60 to-transparent dark:via-blue-400/40 dark:via-purple-400/40 dark:via-pink-400/40">
-        </div>
-
-        {/* 动态光效 */}
-        <div className="absolute top-1/4 left-1/4 w-48 h-48 bg-gradient-to-r from-blue-400/10 to-purple-400/10 dark:from-blue-500/5 dark:to-purple-500/5 rounded-full blur-3xl animate-pulse">
-        </div>
-        <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-purple-400/10 to-pink-400/10 dark:from-purple-500/5 dark:to-pink-500/5 rounded-full blur-2xl animate-pulse delay-1000">
-        </div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-r from-indigo-400/8 to-blue-400/8 dark:from-indigo-500/4 dark:to-blue-500/4 rounded-full blur-xl animate-pulse delay-500">
+        {/* 网格背景 */}
+        <div className="absolute inset-0 particle-bg opacity-20">
         </div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 浮动装饰元素 */}
+      <div className="absolute top-4 left-1/4 w-2 h-2 bg-primary-400/30 rounded-full animate-float">
+      </div>
+      <div className="absolute top-8 right-1/3 w-1.5 h-1.5 bg-secondary-400/40 rounded-full animate-float-delayed">
+      </div>
+      <div className="absolute bottom-6 left-2/3 w-1 h-1 bg-accent-400/50 rounded-full animate-float-small">
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* 紧凑模式：默认显示的品牌介绍区域 */}
         <div
-          className={`transition-all duration-500 ${
-            isExpanded ? "py-8 md:py-12" : "py-4 md:py-6"
+          className={`transition-all duration-700 ease-out ${
+            isExpanded ? "py-10 md:py-16" : "py-6 md:py-8"
           }`}
         >
           {/* 品牌介绍区域 - 始终显示 */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+            <div
+              className="flex items-center gap-6 cursor-pointer group/brand hover:bg-white/40 dark:hover:bg-gray-800/40 rounded-xl p-3 -m-3 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/5 dark:hover:shadow-blue-400/5"
+              onClick={handleToggle}
+              onKeyDown={handleKeyDown}
+              tabIndex={0}
+              role="button"
+              aria-expanded={isExpanded}
+              aria-label={isExpanded
+                ? "收起Footer详细信息"
+                : "展开Footer详细信息"}
+            >
               <div className="relative group">
                 <button
                   onClick={handleToggle}
-                  className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-600 rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/35 transition-all duration-300 hover:scale-105 group cursor-pointer"
+                  onKeyDown={handleKeyDown}
+                  disabled={isAnimating}
+                  className={`
+                    w-14 h-14 md:w-16 md:h-16 
+                    ${
+                    isExpanded
+                      ? "bg-gradient-to-br from-success-500 via-success-600 to-accent-600"
+                      : "bg-gradient-to-br from-primary-500 via-primary-600 to-secondary-600"
+                  }
+                    rounded-2xl md:rounded-3xl flex items-center justify-center 
+                    shadow-colored hover:shadow-glow-lg
+                    ${
+                    isExpanded
+                      ? "shadow-success-500/30"
+                      : "shadow-primary-500/30"
+                  }
+                    hover:scale-110 active:scale-95
+                    transition-all duration-500 ease-out
+                    btn-animate magnetic-element cursor-none
+                    group focus:outline-none focus:ring-2 focus:ring-primary-500/30
+                    relative overflow-hidden
+                    ${isAnimating ? "pointer-events-none opacity-90" : ""}
+                  `}
                   title={isExpanded ? "收起详细信息" : "展开详细信息"}
+                  aria-expanded={isExpanded}
+                  aria-label={isExpanded
+                    ? "收起Footer详细信息"
+                    : "展开Footer详细信息"}
                 >
-                  <span className="text-white font-bold text-lg md:text-xl">
+                  {/* 背景动画效果 */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl md:rounded-3xl">
+                  </div>
+
+                  <span
+                    className={`text-white font-bold text-xl md:text-2xl transition-all duration-500 relative z-10 ${
+                      isAnimating ? "animate-pulse scale-110" : ""
+                    }`}
+                    style={{ textShadow: "0 2px 8px rgba(0,0,0,0.3)" }}
+                  >
                     A
                   </span>
-                  {/* 展开/收起指示器 */}
-                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-md">
+
+                  {/* 展开/收起指示器 - 重新设计 */}
+                  <div
+                    className={`absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full flex items-center justify-center shadow-lg transition-all duration-500 border-2 border-white/50 dark:border-gray-600/50 ${
+                      isExpanded
+                        ? "bg-gradient-to-br from-emerald-100 to-green-200 dark:from-emerald-900 dark:to-green-800"
+                        : "bg-gradient-to-br from-white to-gray-100 dark:from-gray-700 dark:to-gray-800"
+                    }`}
+                  >
                     <svg
-                      className={`w-3 h-3 text-gray-600 dark:text-gray-400 transition-transform duration-300 ${
-                        isExpanded ? "rotate-180" : ""
-                      }`}
+                      className={`w-3.5 h-3.5 transition-all duration-700 ${
+                        isExpanded
+                          ? "rotate-180 text-emerald-600 dark:text-emerald-400 scale-110"
+                          : "text-gray-600 dark:text-gray-400"
+                      } ${isAnimating ? "animate-spin" : ""}`}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
+                      strokeWidth={2.5}
                     >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        strokeWidth={2}
                         d="M19 9l-7 7-7-7"
                       />
                     </svg>
                   </div>
                 </button>
-                <div className="absolute -inset-1 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl md:rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity duration-300">
+
+                <div
+                  className={`absolute -inset-2 bg-gradient-to-br rounded-2xl md:rounded-3xl blur-lg transition-all duration-500 ${
+                    isExpanded
+                      ? "from-emerald-500/40 to-green-500/40 opacity-40 group-hover:opacity-60"
+                      : "from-blue-500/30 to-purple-500/30 opacity-25 group-hover:opacity-40"
+                  }`}
+                >
                 </div>
               </div>
               <div className="min-w-0">
-                <h3 className="text-lg md:text-xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                  Athena
-                </h3>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-lg md:text-xl font-display font-bold text-gradient-primary animate-text-gradient">
+                    Athena
+                  </h3>
+                  <span
+                    className={`text-xs px-2 py-1 rounded-full font-medium transition-all duration-300 ${
+                      isExpanded
+                        ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                        : "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400"
+                    }`}
+                  >
+                    {isExpanded ? "已展开" : "点击展开"}
+                  </span>
+                </div>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
                   现代化的 Fresh + Deno 开发模板
                 </p>
@@ -93,46 +186,54 @@ export default function FooterInteractive(
             </div>
 
             {/* 右侧快速链接 - 紧凑模式 */}
-            <div className="flex items-center gap-3">
-              <a
-                href="https://github.com/dext7r/athena.git"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-lg flex items-center justify-center text-gray-600 dark:text-gray-400 hover:from-gray-900 hover:to-gray-800 dark:hover:from-gray-200 dark:hover:to-gray-100 hover:text-white dark:hover:text-gray-900 transition-all duration-300 hover:scale-105"
-                title="GitHub"
-              >
-                <svg
-                  className="w-4 h-4"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://github.com/dext7r/athena.git"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-gradient-to-br from-slate-100 via-gray-100 to-slate-200 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 rounded-xl flex items-center justify-center text-gray-700 dark:text-gray-300 hover:from-gray-900 hover:via-gray-800 hover:to-gray-900 dark:hover:from-slate-200 dark:hover:via-gray-100 dark:hover:to-slate-200 hover:text-white dark:hover:text-gray-900 transition-all duration-400 hover:scale-110 hover:shadow-lg hover:shadow-gray-500/25 group"
+                  title="查看 GitHub 源码"
                 >
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                </svg>
-              </a>
-              <a
-                href="mailto:h7ml@qq.com"
-                className="w-8 h-8 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-800 dark:to-blue-700 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400 hover:from-blue-500 hover:to-blue-600 dark:hover:from-blue-400 dark:hover:to-blue-300 hover:text-white dark:hover:text-blue-900 transition-all duration-300 hover:scale-105"
-                title="Email"
-              >
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                  <svg
+                    className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  </svg>
+                </a>
+                <a
+                  href="mailto:h7ml@qq.com"
+                  className="w-10 h-10 bg-gradient-to-br from-blue-100 via-indigo-100 to-blue-200 dark:from-blue-900 dark:via-indigo-900 dark:to-blue-800 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 hover:from-blue-500 hover:via-indigo-500 hover:to-blue-600 dark:hover:from-blue-400 dark:hover:via-indigo-400 dark:hover:to-blue-300 hover:text-white dark:hover:text-blue-900 transition-all duration-400 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/25 group"
+                  title="发送邮件联系"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                  <svg
+                    className="w-5 h-5 transition-transform duration-300 group-hover:-rotate-12"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                     strokeWidth={2}
-                    d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
-              </a>
-              <div className="text-xs text-gray-500 dark:text-gray-500">
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                </a>
+              </div>
+
+              {/* 分隔线 */}
+              <div className="w-px h-6 bg-gradient-to-b from-transparent via-gray-300 to-transparent dark:via-gray-600">
+              </div>
+
+              {/* 版权信息 */}
+              <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
                 © 2025{" "}
                 <a
                   href="mailto:h7ml@qq.com"
-                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors font-semibold hover:underline decoration-2 underline-offset-2"
                 >
                   h7ml
                 </a>
@@ -143,9 +244,15 @@ export default function FooterInteractive(
 
         {/* 展开模式：完整的 Footer 内容 */}
         <div
-          className={`transition-all duration-500 overflow-hidden ${
-            isExpanded ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
+          className={`transition-all duration-700 ease-in-out overflow-hidden ${
+            isExpanded
+              ? "max-h-[2000px] opacity-100 translate-y-0"
+              : "max-h-0 opacity-0 -translate-y-4"
           }`}
+          style={{
+            transitionProperty: "max-height, opacity, transform",
+            transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
         >
           <div className="border-t border-gray-200/60 dark:border-gray-700/60 pt-8">
             {/* 移动端：优化的紧凑布局 */}
