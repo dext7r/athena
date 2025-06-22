@@ -1,19 +1,16 @@
 /**
- * GitHub OAuth 回调路由
+ * 通用 OAuth 回调路由
  * GET /api/auth/callback
+ * 支持多个 OAuth 提供商
  */
 
-import { HandlerContext } from "$fresh/server.ts";
-import {
-  exchangeCodeForToken,
-  fetchGitHubUser,
-  transformGitHubUser,
-} from "@utils/auth.ts";
+import type { OAuthProvider } from "@utils/auth.ts";
 import { createAuthCookie, generateJWT } from "@utils/jwt.ts";
+import { OAuthProviderFactory } from "@utils/oauth-providers.ts";
 import { createSession } from "@utils/session.ts";
 
 export const handler = {
-  async GET(req: Request, _ctx: HandlerContext): Promise<Response> {
+  async GET(req: Request): Promise<Response> {
     try {
       const url = new URL(req.url);
       const code = url.searchParams.get("code");
@@ -48,6 +45,7 @@ export const handler = {
       // 验证状态参数（防止 CSRF 攻击）
       const cookies = parseCookies(req.headers.get("Cookie") || "");
       const storedState = cookies.oauth_state;
+      const provider = cookies.oauth_provider as OAuthProvider;
       const redirectTo = decodeURIComponent(cookies.oauth_redirect || "/");
 
       if (!storedState || storedState !== state) {
@@ -60,17 +58,33 @@ export const handler = {
         });
       }
 
+      if (!provider) {
+        console.error("Missing OAuth provider information");
+        return new Response(null, {
+          status: 302,
+          headers: {
+            "Location": "/?error=missing_provider",
+          },
+        });
+      }
+
+      // 获取 OAuth 提供商实例
+      const oauthProvider = OAuthProviderFactory.getProvider(provider);
+
       // 使用授权码获取访问令牌
-      const accessToken = await exchangeCodeForToken(code);
+      const accessToken = await oauthProvider.exchangeCodeForToken(code);
 
       // 使用访问令牌获取用户信息
-      const githubUser = await fetchGitHubUser(accessToken);
+      const oauthUser = await oauthProvider.fetchUser(accessToken);
 
       // 转换为应用用户格式
-      const appUser = transformGitHubUser(githubUser);
+      const appUser = oauthProvider.transformUser(oauthUser);
 
-      // 创建会话
-      const session = createSession(appUser.id, req);
+      // 创建会话（将字符串ID转换为数字，如果无法转换则使用哈希）
+      const numericUserId = isNaN(Number(appUser.id))
+        ? Math.abs(hashCode(appUser.id))
+        : Number(appUser.id);
+      const session = createSession(numericUserId, req);
 
       // 生成 JWT 令牌（包含会话ID）
       const jwt = await generateJWT(appUser, session.id);
@@ -95,9 +109,13 @@ export const handler = {
         "Set-Cookie",
         "oauth_redirect=; Max-Age=0; Path=/; HttpOnly; SameSite=lax",
       );
+      response.headers.append(
+        "Set-Cookie",
+        "oauth_provider=; Max-Age=0; Path=/; HttpOnly; SameSite=lax",
+      );
       return response;
     } catch (error) {
-      console.error("GitHub OAuth callback error:", error);
+      console.error("OAuth callback error:", error);
 
       // 根据错误类型返回不同的错误信息
       let errorMessage = "authentication_failed";
@@ -135,4 +153,17 @@ function parseCookies(cookieHeader: string): Record<string, string> {
   });
 
   return cookies;
+}
+
+/**
+ * 简单的字符串哈希函数
+ */
+function hashCode(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // 转换为32位整数
+  }
+  return hash;
 }
