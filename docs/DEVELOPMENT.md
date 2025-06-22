@@ -446,7 +446,7 @@ test/
 
 ```typescript
 // 工具函数测试
-import { assertEquals } from "jsr:@std/assert@1";
+import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts";
 import { formatDate } from "@utils/date.ts";
 
 Deno.test("formatDate 函数测试", () => {
