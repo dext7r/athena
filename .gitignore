@@ -12,4 +12,3 @@ node_modules/
 
 # coverage
 coverage/
-!coverage/index.html

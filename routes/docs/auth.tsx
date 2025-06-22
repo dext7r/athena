@@ -618,7 +618,7 @@ Authorization: Bearer your_jwt_token`}
                 <div className="bg-gray-900 dark:bg-gray-700 rounded-lg p-4 overflow-x-auto">
                   <pre className="text-green-400 text-sm">
 {`// routes/protected-page.tsx
-import { FreshContext, PageProps } from "$fresh/server.ts";
+import { FreshContext } from "fresh";
 import { getAuthContext } from "@utils/middleware.ts";
 import type { AppUser } from "@utils/auth.ts";
 
@@ -627,7 +627,8 @@ interface ProtectedPageProps {
 }
 
 export const handler = {
-  async GET(req: Request, ctx: FreshContext) {
+  async GET(ctx: FreshContext): Promise<Response> {
+    const req = ctx.req;
     const authContext = await getAuthContext(req);
 
     if (!authContext.isAuthenticated) {
@@ -664,11 +665,12 @@ export default function ProtectedPage({ data }: PageProps<ProtectedPageProps>) {
                 <div className="bg-gray-900 dark:bg-gray-700 rounded-lg p-4 overflow-x-auto">
                   <pre className="text-green-400 text-sm">
 {`// routes/api/protected-endpoint.ts
-import { FreshContext } from "$fresh/server.ts";
+import { FreshContext } from "fresh";
 import { getAuthContext } from "@utils/middleware.ts";
 
 export const handler = {
-  async GET(req: Request, ctx: FreshContext): Promise<Response> {
+  async GET(ctx: FreshContext): Promise<Response> {
+    const req = ctx.req;
     const authContext = await getAuthContext(req);
 
     if (!authContext.isAuthenticated) {
