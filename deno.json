@@ -75,7 +75,7 @@
     "include": ["**/*.ts", "**/*.tsx"],
     "exclude": ["**/_fresh/*", "**/.git", "**/.vscode", "**/.github", "**/*.md"]
   },
-  "exclude": ["**/_fresh/*", "**/.git", "**/.vscode", "**/.github", "**/*.md"],
+  "exclude": ["**/_fresh/*", "**/.git/*", "**/.vscode/*", "**/.github/*", "**/*.md", "**/node_modules/*"],
   "fmt": {
     "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
     "exclude": ["**/_fresh/*", "**/*.md", "**/node_modules/*", "**/coverage/*"]

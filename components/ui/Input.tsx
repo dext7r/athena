@@ -21,6 +21,8 @@ interface InputProps
   clearable?: boolean;
   animate?: boolean;
   magnetic?: boolean;
+  value?: string;
+  placeholder?: string;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(({
