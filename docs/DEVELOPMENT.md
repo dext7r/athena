@@ -355,37 +355,49 @@ routes/api/
 
 ```typescript
 // 示例：用户 API
-import { Handlers } from "$fresh/server.ts";
+import { FreshContext } from "fresh";
 
-export const handler: Handlers = {
-  async GET(req, ctx) {
+export const handler = {
+  async GET(ctx: FreshContext): Promise<Response> {
     try {
       const users = await getUserList();
-      return Response.json({
+      return new Response(JSON.stringify({
         success: true,
         data: users,
+      }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
       });
     } catch (error) {
-      return Response.json({
+      return new Response(JSON.stringify({
         success: false,
         message: error.message,
-      }, { status: 500 });
+      }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
     }
   },
 
-  async POST(req, ctx) {
+  async POST(ctx: FreshContext): Promise<Response> {
     try {
-      const userData = await req.json();
+      const userData = await ctx.req.json();
       const user = await createUser(userData);
-      return Response.json({
+      return new Response(JSON.stringify({
         success: true,
         data: user,
-      }, { status: 201 });
+      }), {
+        status: 201,
+        headers: { "Content-Type": "application/json" },
+      });
     } catch (error) {
-      return Response.json({
+      return new Response(JSON.stringify({
         success: false,
         message: error.message,
-      }, { status: 400 });
+      }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
     }
   },
 };
@@ -434,7 +446,7 @@ test/
 
 ```typescript
 // 工具函数测试
-import { assertEquals } from "jsr:@std/assert@1";
+import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts";
 import { formatDate } from "@utils/date.ts";
 
 Deno.test("formatDate 函数测试", () => {

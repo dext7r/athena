@@ -1,29 +1,6 @@
-import { Head } from "$fresh/runtime.ts";
-
 export default function Error503() {
   return (
     <>
-      <Head>
-        <title>503 - 服务不可用 | Athena</title>
-        <meta
-          name="description"
-          content="503错误页面 - 服务器暂时过载或维护中无法处理请求，请稍后重试。"
-        />
-        <meta
-          name="keywords"
-          content="503错误, 服务不可用, 服务器维护, 系统过载, 暂时不可用"
-        />
-        <meta
-          property="og:title"
-          content="503 - 服务不可用 | Athena "
-        />
-        <meta
-          property="og:description"
-          content="503错误页面 - 服务器暂时过载或维护中无法处理请求，请稍后重试。"
-        />
-        <meta property="og:type" content="website" />
-        <meta name="robots" content="noindex, nofollow" />
-      </Head>
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         {/* 背景装饰 */}
         <div className="absolute inset-0 overflow-hidden">

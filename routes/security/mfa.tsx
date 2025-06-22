@@ -2,8 +2,7 @@
  * 多因素认证设置页面
  */
 
-import { Head } from "$fresh/runtime.ts";
-import { HandlerContext, PageProps } from "$fresh/server.ts";
+import { FreshContext, PageProps } from "fresh";
 import Layout from "@components/layout/Layout.tsx";
 import { getAuthContext } from "@utils/middleware.ts";
 import type { AppUser } from "@utils/auth.ts";
@@ -14,7 +13,8 @@ interface MFAPageProps {
 }
 
 export const handler = {
-  async GET(req: Request, ctx: HandlerContext) {
+  async GET(ctx: FreshContext) {
+    const req = ctx.req;
     const authContext = await getAuthContext(req);
 
     if (!authContext.isAuthenticated) {
@@ -27,20 +27,13 @@ export const handler = {
       });
     }
 
-    return ctx.render({ user: authContext.user });
+    return new Response(null, { status: 200 });
   },
 };
 
 export default function MFAPage({ data }: PageProps<MFAPageProps>) {
   return (
     <>
-      <Head>
-        <title>多因素认证设置 - Athena</title>
-        <meta
-          name="description"
-          content="设置和管理多因素认证，为您的账户添加额外的安全保护"
-        />
-      </Head>
       <Layout title="多因素认证">
         {/* 背景装饰 */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

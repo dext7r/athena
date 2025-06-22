@@ -2,19 +2,11 @@
  * 认证系统接入指南
  */
 
-import { Head } from "$fresh/runtime.ts";
 import Layout from "@components/layout/Layout.tsx";
 
 export default function AuthDocsPage() {
   return (
     <>
-      <Head>
-        <title>认证系统接入指南 - Athena</title>
-        <meta
-          name="description"
-          content="Athena 认证系统完整接入指南，包含OAuth配置、API使用、安全最佳实践"
-        />
-      </Head>
       <Layout title="认证系统接入指南" backToTopVariant="primary">
         <div className="max-w-6xl mx-auto">
           {/* 页面头部 */}
@@ -626,7 +618,7 @@ Authorization: Bearer your_jwt_token`}
                 <div className="bg-gray-900 dark:bg-gray-700 rounded-lg p-4 overflow-x-auto">
                   <pre className="text-green-400 text-sm">
 {`// routes/protected-page.tsx
-import { HandlerContext, PageProps } from "$fresh/server.ts";
+import { FreshContext } from "fresh";
 import { getAuthContext } from "@utils/middleware.ts";
 import type { AppUser } from "@utils/auth.ts";
 
@@ -635,7 +627,8 @@ interface ProtectedPageProps {
 }
 
 export const handler = {
-  async GET(req: Request, ctx: HandlerContext) {
+  async GET(ctx: FreshContext): Promise<Response> {
+    const req = ctx.req;
     const authContext = await getAuthContext(req);
 
     if (!authContext.isAuthenticated) {
@@ -649,7 +642,7 @@ export const handler = {
       });
     }
 
-    return ctx.render({ user: authContext.user });
+    return new Response(null, { status: 200 });
   },
 };
 
@@ -672,11 +665,12 @@ export default function ProtectedPage({ data }: PageProps<ProtectedPageProps>) {
                 <div className="bg-gray-900 dark:bg-gray-700 rounded-lg p-4 overflow-x-auto">
                   <pre className="text-green-400 text-sm">
 {`// routes/api/protected-endpoint.ts
-import { HandlerContext } from "$fresh/server.ts";
+import { FreshContext } from "fresh";
 import { getAuthContext } from "@utils/middleware.ts";
 
 export const handler = {
-  async GET(req: Request, ctx: HandlerContext): Promise<Response> {
+  async GET(ctx: FreshContext): Promise<Response> {
+    const req = ctx.req;
     const authContext = await getAuthContext(req);
 
     if (!authContext.isAuthenticated) {

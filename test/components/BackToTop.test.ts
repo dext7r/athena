@@ -1,4 +1,8 @@
-import { assertEquals, assertExists, assertNotEquals } from "jsr:@std/assert@1";
+import {
+  assertEquals,
+  assertExists,
+  assertNotEquals,
+} from "https://deno.land/std@0.208.0/assert/mod.ts";
 
 /**
  * BackToTop 组件测试套件

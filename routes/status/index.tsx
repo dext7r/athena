@@ -1,4 +1,3 @@
-import { Head } from "$fresh/runtime.ts";
 import Layout from "@components/layout/Layout.tsx";
 
 export default function StatusCodesPage() {
@@ -67,23 +66,6 @@ export default function StatusCodesPage() {
 
   return (
     <>
-      <Head>
-        <title>HTTP状态码演示 - Athena</title>
-        <meta
-          name="description"
-          content="展示常见的HTTP错误状态码页面设计，包括401、403、404、500、502、503等状态码的用户友好页面。"
-        />
-        <meta
-          name="keywords"
-          content="HTTP状态码, 错误页面, 401, 403, 404, 500, 502, 503, 用户体验"
-        />
-        <meta property="og:title" content="HTTP状态码演示 - Athena " />
-        <meta
-          property="og:description"
-          content="展示常见的HTTP错误状态码页面设计，包括401、403、404、500、502、503等状态码的用户友好页面。"
-        />
-        <meta property="og:type" content="website" />
-      </Head>
       <Layout title="HTTP状态码演示">
         <div className="space-y-32">
           {/* Hero区域 - 全新设计 */}

@@ -3,14 +3,16 @@
  * 处理多因素认证的验证
  */
 
-import { HandlerContext } from "$fresh/server.ts";
+import { FreshContext } from "fresh";
 import { getAuthContext, validateUserId } from "@utils/middleware.ts";
 import { type MFASettings, verifyBackupCode, verifyTOTP } from "@utils/mfa.ts";
 import { getMFASettings, setMFASettings } from "@utils/mfa-store.ts";
 
 export const handler = {
   // 验证MFA代码并启用MFA
-  async POST(req: Request, ctx: HandlerContext): Promise<Response> {
+  async POST(ctx: FreshContext): Promise<Response> {
+    const req = ctx.req;
+
     try {
       const authContext = await getAuthContext(req);
 
@@ -99,7 +101,9 @@ export const handler = {
   },
 
   // 验证已启用的MFA（用于登录时验证）
-  async PUT(req: Request, ctx: HandlerContext): Promise<Response> {
+  async PUT(ctx: FreshContext): Promise<Response> {
+    const req = ctx.req;
+
     try {
       const authContext = await getAuthContext(req);
 

@@ -8,9 +8,12 @@ import type { OAuthProvider } from "@utils/auth.ts";
 import { createAuthCookie, generateJWT } from "@utils/jwt.ts";
 import { OAuthProviderFactory } from "@utils/oauth-providers.ts";
 import { createSession } from "@utils/session.ts";
+import { FreshContext } from "fresh";
 
 export const handler = {
-  async GET(req: Request): Promise<Response> {
+  async GET(ctx: FreshContext): Promise<Response> {
+    const req = ctx.req;
+
     try {
       const url = new URL(req.url);
       const code = url.searchParams.get("code");

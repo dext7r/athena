@@ -3,7 +3,7 @@
  * 用于保护需要认证的路由
  */
 
-import { HandlerContext } from "$fresh/server.ts";
+import { FreshContext } from "fresh";
 import type { AppUser } from "./auth.ts";
 import {
   extractTokenFromRequest,
@@ -20,8 +20,8 @@ export interface AuthContext {
   isAdmin?: boolean;
 }
 
-// 扩展 HandlerContext 类型
-interface MiddlewareHandlerContext extends HandlerContext {
+// 扩展 FreshContext 类型
+interface MiddlewareHandlerContext extends FreshContext {
   state: {
     auth?: AuthContext;
   };
@@ -33,15 +33,14 @@ interface MiddlewareHandlerContext extends HandlerContext {
  */
 export function requireAuth(redirectTo = "/") {
   return async function authMiddleware(
-    req: Request,
     ctx: MiddlewareHandlerContext,
   ): Promise<Response> {
-    const authContext = await getAuthContext(req);
+    const authContext = await getAuthContext(ctx.req);
 
     if (!authContext.isAuthenticated) {
       // 未登录，重定向到登录页面
       const loginUrl = `/api/auth/github?redirect=${
-        encodeURIComponent(req.url)
+        encodeURIComponent(ctx.req.url)
       }`;
       return new Response(null, {
         status: 302,
@@ -52,8 +51,8 @@ export function requireAuth(redirectTo = "/") {
     // 已登录，将用户信息添加到上下文中
     ctx.state.auth = authContext;
 
-    // 继续处理请求
-    return await ctx.next();
+    // 继续处理请求 - Fresh V2 中需要返回 ctx.next() 的结果
+    return ctx.next();
   };
 }
 
@@ -63,16 +62,15 @@ export function requireAuth(redirectTo = "/") {
  */
 export function optionalAuth() {
   return async function optionalAuthMiddleware(
-    req: Request,
     ctx: MiddlewareHandlerContext,
   ): Promise<Response> {
-    const authContext = await getAuthContext(req);
+    const authContext = await getAuthContext(ctx.req);
 
     // 将认证信息添加到上下文中（无论是否登录）
     ctx.state.auth = authContext;
 
     // 继续处理请求
-    return await ctx.next();
+    return ctx.next();
   };
 }
 
@@ -82,15 +80,14 @@ export function optionalAuth() {
  */
 export function requireAdmin(adminUsers: string[] = []) {
   return async function adminMiddleware(
-    req: Request,
     ctx: MiddlewareHandlerContext,
   ): Promise<Response> {
-    const authContext = await getAuthContext(req);
+    const authContext = await getAuthContext(ctx.req);
 
     if (!authContext.isAuthenticated || !authContext.user) {
       // 未登录，重定向到登录页面
       const loginUrl = `/api/auth/github?redirect=${
-        encodeURIComponent(req.url)
+        encodeURIComponent(ctx.req.url)
       }`;
       return new Response(null, {
         status: 302,
@@ -117,7 +114,7 @@ export function requireAdmin(adminUsers: string[] = []) {
     ctx.state.auth = { ...authContext, isAdmin: true };
 
     // 继续处理请求
-    return await ctx.next();
+    return ctx.next();
   };
 }
 
@@ -127,10 +124,9 @@ export function requireAdmin(adminUsers: string[] = []) {
  */
 export function requireApiAuth() {
   return async function apiAuthMiddleware(
-    req: Request,
     ctx: MiddlewareHandlerContext,
   ): Promise<Response> {
-    const authContext = await getAuthContext(req);
+    const authContext = await getAuthContext(ctx.req);
 
     if (!authContext.isAuthenticated) {
       return new Response(
@@ -149,7 +145,7 @@ export function requireApiAuth() {
     ctx.state.auth = authContext;
 
     // 继续处理请求
-    return await ctx.next();
+    return ctx.next();
   };
 }
 

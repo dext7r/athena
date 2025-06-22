@@ -2,6 +2,29 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
+import * as $AccountLockManager from "./islands/AccountLockManager.tsx";
+import * as $AuditLogViewer from "./islands/AuditLogViewer.tsx";
+import * as $AuthMenu from "./islands/AuthMenu.tsx";
+import * as $BackToTop from "./islands/BackToTop.tsx";
+import * as $CodeBlock from "./islands/CodeBlock.tsx";
+import * as $ComponentsDemo from "./islands/ComponentsDemo.tsx";
+import * as $CookiePreferences from "./islands/CookiePreferences.tsx";
+import * as $CopyButton from "./islands/CopyButton.tsx";
+import * as $Counter from "./islands/Counter.tsx";
+import * as $CounterDemo from "./islands/CounterDemo.tsx";
+import * as $CustomCursor from "./islands/CustomCursor.tsx";
+import * as $FooterInteractive from "./islands/FooterInteractive.tsx";
+import * as $HeaderNavigation from "./islands/HeaderNavigation.tsx";
+import * as $HooksDemo from "./islands/HooksDemo.tsx";
+import * as $LayoutManager from "./islands/LayoutManager.tsx";
+import * as $MFASetup from "./islands/MFASetup.tsx";
+import * as $NavigationState from "./islands/NavigationState.tsx";
+import * as $SessionManager from "./islands/SessionManager.tsx";
+import * as $SidebarNavigation from "./islands/SidebarNavigation.tsx";
+import * as $SimpleStateDemo from "./islands/SimpleStateDemo.tsx";
+import * as $StateDemo from "./islands/StateDemo.tsx";
+import * as $StatusDropdown from "./islands/StatusDropdown.tsx";
+import * as $ThemeToggle from "./islands/ThemeToggle.tsx";
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $about from "./routes/about.tsx";
@@ -40,31 +63,6 @@ import * as $status_500 from "./routes/status/500.tsx";
 import * as $status_502 from "./routes/status/502.tsx";
 import * as $status_503 from "./routes/status/503.tsx";
 import * as $status_index from "./routes/status/index.tsx";
-import * as $AccountLockManager from "./islands/AccountLockManager.tsx";
-import * as $AuditLogViewer from "./islands/AuditLogViewer.tsx";
-import * as $AuthMenu from "./islands/AuthMenu.tsx";
-import * as $BackToTop from "./islands/BackToTop.tsx";
-import * as $CodeBlock from "./islands/CodeBlock.tsx";
-import * as $ComponentsDemo from "./islands/ComponentsDemo.tsx";
-import * as $CookiePreferences from "./islands/CookiePreferences.tsx";
-import * as $CopyButton from "./islands/CopyButton.tsx";
-import * as $Counter from "./islands/Counter.tsx";
-import * as $CounterDemo from "./islands/CounterDemo.tsx";
-import * as $CustomCursor from "./islands/CustomCursor.tsx";
-import * as $FooterInteractive from "./islands/FooterInteractive.tsx";
-import * as $HeaderNavigation from "./islands/HeaderNavigation.tsx";
-import * as $HooksDemo from "./islands/HooksDemo.tsx";
-import * as $LayoutManager from "./islands/LayoutManager.tsx";
-import * as $MFASetup from "./islands/MFASetup.tsx";
-import * as $NavigationState from "./islands/NavigationState.tsx";
-import * as $SessionManager from "./islands/SessionManager.tsx";
-import * as $SidebarNavigation from "./islands/SidebarNavigation.tsx";
-import * as $SimpleStateDemo from "./islands/SimpleStateDemo.tsx";
-import * as $StateDemo from "./islands/StateDemo.tsx";
-import * as $StatusDropdown from "./islands/StatusDropdown.tsx";
-import * as $ThemeToggle from "./islands/ThemeToggle.tsx";
-import type { Manifest } from "$fresh/server.ts";
-
 const manifest = {
   routes: {
     "./routes/_404.tsx": $_404,
@@ -132,6 +130,6 @@ const manifest = {
     "./islands/ThemeToggle.tsx": $ThemeToggle,
   },
   baseUrl: import.meta.url,
-} satisfies Manifest;
+};
 
 export default manifest;

@@ -4,12 +4,14 @@
  * 支持 github, google, microsoft, gitee
  */
 
-import { HandlerContext } from "$fresh/server.ts";
+import { FreshContext } from "fresh";
 import type { OAuthProvider } from "@utils/auth.ts";
 import { OAuthProviderFactory } from "@utils/oauth-providers.ts";
 
 export const handler = {
-  GET(req: Request, ctx: HandlerContext): Response {
+  GET(ctx: FreshContext): Response {
+    const req = ctx.req;
+
     try {
       // 获取提供商名称
       const provider = ctx.params.provider as OAuthProvider;

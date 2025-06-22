@@ -1,29 +1,6 @@
-import { Head } from "$fresh/runtime.ts";
-
 export default function Error401() {
   return (
     <>
-      <Head>
-        <title>401 - 未授权访问 | Athena</title>
-        <meta
-          name="description"
-          content="401错误页面 - 您没有权限访问此资源，请登录后重试或联系管理员获取权限。"
-        />
-        <meta
-          name="keywords"
-          content="401错误, 未授权访问, 权限不足, 登录, 访问被拒绝"
-        />
-        <meta
-          property="og:title"
-          content="401 - 未授权访问 | Athena "
-        />
-        <meta
-          property="og:description"
-          content="401错误页面 - 您没有权限访问此资源，请登录后重试或联系管理员获取权限。"
-        />
-        <meta property="og:type" content="website" />
-        <meta name="robots" content="noindex, nofollow" />
-      </Head>
       <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         {/* 背景装饰 */}
         <div className="absolute inset-0 overflow-hidden">

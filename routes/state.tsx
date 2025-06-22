@@ -1,4 +1,3 @@
-import { Head } from "$fresh/runtime.ts";
 import Layout from "@components/layout/Layout.tsx";
 import CodeBlock from "@islands/CodeBlock.tsx";
 import SimpleStateDemo from "@islands/SimpleStateDemo.tsx";
@@ -6,23 +5,6 @@ import SimpleStateDemo from "@islands/SimpleStateDemo.tsx";
 export default function StatePage() {
   return (
     <>
-      <Head>
-        <title>状态管理演示 - Athena</title>
-        <meta
-          name="description"
-          content="展示React状态管理的基本使用方法，包括Zustand状态管理库的实际应用示例。"
-        />
-        <meta
-          name="keywords"
-          content="React状态管理, Zustand, 状态管理库, React状态, 状态持久化"
-        />
-        <meta property="og:title" content="状态管理演示 - Athena " />
-        <meta
-          property="og:description"
-          content="展示React状态管理的基本使用方法，包括Zustand状态管理库的实际应用示例。"
-        />
-        <meta property="og:type" content="website" />
-      </Head>
       <Layout title="状态管理演示">
         <div className="space-y-16 max-w-7xl mx-auto px-6">
           {/* 目录导航 */}

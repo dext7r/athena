@@ -3,15 +3,17 @@
  * GET /api/auth/me
  */
 
-import { HandlerContext } from "$fresh/server.ts";
 import {
   extractTokenFromRequest,
   userFromJWTPayload,
   verifyJWT,
 } from "@utils/jwt.ts";
+import { FreshContext } from "fresh";
 
 export const handler = {
-  async GET(req: Request, _ctx: HandlerContext): Promise<Response> {
+  async GET(_ctx: FreshContext): Promise<Response> {
+    const req = _ctx.req;
+
     try {
       // 从请求中提取 JWT 令牌
       const token = extractTokenFromRequest(req);

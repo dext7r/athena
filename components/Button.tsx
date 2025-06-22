@@ -1,7 +1,11 @@
+import { IS_BROWSER } from "fresh/runtime";
 import { JSX } from "preact";
-import { IS_BROWSER } from "$fresh/runtime.ts";
 
-export function Button(props: JSX.HTMLAttributes<HTMLButtonElement>) {
+interface ButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
+  disabled?: boolean;
+}
+
+export function Button(props: ButtonProps) {
   return (
     <button
       {...props}

@@ -1,29 +1,6 @@
-import { Head } from "$fresh/runtime.ts";
-
 export default function Error500() {
   return (
     <>
-      <Head>
-        <title>500 - 服务器错误 | Athena</title>
-        <meta
-          name="description"
-          content="500错误页面 - 服务器遇到意外情况无法完成请求，我们正在努力修复这个问题。"
-        />
-        <meta
-          name="keywords"
-          content="500错误, 服务器错误, 内部错误, 系统故障, 技术支持"
-        />
-        <meta
-          property="og:title"
-          content="500 - 服务器错误 | Athena "
-        />
-        <meta
-          property="og:description"
-          content="500错误页面 - 服务器遇到意外情况无法完成请求，我们正在努力修复这个问题。"
-        />
-        <meta property="og:type" content="website" />
-        <meta name="robots" content="noindex, nofollow" />
-      </Head>
       <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         {/* 背景装饰 */}
         <div className="absolute inset-0 overflow-hidden">

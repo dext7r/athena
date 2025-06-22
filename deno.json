@@ -1,7 +1,7 @@
 {
   "lock": false,
   "name": "athena",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "一个现代化的 React + Deno 全栈开发模板， 集成了 TailwindCSS + Sass + Zustand， 为您提供完整的项目基础架构。",
   "keywords": [
     "React",
@@ -27,13 +27,11 @@
     "type": "git",
     "url": "https://github.com/dext7r/athena.git"
   },
-  "bugs": {
-    "url": "https://github.com/dext7r/athena/issues"
-  },
+  "bugs": { "url": "https://github.com/dext7r/athena/issues" },
   "issues": "https://github.com/dext7r/athena/issues",
   "homepage": "https://athena.deno.dev",
   "tasks": {
-    "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
+    "check": "deno fmt --check && deno lint && deno check **/*.ts **/*.tsx",
     "cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run --unstable -A -",
     "manifest": "deno task cli manifest $(pwd)",
     "fmt": "deno fmt",
@@ -72,46 +70,20 @@
         "no-unused-vars",
         "prefer-const"
       ],
-      "tags": [
-        "fresh",
-        "recommended"
-      ]
+      "tags": ["fresh", "recommended"]
     },
-    "include": [
-      "**/*.ts",
-      "**/*.tsx"
-    ],
-    "exclude": [
-      "**/_fresh/*",
-      "**/.git",
-      "**/.vscode",
-      "**/.github",
-      "**/*.md"
-    ]
+    "include": ["**/*.ts", "**/*.tsx"],
+    "exclude": ["**/_fresh/*", "**/.git", "**/.vscode", "**/.github", "**/*.md"]
   },
-  "exclude": [
-    "**/_fresh/*",
-    "**/.git",
-    "**/.vscode",
-    "**/.github",
-    "**/*/.md"
-  ],
+  "exclude": ["**/_fresh/*", "**/.git/*", "**/.vscode/*", "**/.github/*", "**/*.md", "**/node_modules/*"],
   "fmt": {
-    "include": [
-      "src/",
-      "scripts/"
-    ],
-    "exclude": [
-      "**/_fresh/*",
-      "**/*/.md"
-    ]
+    "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+    "exclude": ["**/_fresh/*", "**/*.md", "**/node_modules/*", "**/coverage/*"]
   },
   "imports": {
-    "$fresh/": "https://deno.land/x/fresh@1.7.3/",
-    "preact": "https://esm.sh/preact@10.22.0",
-    "preact/": "https://esm.sh/preact@10.22.0/",
-    "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
-    "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
+    "@fresh/plugin-tailwind": "jsr:@fresh/plugin-tailwind@^0.0.1-alpha.7",
+    "preact": "npm:preact@^10.26.6",
+    "@preact/signals": "npm:@preact/signals@^2.0.4",
     "tailwindcss": "npm:tailwindcss@3.4.1",
     "tailwindcss/": "npm:/tailwindcss@3.4.1/",
     "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
@@ -131,18 +103,14 @@
     "@styles/": "./styles/",
     "@types/": "./types/",
     "@routes/": "./routes/",
-    "@static/": "./static/"
+    "@static/": "./static/",
+    "fresh": "jsr:@fresh/core@^2.0.0-alpha.34"
   },
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact"
-  },
+  "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
   "nodeModulesDir": "auto",
   "deploy": {
     "project": "f95080ed-9b8c-4d2f-ac7a-07bf7571416a",
-    "exclude": [
-      "**/node_modules"
-    ],
+    "exclude": ["**/node_modules"],
     "include": [],
     "entrypoint": "main.ts"
   }

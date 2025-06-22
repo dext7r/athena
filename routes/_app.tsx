@@ -1,4 +1,4 @@
-import { type PageProps } from "$fresh/server.ts";
+import { type PageProps } from "fresh";
 import CustomCursor from "../islands/CustomCursor.tsx";
 
 export default function App({ Component }: PageProps) {

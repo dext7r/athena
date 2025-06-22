@@ -3,8 +3,7 @@
  * 需要登录才能访问
  */
 
-import { Head } from "$fresh/runtime.ts";
-import { HandlerContext, PageProps } from "$fresh/server.ts";
+import { FreshContext, PageProps } from "fresh";
 import Layout from "@components/layout/Layout.tsx";
 import { getAuthContext } from "@utils/middleware.ts";
 import type { AppUser } from "@utils/auth.ts";
@@ -14,7 +13,8 @@ interface ProfilePageProps {
 }
 
 export const handler = {
-  async GET(req: Request, ctx: HandlerContext) {
+  async GET(ctx: FreshContext) {
+    const req = ctx.req;
     const authContext = await getAuthContext(req);
 
     if (!authContext.isAuthenticated) {
@@ -28,7 +28,7 @@ export const handler = {
       });
     }
 
-    return ctx.render({ user: authContext.user });
+    return new Response(null, { status: 200 });
   },
 };
 
@@ -52,13 +52,6 @@ export default function ProfilePage({ data }: PageProps<ProfilePageProps>) {
 
   return (
     <>
-      <Head>
-        <title>用户资料 - {user.name || user.username} - Athena</title>
-        <meta
-          name="description"
-          content={`${user.name || user.username} 的用户资料页面`}
-        />
-      </Head>
       <Layout title="用户资料">
         {/* 背景装饰 */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

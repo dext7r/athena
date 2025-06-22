@@ -2,21 +2,12 @@
  * 服务条款页面
  */
 
-import { Head } from "$fresh/runtime.ts";
 import Layout from "@components/layout/Layout.tsx";
 import LegalNavigation from "@components/legal/LegalNavigation.tsx";
 
 export default function TermsPage() {
   return (
     <>
-      <Head>
-        <title>服务条款 - Athena</title>
-        <meta
-          name="description"
-          content="Athena 服务条款 - 了解我们的服务使用条款和用户协议"
-        />
-        <meta name="robots" content="index, follow" />
-      </Head>
       <Layout
         title="服务条款"
         backToTopVariant="primary"

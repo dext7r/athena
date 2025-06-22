@@ -3,11 +3,13 @@
  * GET /api/auth/github
  */
 
-import { HandlerContext } from "$fresh/server.ts";
 import { generateGitHubAuthUrl, validateOAuthConfig } from "@utils/auth.ts";
+import { FreshContext } from "fresh";
 
 export const handler = {
-  GET(req: Request, _ctx: HandlerContext): Response {
+  GET(_ctx: FreshContext): Response {
+    const req = _ctx.req;
+
     try {
       // 验证 OAuth 配置
       const configValidation = validateOAuthConfig();

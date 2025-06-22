@@ -3,8 +3,7 @@
  * 安全功能导航中心
  */
 
-import { Head } from "$fresh/runtime.ts";
-import { HandlerContext, PageProps } from "$fresh/server.ts";
+import { FreshContext, PageProps } from "fresh";
 import Layout from "@components/layout/Layout.tsx";
 import type { AppUser } from "@utils/auth.ts";
 import { getAuthContext } from "@utils/middleware.ts";
@@ -14,7 +13,8 @@ interface SecurityIndexPageProps {
 }
 
 export const handler = {
-  async GET(req: Request, ctx: HandlerContext) {
+  async GET(ctx: FreshContext) {
+    const req = ctx.req;
     const authContext = await getAuthContext(req);
 
     if (!authContext.isAuthenticated) {
@@ -28,7 +28,7 @@ export const handler = {
       });
     }
 
-    return ctx.render({ user: authContext.user });
+    return new Response(null, { status: 200 });
   },
 };
 
@@ -39,13 +39,6 @@ export default function SecurityIndexPage(
 
   return (
     <>
-      <Head>
-        <title>安全设置 - Athena Template</title>
-        <meta
-          name="description"
-          content="管理您的账户安全设置，包括多因素认证、会话管理等"
-        />
-      </Head>
       <Layout title="安全设置">
         {/* 背景装饰 */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
