@@ -1,5 +1,6 @@
 #!/usr/bin/env -S deno run -A --watch=static/,routes/
 
+import { tailwind } from "@fresh/plugin-tailwind";
 import { initDevelopmentEnvironment } from "@utils/env.ts";
 import { Builder } from "fresh/dev";
 import { app } from "./main.ts";
@@ -10,8 +11,8 @@ await initDevelopmentEnvironment();
 // Pass development only configuration here
 const builder = new Builder({ target: "safari12" });
 
-// TODO: Configure Tailwind plugin for development
-// tailwind(builder, app, {});
+// Configure Tailwind plugin for development
+tailwind(builder, app, {});
 
 // Create optimized assets for the browser when
 // running `deno run -A dev.ts build`

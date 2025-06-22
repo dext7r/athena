@@ -81,8 +81,8 @@
     "exclude": ["**/_fresh/*", "**/*/.md"]
   },
   "imports": {
+    "@fresh/plugin-tailwind": "jsr:@fresh/plugin-tailwind@^0.0.1-alpha.7",
     "preact": "npm:preact@^10.26.6",
-    "preact/": "https://esm.sh/preact@10.22.0/",
     "@preact/signals": "npm:@preact/signals@^2.0.4",
     "tailwindcss": "npm:tailwindcss@3.4.1",
     "tailwindcss/": "npm:/tailwindcss@3.4.1/",
