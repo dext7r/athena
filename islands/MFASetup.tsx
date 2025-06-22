@@ -4,6 +4,7 @@
  */
 
 import { useEffect, useState } from "preact/hooks";
+import { useCopy } from "../hooks/useCopy.ts";
 
 interface MFAStatus {
   enabled: boolean;
@@ -33,7 +34,17 @@ export default function MFASetup() {
   );
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [copied, setCopied] = useState(false);
+
+  // 使用 useCopy hook 替代手动复制逻辑
+  const { copy, copied, error: copyError } = useCopy({
+    timeout: 2000,
+    onSuccess: () => {
+      setSuccess("密钥已复制到剪贴板");
+    },
+    onError: (err) => {
+      setError(`复制失败: ${err.message}`);
+    },
+  });
 
   // 加载MFA状态
   const loadMFAStatus = async () => {
@@ -172,15 +183,7 @@ export default function MFASetup() {
   // 复制密钥到剪贴板
   const copySecret = async () => {
     if (!setupData?.secret) return;
-
-    try {
-      await navigator.clipboard.writeText(setupData.secret);
-      setCopied(true);
-      setSuccess("密钥已复制到剪贴板");
-      setTimeout(() => setCopied(false), 2000);
-    } catch (error) {
-      setError("复制失败，请手动选择并复制密钥");
-    }
+    await copy(setupData.secret);
   };
 
   useEffect(() => {
