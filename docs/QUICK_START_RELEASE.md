@@ -22,7 +22,8 @@ deno task version:prerelease
 
 ### 🖱️ **方法2：GitHub Actions 手动触发**
 
-1. 访问 [GitHub Actions](https://github.com/dext7r/athena/actions/workflows/release.yml)
+1. 访问
+   [GitHub Actions](https://github.com/dext7r/athena/actions/workflows/release.yml)
 2. 点击 "Run workflow"
 3. 填写参数：
    - **Version**: `v1.0.0`
@@ -97,37 +98,48 @@ git describe --tags --abbrev=0
 
 发布完成后，请验证以下内容：
 
-1. **GitHub Releases**: [查看发布页面](https://github.com/dext7r/athena/releases)
-2. **Changelog**: 检查 [CHANGELOG.md](https://github.com/dext7r/athena/blob/main/CHANGELOG.md)
+1. **GitHub Releases**:
+   [查看发布页面](https://github.com/dext7r/athena/releases)
+2. **Changelog**: 检查
+   [CHANGELOG.md](https://github.com/dext7r/athena/blob/main/CHANGELOG.md)
 3. **徽章状态**: 确认 README.md 中的徽章更新
 4. **Actions 状态**: [查看构建状态](https://github.com/dext7r/athena/actions)
 
 ## 🚨 故障排除
 
 ### 问题1：权限错误
+
 ```bash
 Error: Permission denied (os error 13)
 ```
+
 **解决方案**：
+
 ```bash
 chmod +x scripts/version.ts
 ```
 
 ### 问题2：Git 状态不干净
+
 ```bash
 ❌ 工作目录有未提交的更改
 ```
+
 **解决方案**：
+
 ```bash
 git add .
 git commit -m "chore: 提交未保存的更改"
 ```
 
 ### 问题3：标签已存在
+
 ```bash
 ❌ Tag v1.0.0 already exists
 ```
+
 **解决方案**：
+
 ```bash
 git tag -d v1.0.0
 git push origin :refs/tags/v1.0.0
@@ -136,11 +148,13 @@ git push origin :refs/tags/v1.0.0
 ## 🎯 最佳实践
 
 ### 📅 发布频率
+
 - **修复版本**: 每周发布
 - **功能版本**: 每月发布
 - **主版本**: 按需发布
 
 ### 🔄 发布流程
+
 1. 开发 → 测试 → 代码审查
 2. 合并到 main 分支
 3. 运行发布命令
@@ -148,6 +162,7 @@ git push origin :refs/tags/v1.0.0
 5. 通知团队
 
 ### 📝 发布说明
+
 - 使用清晰的标题
 - 列出主要变更
 - 包含破坏性变更警告
@@ -166,6 +181,7 @@ git push origin :refs/tags/v1.0.0
 
 **🎉 现在您已经掌握了 Athena 项目的发布流程！**
 
-如有问题，请查看 [完整文档](./RELEASE.md) 或 [提交 Issue](https://github.com/dext7r/athena/issues)
+如有问题，请查看 [完整文档](./RELEASE.md) 或
+[提交 Issue](https://github.com/dext7r/athena/issues)
 
 </div>

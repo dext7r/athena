@@ -2,46 +2,40 @@
 
 # 🏛️ Athena
 
+**现代化的 Deno Fresh 全栈开发模板**
+
+_基于 Fresh 2.0 + TypeScript + TailwindCSS 构建的企业级 Web 应用模板_
+
+---
+
 <!-- 版本和技术栈徽章 -->
-<p align="center">
+<p>
   <img src="https://img.shields.io/github/v/release/dext7r/athena?style=flat&color=brightgreen&logo=github&label=Latest%20Release" alt="Latest Release">
   <img src="https://img.shields.io/github/release-date/dext7r/athena?style=flat&color=blue&logo=calendar&label=Release%20Date" alt="Release Date">
   <img src="https://img.shields.io/badge/Deno-2.0+-000000?style=flat&logo=deno&logoColor=white" alt="Deno">
-  <img src="https://img.shields.io/badge/Fresh-1.7.3-00D2FF?style=flat&logo=fresh&logoColor=white" alt="Fresh">
+  <img src="https://img.shields.io/badge/Fresh-2.0-00D2FF?style=flat&logo=fresh&logoColor=white" alt="Fresh">
   <img src="https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=flat&logo=typescript&logoColor=white" alt="TypeScript">
 </p>
 
-<p align="center">
+<!-- 构建状态和质量徽章 -->
+<p>
   <img src="https://github.com/dext7r/athena/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI Status">
   <img src="https://github.com/dext7r/athena/actions/workflows/test.yml/badge.svg?branch=main" alt="Test Status">
   <img src="https://github.com/dext7r/athena/actions/workflows/release.yml/badge.svg" alt="Release Status">
   <img src="https://codecov.io/gh/dext7r/athena/branch/main/graph/badge.svg" alt="Coverage">
-  <img src="https://img.shields.io/github/languages/top/dext7r/athena?style=flat&color=blue" alt="Top Language">
 </p>
 
-<p align="center">
+<!-- 社区和下载徽章 -->
+<p>
   <img src="https://img.shields.io/github/license/dext7r/athena?style=flat&color=green&logo=license" alt="License">
   <img src="https://img.shields.io/github/stars/dext7r/athena?style=flat&color=yellow&logo=star" alt="Stars">
   <img src="https://img.shields.io/github/forks/dext7r/athena?style=flat&color=blue&logo=fork" alt="Forks">
   <img src="https://img.shields.io/github/issues/dext7r/athena?style=flat&color=red&logo=github" alt="Issues">
-  <img src="https://img.shields.io/github/downloads/dext7r/athena/total?style=flat&color=purple&logo=download" alt="Downloads">
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/GitHub%20Pages-121013?style=flat&logo=github&logoColor=white" alt="GitHub Pages">
-  <img src="https://img.shields.io/website?url=https%3A//athena.deno.dev&style=flat&logo=vercel&label=Live%20Demo" alt="Live Demo">
-  <img src="https://img.shields.io/website?url=https%3A//dext7r.github.io/athena&label=Coverage%20Report&style=flat&logo=codecov" alt="Coverage Report">
-  <img src="https://img.shields.io/badge/Deno%20Deploy-Ready-00ADD8?style=flat&logo=deno" alt="Deno Deploy">
-</p>
-
-<p align="center">
-  <strong>一个现代化的 React + Deno 全栈开发模板</strong><br>
-  集成了 TailwindCSS + Sass + Zustand，为您提供完整的项目基础架构
-</p>
-
-<p align="center">
+<!-- 快速链接 -->
+<p>
   <a href="https://athena.deno.dev">🌐 在线演示</a> •
-  <a href="https://github.com/dext7r/athena">📦 GitHub</a> •
   <a href="https://github.com/dext7r/athena/releases">🚀 Releases</a> •
   <a href="https://athena.deno.dev/docs">📚 文档</a> •
   <a href="https://dext7r.github.io/athena/html/index.html">📊 测试报告</a> •
@@ -52,453 +46,228 @@
 
 ---
 
-## 👨‍💻 项目信息
+## ✨ 项目特色
 
-<table>
-<tr>
-<td><strong>👤 作者</strong></td>
-<td>h7ml &lt;<a href="mailto:h7ml@qq.com">h7ml@qq.com</a>&gt;</td>
-</tr>
-<tr>
-<td><strong>🔗 仓库</strong></td>
-<td><a href="https://github.com/dext7r/athena">github.com/dext7r/athena</a></td>
-</tr>
-<tr>
-<td><strong>🌐 主页</strong></td>
-<td><a href="https://athena.deno.dev">athena.deno.dev</a></td>
-</tr>
-<tr>
-<td><strong>📖 文档</strong></td>
-<td><a href="https://athena.deno.dev/docs">athena.deno.dev/docs</a></td>
-</tr>
-<tr>
-<td><strong>📊 测试报告</strong></td>
-<td><a href="https://dext7r.github.io/athena/html/index.html">测试覆盖率报告</a></td>
-</tr>
-</table>
+Athena 是一个现代化的全栈 Web 应用开发模板，基于 Deno Fresh 2.0
+构建，提供企业级的开发体验和最佳实践。
 
-## 🚀 技术栈
+### 🎯 **核心亮点**
 
-<div align="center">
+- 🚀 **现代技术栈** - Deno 2.0 + Fresh 2.0 + TypeScript 5.0+
+- ⚡ **极致性能** - Islands 架构 + SSR + 边缘计算优化
+- 🎨 **精美 UI** - TailwindCSS + 响应式设计 + 暗色主题
+- 🔐 **企业安全** - 多提供商 OAuth + JWT + MFA + 审计日志
+- 🧪 **质量保证** - 完整测试套件 + 自动化 CI/CD + 代码覆盖率
+- 📦 **开箱即用** - 丰富组件库 + Hooks + 状态管理 + 工具函数
 
-|                            🛠️ 技术                            |  📦 版本  | 📝 描述                  |
-| :-----------------------------------------------------------: | :-------: | :----------------------- |
-|             **[Fresh](https://fresh.deno.dev/)**              |  `1.7.3`  | 🌊 Deno 的现代 Web 框架  |
-|              **[Preact](https://preactjs.com/)**              | `10.22.0` | ⚛️ 轻量级 React 替代方案 |
-|          **[TailwindCSS](https://tailwindcss.com/)**          |  `3.4.1`  | 🎨 原子化 CSS 框架       |
-|              **[Sass](https://sass-lang.com/)**               | `1.69.5`  | 💅 CSS 预处理器          |
-|         **[Zustand](https://zustand-demo.pmnd.rs/)**          |  `4.4.7`  | 🐻 轻量级状态管理        |
-|       **[TypeScript](https://www.typescriptlang.org/)**       | `Latest`  | 🔷 类型安全的 JavaScript |
-| **[Preact Signals](https://preactjs.com/guide/v10/signals/)** |  `1.2.2`  | 📡 响应式状态管理        |
-|      **[Deno Standard Library](https://deno.land/std)**       | `0.216.0` | 📚 Deno 标准库           |
+<details>
+<summary>📋 <strong>完整特性列表</strong></summary>
 
-</div>
+### 🎨 **UI & 设计**
 
-## ✨ 特性亮点
-
-<div align="center">
-
-|                    🎨 UI 组件                     |                          🔧 开发工具                           |               🌙 用户体验                |           ⚡ 性能优化            |
-| :-----------------------------------------------: | :------------------------------------------------------------: | :--------------------------------------: | :------------------------------: |
-| **丰富的组件库**<br>Button、Card、Input、Modal 等 | **实用 Hooks 库**<br>useLocalStorage、useDebounce、useFetch 等 | **主题切换系统**<br>亮色、暗色、系统主题 | **Islands 架构**<br>最佳性能表现 |
-|        **响应式设计**<br>完美适配多端设备         |              **类型安全**<br>全面 TypeScript 支持              |    **状态持久化**<br>自动保存用户偏好    |  **SSR 兼容**<br>服务端渲染支持  |
-
-</div>
-
-### 🎯 核心特性
-
-<table>
-<tr>
-<td width="50%">
-
-**🎨 UI & 设计**
-
-- ✅ 丰富的 UI 组件库
 - ✅ 响应式设计系统
-- ✅ 主题切换支持
-- ✅ 玻璃态效果
-- ✅ 动画过渡效果
+- ✅ 暗色/亮色主题切换
+- ✅ 丰富的 UI 组件库
+- ✅ TailwindCSS + Sass 样式
+- ✅ 自定义图标系统
+- ✅ 动画和过渡效果
 
-</td>
-<td width="50%">
-
-**🔧 开发体验**
+### 🔧 **开发体验**
 
 - ✅ TypeScript 类型安全
 - ✅ 热重载开发服务器
 - ✅ 代码格式化和 Lint
 - ✅ 自动化 CI/CD
 - ✅ 完整的文档系统
+- ✅ 开发工具集成
 
-</td>
-</tr>
-<tr>
-<td>
-
-**⚡ 性能优化**
+### ⚡ **性能优化**
 
 - ✅ Islands 架构
 - ✅ 服务端渲染 (SSR)
-- ✅ 按需加载
-- ✅ 代码分割
-- ✅ 缓存优化
+- ✅ 静态资源优化
+- ✅ 代码分割和懒加载
+- ✅ 缓存策略
+- ✅ 边缘计算支持
 
-</td>
-<td>
+### 🛡️ **安全特性**
 
-**�️ 工具集成**
+- ✅ 多提供商 OAuth 认证
+- ✅ JWT 会话管理
+- ✅ 多因素认证 (MFA)
+- ✅ 账户锁定保护
+- ✅ 审计日志系统
+- ✅ 安全中间件
 
-- ✅ 实用 Hooks 库
-- ✅ 状态管理 (Zustand)
-- ✅ 样式系统 (TailwindCSS + Sass)
-- ✅ 部署支持 (Deno Deploy)
-- ✅ 安全最佳实践
+### 🧪 **测试 & 质量**
 
-</td>
-</tr>
-</table>
+- ✅ 单元测试 + 集成测试
+- ✅ 性能测试 + 基准测试
+- ✅ 代码覆盖率报告
+- ✅ 自动化测试流水线
+- ✅ 质量门禁
+- ✅ 持续集成
+
+### 🚀 **部署 & 运维**
+
+- ✅ 自动化发布流程
+- ✅ 版本管理工具
+- ✅ 环境配置管理
+- ✅ 监控和日志
+- ✅ 多平台部署支持
+- ✅ Docker 容器化
+
+</details>
+
+---
 
 ## 🚀 快速开始
 
-### 📋 前置要求
+### 📋 **环境要求**
 
-<div align="center">
+- [Deno](https://deno.land/) 2.0+
+- [Git](https://git-scm.com/)
+- [VS Code](https://code.visualstudio.com/) (推荐)
 
-![Deno](https://img.shields.io/badge/Deno-2.0+-000000?style=for-the-badge&logo=deno&logoColor=white)
-
-</div>
-
-确保您的系统已安装 [Deno](https://deno.land/) 2.0 或更高版本。
-
-### ⚡ 一键启动
+### ⚡ **一键启动**
 
 ```bash
-# 📥 克隆项目
+# 1. 克隆项目
 git clone https://github.com/dext7r/athena.git
 cd athena
 
-# 🚀 启动开发服务器
+# 2. 启动开发服务器
+deno task start
+
+# 🎉 打开浏览器访问 http://localhost:8000
+```
+
+<details>
+<summary>🔧 <strong>详细安装步骤</strong></summary>
+
+### 1. **克隆项目**
+
+```bash
+git clone https://github.com/dext7r/athena.git
+cd athena
+```
+
+### 2. **配置环境变量**
+
+```bash
+# 复制环境变量模板
+cp .env.example .env
+
+# 编辑 .env 文件，配置 OAuth 提供商（可选）
+# 至少需要配置一个 OAuth 提供商才能使用登录功能
+```
+
+### 3. **启动项目**
+
+```bash
+# 开发模式（推荐）
+deno task dev
+
+# 或生产模式
 deno task start
 ```
 
-<div align="center">
+### 4. **验证安装**
 
-🎉 **项目将在 [http://localhost:8000](http://localhost:8000) 启动**
+- 访问 http://localhost:8000
+- 查看控制台输出确认无错误
+- 尝试登录功能（需要配置 OAuth）
 
-</div>
+</details>
 
-### 🛠️ 可用命令
+---
 
-<div align="center">
-
-|       🎯 命令        | 📝 描述           | 🔧 用途                |
-| :------------------: | :---------------- | :--------------------- |
-|  `deno task start`   | 🔥 启动开发服务器 | 开发时使用，支持热重载 |
-|  `deno task build`   | 📦 构建生产版本   | 生产环境构建           |
-| `deno task preview`  | 👀 预览生产版本   | 本地预览生产构建       |
-|  `deno task check`   | ✅ 代码质量检查   | 格式化、Lint、类型检查 |
-| `deno task manifest` | 📋 生成清单文件   | Fresh 框架清单         |
-|  `deno task update`  | 🔄 更新框架       | 更新到最新版本         |
-
-</div>
-
-## 📖 使用指南
+## 📚 文档导航
 
 <div align="center">
 
-### 🎯 三步上手，轻松开发
-
-</div>
-
-<table>
-<tr>
-<td width="33%">
-
-#### 🎨 **1. 使用组件**
-
-```tsx
-import Button from "../components/ui/Button.tsx";
-import Card from "../components/ui/Card.tsx";
-
-function MyComponent() {
-  return (
-    <Card>
-      <Button variant="primary" size="lg">
-        点击我
-      </Button>
-    </Card>
-  );
-}
-```
-
-</td>
-<td width="33%">
-
-#### 🔧 **2. 自定义 Hooks**
-
-```tsx
-import { useDebounce, useLocalStorage } from "../hooks/index.ts";
-
-function MyComponent() {
-  const [value, setValue] = useLocalStorage(
-    "key",
-    "default",
-  );
-  const debouncedValue = useDebounce(
-    value,
-    500,
-  );
-
-  return <div>{debouncedValue}</div>;
-}
-```
-
-</td>
-<td width="33%">
-
-#### 💾 **3. 状态管理**
-
-```tsx
-import { useAppStore } from "../stores/useAppStore.ts";
-
-function MyComponent() {
-  const { isLoading, setLoading } = useAppStore();
-
-  return (
-    <button
-      onClick={() => setLoading(!isLoading)}
-    >
-      {isLoading ? "加载中..." : "开始加载"}
-    </button>
-  );
-}
-```
-
-</td>
-</tr>
-</table>
-
-## 🎨 样式系统
-
-<div align="center">
-
-### 💅 双重样式方案，灵活高效
-
-</div>
-
-<table>
-<tr>
-<td width="50%" align="center">
-
-### 🌊 TailwindCSS
-
-**原子化 CSS 框架**
-
-✅ 快速原型开发 ✅ 原子化样式类 ✅ 响应式设计 ✅ 暗色主题支持
-
-```html
-<div class="bg-blue-500 text-white p-4 rounded-lg">
-  快速样式
-</div>
-```
-
-</td>
-<td width="50%" align="center">
-
-### 🎯 Sass
-
-**CSS 预处理器**
-
-✅ 复杂样式逻辑 ✅ 主题变量管理 ✅ 组件特定样式 ✅ 嵌套和混入
-
-```scss
-.custom-component {
-  @include theme-colors;
-  &:hover {
-    transform: scale(1.05);
-  }
-}
-```
-
-</td>
-</tr>
-</table>
-
-## 📁 项目结构
-
-<div align="center">
-
-### 🏗️ 清晰的架构设计
-
-</div>
-
-<table>
-<tr>
-<td width="50%">
-
-```text
-📦 athena/
-├── 🎨 components/          # 可复用组件
-│   ├── 🧩 ui/             # 基础 UI 组件
-│   ├── 📐 layout/         # 布局组件
-│   └── 📝 forms/          # 表单组件
-├── 🏝️ islands/            # Fresh Islands
-├── 🛣️ routes/             # 路由页面
-│   ├── 🔌 api/           # API 路由
-│   └── 📊 status/        # 状态页面
-├── 🪝 hooks/              # 自定义 Hooks
-├── 💾 stores/             # 状态管理
-└── 🎯 static/             # 静态资源
-```
-
-</td>
-<td width="50%">
-
-```text
-📦 配置文件/
-├── ⚙️ deno.json          # Deno 配置
-├── 🌊 fresh.config.ts    # Fresh 配置
-├── 🎨 tailwind.config.ts # TailwindCSS 配置
-├── 💅 styles/             # Sass 样式
-├── 🔷 types/              # TypeScript 类型
-├── 🛠️ utils/              # 工具函数
-├── 📚 docs/               # 项目文档
-├── 🔒 .github/            # GitHub 配置
-└── 📄 README.md           # 项目说明
-```
-
-</td>
-</tr>
-</table>
-
-<div align="center">
-
-**🎯 每个目录都有明确的职责，便于维护和扩展**
-
-</div>
-
-## 🔧 开发工具配置
-
-<div align="center">
-
-### ⚙️ 开箱即用的开发环境
-
-</div>
-
-<table>
-<tr>
-<td width="33%" align="center">
-
-#### 🔷 TypeScript
-
-✅ JSX 运行时：`react-jsx` ✅ JSX 导入源：`preact` ✅ 自动生成 node_modules ✅
-严格类型检查
-
-</td>
-<td width="33%" align="center">
-
-#### 📏 代码规范
-
-✅ Fresh 推荐规则 ✅ 自动排除构建目录 ✅ 代码格式化 ✅ 质量检查
-
-</td>
-<td width="33%" align="center">
-
-#### 🚀 部署支持
-
-✅ Deno Deploy 集成 ✅ 入口文件：`main.ts` ✅ 自动排除依赖 ✅ CI/CD 工作流
-
-</td>
-</tr>
-</table>
-
-## 🌐 部署
-
-<div align="center">
-
-### 🚀 一键部署到云端
-
-[![Deploy to Deno Deploy](https://img.shields.io/badge/Deploy%20to-Deno%20Deploy-00ADD8?style=for-the-badge&logo=deno&logoColor=white)](https://deno.com/deploy)
-
-</div>
-
-项目已完美集成 [Deno Deploy](https://deno.com/deploy)，支持一键部署：
-
-```bash
-# 🔨 构建项目
-deno task build
-
-# 👀 本地预览
-deno task preview
-```
-
-<div align="center">
-
-**🎯 支持自动化 CI/CD，代码推送即可自动部署**
+### 🎯 **快速导航**
+
+| 类型 | 文档                                    | 描述                 |
+| ---- | --------------------------------------- | -------------------- |
+| 📋   | [项目概览](docs/PROJECT_OVERVIEW.md)    | 架构设计和技术选型   |
+| 🔧   | [开发指南](docs/DEVELOPMENT.md)         | 完整的开发流程和规范 |
+| 🚀   | [快速发布](docs/QUICK_START_RELEASE.md) | 5分钟学会发布流程    |
+| 📦   | [发布指南](docs/RELEASE.md)             | 完整的版本管理文档   |
+| 🔐   | [环境配置](docs/ENVIRONMENT.md)         | 环境变量配置指南     |
+| 🧪   | [测试指南](docs/TESTING.md)             | 测试框架和最佳实践   |
+| 🚀   | [部署指南](docs/DEPLOYMENT.md)          | 部署到各种平台       |
+| 🤝   | [贡献指南](CONTRIBUTING.md)             | 如何参与项目开发     |
+
+### 🔗 **重要链接**
+
+| 资源 | 链接                                                         | 说明         |
+| ---- | ------------------------------------------------------------ | ------------ |
+| 🌐   | [在线演示](https://athena.deno.dev)                          | 体验完整功能 |
+| 📦   | [GitHub Releases](https://github.com/dext7r/athena/releases) | 查看所有版本 |
+| 🤖   | [GitHub Actions](https://github.com/dext7r/athena/actions)   | CI/CD 状态   |
+| 📊   | [测试报告](https://dext7r.github.io/athena/html/index.html)  | 代码覆盖率   |
+| 🐛   | [问题反馈](https://github.com/dext7r/athena/issues)          | 报告 Bug     |
+| 💬   | [讨论区](https://github.com/dext7r/athena/discussions)       | 社区交流     |
 
 </div>
 
 ---
 
-## 🤝 参与贡献
+## 🛠️ 开发命令
 
-<div align="center">
+<details>
+<summary>📋 <strong>常用命令列表</strong></summary>
 
-### 💝 我们欢迎所有形式的贡献
-
-[![Contributors](https://img.shields.io/github/contributors/dext7r/athena?style=for-the-badge)](https://github.com/dext7r/athena/graphs/contributors)
-[![Issues](https://img.shields.io/github/issues/dext7r/athena?style=for-the-badge)](https://github.com/dext7r/athena/issues)
-[![Pull Requests](https://img.shields.io/github/issues-pr/dext7r/athena?style=for-the-badge)](https://github.com/dext7r/athena/pulls)
-
-</div>
-
-### 🛠️ 贡献流程
-
-<table>
-<tr>
-<td align="center" width="20%">
-
-**1️⃣ Fork** 🍴 [Fork](https://github.com/dext7r/athena/fork) 本仓库
-
-</td>
-<td align="center" width="20%">
-
-**2️⃣ 分支** 🌿 创建特性分支
-
-</td>
-<td align="center" width="20%">
-
-**3️⃣ 开发** 💻 编写代码
-
-</td>
-<td align="center" width="20%">
-
-**4️⃣ 提交** 📝 提交更改
-
-</td>
-<td align="center" width="20%">
-
-**5️⃣ PR** 🔄 创建 [Pull Request](https://github.com/dext7r/athena/pulls)
-
-</td>
-</tr>
-</table>
+### 🚀 **启动命令**
 
 ```bash
-# 🍴 Fork 并克隆
-git clone https://github.com/dext7r/athena.git
-
-# 🌿 创建分支
-git checkout -b feature/AmazingFeature
-
-# 💻 开发完成后提交
-git commit -m 'Add some AmazingFeature'
-
-# 📤 推送分支
-git push origin feature/AmazingFeature
-
-# 🔄 在 GitHub 上创建 Pull Request
+deno task start      # 启动生产服务器
+deno task dev        # 启动开发服务器（热重载）
 ```
+
+### 🧪 **测试命令**
+
+```bash
+deno task test       # 运行所有测试
+deno task test:watch # 监视模式运行测试
+deno task test:coverage # 生成覆盖率报告
+```
+
+### 🔧 **开发工具**
+
+```bash
+deno task check      # 类型检查
+deno task lint       # 代码检查
+deno task fmt        # 代码格式化
+deno task build      # 构建项目
+```
+
+### 📦 **版本管理**
+
+```bash
+deno task version:patch      # 发布修复版本
+deno task version:minor      # 发布功能版本
+deno task version:major      # 发布重大版本
+deno task version:dry-run    # 预览版本更新
+```
+
+</details>
+
+---
+
+## 🤝 贡献
+
+我们欢迎所有形式的贡献！请查看 [贡献指南](CONTRIBUTING.md) 了解详情。
+
+### 🌟 **贡献方式**
+
+- 🐛
+  [报告 Bug](https://github.com/dext7r/athena/issues/new?template=bug_report.md)
+- 💡
+  [提出功能建议](https://github.com/dext7r/athena/issues/new?template=feature_request.md)
+- 📖 [改进文档](https://github.com/dext7r/athena/edit/main/README.md)
+- 🔧 [提交代码](https://github.com/dext7r/athena/pulls)
 
 ---
 
@@ -508,7 +277,7 @@ git push origin feature/AmazingFeature
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-**本项目采用 MIT 许可证** 查看 [LICENSE](LICENSE) 文件了解详情
+**本项目采用 MIT 许可证** - 查看 [LICENSE](LICENSE) 文件了解详情
 
 </div>
 

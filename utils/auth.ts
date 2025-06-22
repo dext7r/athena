@@ -2,6 +2,8 @@
  * 多提供商 OAuth 认证工具
  */
 
+import { getEnv } from "@utils/env.ts";
+
 // OAuth 提供商类型
 export type OAuthProvider = "github" | "google" | "microsoft" | "gitee";
 
@@ -22,15 +24,13 @@ export interface OAuthConfig {
 
 // 基础重定向 URI
 const getBaseRedirectUri = () =>
-  `${
-    Deno.env.get("APP_BASE_URL") || "http://localhost:8000"
-  }/api/auth/callback`;
+  `${getEnv("APP_BASE_URL", "http://localhost:8000")}/api/auth/callback`;
 
 // OAuth 提供商配置
 export const OAUTH_PROVIDERS: Record<OAuthProvider, OAuthConfig> = {
   github: {
-    clientId: Deno.env.get("GITHUB_CLIENT_ID") || "",
-    clientSecret: Deno.env.get("GITHUB_CLIENT_SECRET") || "",
+    clientId: getEnv("GITHUB_CLIENT_ID", ""),
+    clientSecret: getEnv("GITHUB_CLIENT_SECRET", ""),
     redirectUri: getBaseRedirectUri(),
     scope: "user:email",
     authorizeUrl: "https://github.com/login/oauth/authorize",
@@ -42,8 +42,8 @@ export const OAUTH_PROVIDERS: Record<OAuthProvider, OAuthConfig> = {
     color: "#24292f",
   },
   google: {
-    clientId: Deno.env.get("GOOGLE_CLIENT_ID") || "",
-    clientSecret: Deno.env.get("GOOGLE_CLIENT_SECRET") || "",
+    clientId: getEnv("GOOGLE_CLIENT_ID"),
+    clientSecret: getEnv("GOOGLE_CLIENT_SECRET"),
     redirectUri: getBaseRedirectUri(),
     scope: "openid email profile",
     authorizeUrl: "https://accounts.google.com/o/oauth2/v2/auth",
@@ -55,8 +55,8 @@ export const OAUTH_PROVIDERS: Record<OAuthProvider, OAuthConfig> = {
     color: "#4285f4",
   },
   microsoft: {
-    clientId: Deno.env.get("MICROSOFT_CLIENT_ID") || "",
-    clientSecret: Deno.env.get("MICROSOFT_CLIENT_SECRET") || "",
+    clientId: getEnv("MICROSOFT_CLIENT_ID"),
+    clientSecret: getEnv("MICROSOFT_CLIENT_SECRET"),
     redirectUri: getBaseRedirectUri(),
     scope: "openid email profile",
     authorizeUrl:
@@ -69,8 +69,8 @@ export const OAUTH_PROVIDERS: Record<OAuthProvider, OAuthConfig> = {
     color: "#0078d4",
   },
   gitee: {
-    clientId: Deno.env.get("GITEE_CLIENT_ID") || "",
-    clientSecret: Deno.env.get("GITEE_CLIENT_SECRET") || "",
+    clientId: getEnv("GITEE_CLIENT_ID"),
+    clientSecret: getEnv("GITEE_CLIENT_SECRET"),
     redirectUri: getBaseRedirectUri(),
     scope: "user_info",
     authorizeUrl: "https://gitee.com/oauth/authorize",
@@ -88,9 +88,28 @@ export const GITHUB_OAUTH_CONFIG = OAUTH_PROVIDERS.github;
 
 // JWT 配置
 export const JWT_CONFIG = {
-  secret: Deno.env.get("JWT_SECRET") || "default_secret_key",
-  expiresIn: parseInt(Deno.env.get("SESSION_EXPIRE_TIME") || "86400"), // 24小时
+  secret: getEnv("JWT_SECRET", "default_secret_key"),
+  expiresIn: parseInt(getEnv("SESSION_EXPIRE_TIME", "86400")), // 24小时
 };
+
+/**
+ * 获取已配置的 OAuth 提供商
+ */
+export function getAvailableOAuthProviders(): OAuthConfig[] {
+  return Object.values(OAUTH_PROVIDERS).filter((provider) =>
+    provider.clientId && provider.clientSecret &&
+    provider.clientId !== `your_${provider.name}_client_id`
+  );
+}
+
+/**
+ * 检查特定 OAuth 提供商是否已配置
+ */
+export function isProviderConfigured(provider: OAuthProvider): boolean {
+  const config = OAUTH_PROVIDERS[provider];
+  return !!(config.clientId && config.clientSecret &&
+    config.clientId !== `your_${provider}_client_id`);
+}
 
 // OAuth 用户信息通用接口
 export interface OAuthUser {
