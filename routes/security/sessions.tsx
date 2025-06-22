@@ -3,7 +3,6 @@
  * 显示和管理用户的活跃会话
  */
 
-
 import { FreshContext, PageProps } from "fresh";
 import Layout from "@components/layout/Layout.tsx";
 import { getAuthContext } from "@utils/middleware.ts";
@@ -30,7 +29,7 @@ export const handler = {
       });
     }
 
-    return ctx.render({ user: authContext.user });
+    return new Response(null, { status: 200 });
   },
 };
 

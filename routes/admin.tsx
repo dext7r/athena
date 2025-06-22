@@ -3,18 +3,12 @@
  * 只有管理员才能访问
  */
 
-
-import { FreshContext, PageProps } from "fresh";
 import Layout from "@components/layout/Layout.tsx";
 import { getAuthContext } from "@utils/middleware.ts";
-import type { AppUser } from "@utils/auth.ts";
+import { FreshContext, PageProps } from "fresh";
 
 // 管理员用户列表（在实际应用中应该从环境变量或数据库获取）
 const ADMIN_USERS = ["h7ml"]; // 添加您的 GitHub 用户名
-
-interface AdminPageProps {
-  user: Partial<AppUser>;
-}
 
 export const handler = {
   async GET(ctx: FreshContext) {
@@ -64,12 +58,19 @@ export const handler = {
       );
     }
 
-    return ctx.render({ user: authContext.user });
+    return new Response(null, {
+      status: 200,
+      headers: {
+        "X-User-Data": JSON.stringify(authContext.user),
+      },
+    });
   },
 };
 
-export default function AdminPage({ data }: PageProps<AdminPageProps>) {
-  const user = data?.user;
+export default function AdminPage(props: PageProps) {
+  // 从请求头中获取用户数据
+  const userHeader = props.req?.headers.get("X-User-Data");
+  const user = userHeader ? JSON.parse(userHeader) : null;
 
   return (
     <>

@@ -3,7 +3,7 @@
  * 处理用户会话的查看、管理和删除
  */
 
-import { HandlerContext } from "fresh";
+import { FreshContext } from "fresh";
 import { getAuthContext, validateUserId } from "@utils/middleware.ts";
 import {
   cleanupExpiredSessions,
@@ -18,7 +18,7 @@ import { extractTokenFromRequest } from "@utils/jwt.ts";
 
 export const handler = {
   // 获取用户会话列表
-  async GET(ctx: HandlerContext): Promise<Response> {
+  async GET(ctx: FreshContext): Promise<Response> {
     const req = ctx.req;
 
     try {
@@ -70,7 +70,7 @@ export const handler = {
   },
 
   // 删除会话
-  async DELETE(ctx: HandlerContext): Promise<Response> {
+  async DELETE(ctx: FreshContext): Promise<Response> {
     const req = ctx.req;
 
     try {
@@ -150,7 +150,7 @@ export const handler = {
   },
 
   // 更新会话信息（如添加位置信息）
-  async PUT(ctx: HandlerContext): Promise<Response> {
+  async PUT(ctx: FreshContext): Promise<Response> {
     const req = ctx.req;
 
     try {

@@ -2,7 +2,6 @@
  * 隐私政策页面
  */
 
-
 import Layout from "@components/layout/Layout.tsx";
 import LegalNavigation from "@components/legal/LegalNavigation.tsx";
 

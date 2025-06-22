@@ -2,7 +2,6 @@
  * 认证系统接入指南
  */
 
-
 import Layout from "@components/layout/Layout.tsx";
 
 export default function AuthDocsPage() {
@@ -642,7 +641,7 @@ export const handler = {
       });
     }
 
-    return ctx.render({ user: authContext.user });
+    return new Response(null, { status: 200 });
   },
 };
 

@@ -31,7 +31,7 @@
   "issues": "https://github.com/dext7r/athena/issues",
   "homepage": "https://athena.deno.dev",
   "tasks": {
-    "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
+    "check": "deno fmt --check && deno lint && deno check **/*.ts **/*.tsx",
     "cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run --unstable -A -",
     "manifest": "deno task cli manifest $(pwd)",
     "fmt": "deno fmt",
@@ -75,10 +75,10 @@
     "include": ["**/*.ts", "**/*.tsx"],
     "exclude": ["**/_fresh/*", "**/.git", "**/.vscode", "**/.github", "**/*.md"]
   },
-  "exclude": ["**/_fresh/*", "**/.git", "**/.vscode", "**/.github", "**/*/.md"],
+  "exclude": ["**/_fresh/*", "**/.git", "**/.vscode", "**/.github", "**/*.md"],
   "fmt": {
-    "include": ["src/", "scripts/"],
-    "exclude": ["**/_fresh/*", "**/*/.md"]
+    "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+    "exclude": ["**/_fresh/*", "**/*.md", "**/node_modules/*", "**/coverage/*"]
   },
   "imports": {
     "@fresh/plugin-tailwind": "jsr:@fresh/plugin-tailwind@^0.0.1-alpha.7",

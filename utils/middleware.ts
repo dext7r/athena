@@ -6,9 +6,9 @@
 import { FreshContext } from "fresh";
 import type { AppUser } from "./auth.ts";
 import {
-    extractTokenFromRequest,
-    userFromJWTPayload,
-    verifyJWT,
+  extractTokenFromRequest,
+  userFromJWTPayload,
+  verifyJWT,
 } from "./jwt.ts";
 import { updateSessionActivity } from "./session.ts";
 

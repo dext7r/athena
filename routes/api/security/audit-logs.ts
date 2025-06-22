@@ -3,7 +3,7 @@
  * 查看和管理安全审计日志
  */
 
-import { HandlerContext } from "fresh";
+import { FreshContext } from "fresh";
 import { getAuthContext } from "@utils/middleware.ts";
 import {
   AuditEventType,
@@ -16,7 +16,7 @@ import {
 
 export const handler = {
   // 获取审计日志
-  async GET(ctx: HandlerContext): Promise<Response> {
+  async GET(ctx: FreshContext): Promise<Response> {
     const req = ctx.req;
 
     try {
@@ -108,7 +108,7 @@ export const handler = {
   },
 
   // 清理旧日志（管理员功能）
-  async DELETE(ctx: HandlerContext): Promise<Response> {
+  async DELETE(ctx: FreshContext): Promise<Response> {
     const req = ctx.req;
 
     try {

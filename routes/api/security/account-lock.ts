@@ -3,7 +3,7 @@
  * 处理账户锁定和解锁操作
  */
 
-import { HandlerContext } from "fresh";
+import { FreshContext } from "fresh";
 import { getAuthContext, validateUserId } from "@utils/middleware.ts";
 import { getClientIP } from "@utils/session.ts";
 import {
@@ -17,7 +17,7 @@ import {
 
 export const handler = {
   // 获取账户锁定状态
-  async GET(ctx: HandlerContext): Promise<Response> {
+  async GET(ctx: FreshContext): Promise<Response> {
     const req = ctx.req;
 
     try {
@@ -58,7 +58,7 @@ export const handler = {
   },
 
   // 紧急锁定账户
-  async POST(ctx: HandlerContext): Promise<Response> {
+  async POST(ctx: FreshContext): Promise<Response> {
     const req = ctx.req;
 
     try {
@@ -123,7 +123,7 @@ export const handler = {
   },
 
   // 解锁账户
-  async DELETE(ctx: HandlerContext): Promise<Response> {
+  async DELETE(ctx: FreshContext): Promise<Response> {
     const req = ctx.req;
 
     try {

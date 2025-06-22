@@ -1,5 +1,3 @@
-
-
 export default function Error503() {
   return (
     <>

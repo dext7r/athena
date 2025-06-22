@@ -3,7 +3,7 @@
  * 处理多因素认证的设置和配置
  */
 
-import { HandlerContext } from "fresh";
+import { FreshContext } from "fresh";
 import { getAuthContext } from "@utils/middleware.ts";
 import {
   createTOTPConfig,
@@ -21,7 +21,7 @@ import {
 
 export const handler = {
   // 获取MFA设置状态
-  async GET(ctx: HandlerContext): Promise<Response> {
+  async GET(ctx: FreshContext): Promise<Response> {
     const req = ctx.req;
 
     try {
@@ -70,7 +70,7 @@ export const handler = {
   },
 
   // 初始化MFA设置
-  async POST(ctx: HandlerContext): Promise<Response> {
+  async POST(ctx: FreshContext): Promise<Response> {
     const req = ctx.req;
 
     try {
@@ -149,7 +149,7 @@ export const handler = {
   },
 
   // 禁用MFA
-  async DELETE(ctx: HandlerContext): Promise<Response> {
+  async DELETE(ctx: FreshContext): Promise<Response> {
     const req = ctx.req;
 
     try {

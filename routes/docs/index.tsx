@@ -2,7 +2,6 @@
  * 文档首页
  */
 
-
 import Layout from "@components/layout/Layout.tsx";
 
 export default function DocsIndexPage() {

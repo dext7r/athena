@@ -1,4 +1,3 @@
-
 import Layout from "@components/layout/Layout.tsx";
 import CodeBlock from "@islands/CodeBlock.tsx";
 import SimpleStateDemo from "@islands/SimpleStateDemo.tsx";
