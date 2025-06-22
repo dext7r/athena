@@ -1,7 +1,7 @@
 {
   "lock": false,
   "name": "athena",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "一个现代化的 React + Deno 全栈开发模板， 集成了 TailwindCSS + Sass + Zustand， 为您提供完整的项目基础架构。",
   "keywords": [
     "React",
