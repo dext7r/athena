@@ -1,6 +1,2 @@
-import { defineConfig } from "fresh";
-import tailwind from "$fresh/plugins/tailwind.ts";
-
-export default defineConfig({
-  plugins: [tailwind()],
-});
+// Fresh V2 configuration is now handled in main.ts and dev.ts
+// This file is kept for compatibility but may not be needed

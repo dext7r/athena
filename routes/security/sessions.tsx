@@ -3,8 +3,8 @@
  * 显示和管理用户的活跃会话
  */
 
-import { Head } from "fresh/runtime";
-import { HandlerContext, PageProps } from "fresh";
+
+import { FreshContext, PageProps } from "fresh";
 import Layout from "@components/layout/Layout.tsx";
 import { getAuthContext } from "@utils/middleware.ts";
 import type { AppUser } from "@utils/auth.ts";
@@ -15,7 +15,7 @@ interface SessionsPageProps {
 }
 
 export const handler = {
-  async GET(ctx: HandlerContext) {
+  async GET(ctx: FreshContext) {
     const req = ctx.req;
     const authContext = await getAuthContext(req);
 
@@ -39,13 +39,6 @@ export default function SessionsPage({ data }: PageProps<SessionsPageProps>) {
 
   return (
     <>
-      <Head>
-        <title>会话管理 - Athena</title>
-        <meta
-          name="description"
-          content="管理您的登录设备和活跃会话，确保账户安全"
-        />
-      </Head>
       <Layout title="会话管理">
         {/* 背景装饰 */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

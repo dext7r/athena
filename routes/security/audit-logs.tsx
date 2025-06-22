@@ -3,8 +3,8 @@
  * 显示用户的安全活动记录
  */
 
-import { Head } from "fresh/runtime";
-import { HandlerContext, PageProps } from "fresh";
+
+import { FreshContext, PageProps } from "fresh";
 import Layout from "@components/layout/Layout.tsx";
 import { getAuthContext } from "@utils/middleware.ts";
 import type { AppUser } from "@utils/auth.ts";
@@ -15,7 +15,7 @@ interface AuditLogsPageProps {
 }
 
 export const handler = {
-  async GET(ctx: HandlerContext) {
+  async GET(ctx: FreshContext) {
     const req = ctx.req;
     const authContext = await getAuthContext(req);
 
@@ -39,10 +39,6 @@ export default function AuditLogsPage({ data }: PageProps<AuditLogsPageProps>) {
 
   return (
     <>
-      <Head>
-        <title>安全审计日志 - Athena</title>
-        <meta name="description" content="查看您的账户安全活动记录和审计日志" />
-      </Head>
       <Layout title="安全审计日志">
         {/* 背景装饰 */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

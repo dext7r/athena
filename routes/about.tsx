@@ -1,4 +1,4 @@
-import { Head } from "fresh/runtime";
+
 import Layout from "@components/layout/Layout.tsx";
 import Button from "@components/ui/Button.tsx";
 import Card, {
@@ -11,24 +11,6 @@ import CopyButton from "@islands/CopyButton.tsx";
 export default function AboutPage() {
   return (
     <>
-      <Head>
-        <title>关于项目 - Athena</title>
-        <meta
-          name="description"
-          content="Athena 是一个现代化的全栈开发模板，集成了Fresh、Preact、TailwindCSS、Sass、Zustand等最新技术栈和最佳实践。"
-        />
-        <meta
-          name="keywords"
-          content="Athena , Fresh, Preact, TailwindCSS, Sass, Zustand, Deno, TypeScript, 全栈开发, 模板"
-        />
-        <meta property="og:title" content="关于项目 - Athena " />
-        <meta
-          property="og:description"
-          content="Athena 是一个现代化的全栈开发模板，集成了Fresh、Preact、TailwindCSS、Sass、Zustand等最新技术栈和最佳实践。"
-        />
-        <meta property="og:type" content="website" />
-        <meta name="author" content="h7ml <h7ml@qq.com>" />
-      </Head>
       <Layout title="关于项目">
         <div className="space-y-32">
           {/* Hero区域 - 全新设计 */}

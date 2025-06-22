@@ -2,19 +2,12 @@
  * 文档首页
  */
 
-import { Head } from "fresh/runtime";
+
 import Layout from "@components/layout/Layout.tsx";
 
 export default function DocsIndexPage() {
   return (
     <>
-      <Head>
-        <title>文档中心 - Athena</title>
-        <meta
-          name="description"
-          content="Athena 文档中心，包含完整的开发指南、API文档、组件使用说明和最佳实践"
-        />
-      </Head>
       <Layout title="文档中心" backToTopVariant="primary">
         <div className="max-w-7xl mx-auto">
           {/* 页面头部 */}

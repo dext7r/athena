@@ -1,27 +1,10 @@
-import { Head } from "fresh/runtime";
+
 import Layout from "@components/layout/Layout.tsx";
 import ComponentsDemo from "@islands/ComponentsDemo.tsx";
 
 export default function ComponentsPage() {
   return (
     <>
-      <Head>
-        <title>组件展示 - Athena UI 组件库</title>
-        <meta
-          name="description"
-          content="探索 Athena 完整的 UI 组件库，包括按钮、卡片、输入框、模态框等现代化组件。每个组件都提供多种变体、尺寸和状态。"
-        />
-        <meta
-          name="keywords"
-          content="UI组件库, React组件, 按钮组件, 卡片组件, 输入框组件, 模态框组件, Fresh框架, Deno, TypeScript组件"
-        />
-        <meta property="og:title" content="组件展示 - Athena UI 组件库" />
-        <meta
-          property="og:description"
-          content="探索 Athena 完整的 UI 组件库，包括按钮、卡片、输入框、模态框等现代化组件。"
-        />
-        <meta property="og:type" content="website" />
-      </Head>
       <Layout title="组件展示 - Athena UI 组件库">
         <div className="space-y-24">
           {/* Hero区域 - 重新设计 */}

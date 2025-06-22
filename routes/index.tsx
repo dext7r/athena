@@ -1,4 +1,4 @@
-import { Head } from "fresh/runtime";
+// Head component is now handled in _app.tsx in Fresh V2
 import Layout from "@components/layout/Layout.tsx";
 import Button from "@components/ui/Button.tsx";
 import CounterDemo from "@islands/CounterDemo.tsx";
@@ -7,23 +7,6 @@ import ThemeToggle from "@islands/ThemeToggle.tsx";
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Athena - 现代化全栈开发模板</title>
-        <meta
-          name="description"
-          content="一个现代化的 Fresh + Deno 全栈开发模板，集成了完整的组件库、状态管理、自定义Hooks和开发工具配置。快速构建您的下一个项目。"
-        />
-        <meta
-          name="keywords"
-          content="Fresh, Deno, Preact, TailwindCSS, Sass, Zustand, TypeScript, 全栈模板, 组件库, 现代化开发"
-        />
-        <meta property="og:title" content="Athena - 现代化全栈开发模板" />
-        <meta
-          property="og:description"
-          content="一个现代化的 Fresh + Deno 全栈开发模板，集成了完整的组件库、状态管理、自定义Hooks和开发工具配置。"
-        />
-        <meta property="og:type" content="website" />
-      </Head>
       <Layout title="Athena - 现代化全栈开发模板">
         <div className="space-y-12 max-h-full overflow-y-auto">
           {/* Hero区域 - 全新设计 */}

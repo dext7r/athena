@@ -1,4 +1,4 @@
-import { Head } from "fresh/runtime";
+
 import Layout from "@components/layout/Layout.tsx";
 import CodeBlock from "@islands/CodeBlock.tsx";
 import HooksDemo from "@islands/HooksDemo.tsx";
@@ -6,26 +6,6 @@ import HooksDemo from "@islands/HooksDemo.tsx";
 export default function HooksPage() {
   return (
     <>
-      <Head>
-        <title>Hooks演示 - Athena 自定义Hooks集合</title>
-        <meta
-          name="description"
-          content="探索 Athena 强大的自定义 Hooks 集合，包括 useLocalStorage、useDebounce、useFetch、useMediaQuery 等实用工具。提高开发效率，简化状态管理。"
-        />
-        <meta
-          name="keywords"
-          content="React Hooks, 自定义Hooks, useLocalStorage, useDebounce, useFetch, useMediaQuery, useToggle, useCounter, Fresh框架, Preact Hooks"
-        />
-        <meta
-          property="og:title"
-          content="Hooks演示 - Athena 自定义Hooks集合"
-        />
-        <meta
-          property="og:description"
-          content="探索 Athena 强大的自定义 Hooks 集合，提高开发效率，简化状态管理。"
-        />
-        <meta property="og:type" content="website" />
-      </Head>
       <Layout title="Hooks演示">
         <div className="space-y-16 max-w-7xl mx-auto px-6">
           {/* Hero区域 - 简化版 */}

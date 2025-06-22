@@ -3,8 +3,8 @@
  * 账户紧急锁定和安全管理
  */
 
-import { Head } from "fresh/runtime";
-import { HandlerContext, PageProps } from "fresh";
+
+import { FreshContext, PageProps } from "fresh";
 import Layout from "@components/layout/Layout.tsx";
 import { getAuthContext } from "@utils/middleware.ts";
 import type { AppUser } from "@utils/auth.ts";
@@ -15,7 +15,7 @@ interface EmergencyPageProps {
 }
 
 export const handler = {
-  async GET(ctx: HandlerContext) {
+  async GET(ctx: FreshContext) {
     const req = ctx.req;
     const authContext = await getAuthContext(req);
 
@@ -39,13 +39,6 @@ export default function EmergencyPage({ data }: PageProps<EmergencyPageProps>) {
 
   return (
     <>
-      <Head>
-        <title>紧急锁定 - Athena</title>
-        <meta
-          name="description"
-          content="紧急情况下立即锁定账户，保护您的数据安全"
-        />
-      </Head>
       <Layout title="紧急锁定">
         {/* 背景装饰 */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

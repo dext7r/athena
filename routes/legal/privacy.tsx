@@ -2,21 +2,13 @@
  * 隐私政策页面
  */
 
-import { Head } from "fresh/runtime";
+
 import Layout from "@components/layout/Layout.tsx";
 import LegalNavigation from "@components/legal/LegalNavigation.tsx";
 
 export default function PrivacyPage() {
   return (
     <>
-      <Head>
-        <title>隐私政策 - Athena</title>
-        <meta
-          name="description"
-          content="Athena 隐私政策 - 了解我们如何收集、使用和保护您的个人信息"
-        />
-        <meta name="robots" content="index, follow" />
-      </Head>
       <Layout
         title="隐私政策"
         backToTopVariant="success"

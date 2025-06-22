@@ -2,7 +2,7 @@
  * Cookie政策页面
  */
 
-import { Head } from "fresh/runtime";
+
 import Layout from "@components/layout/Layout.tsx";
 import LegalNavigation from "@components/legal/LegalNavigation.tsx";
 import CookiePreferences from "@islands/CookiePreferences.tsx";
@@ -10,13 +10,6 @@ import CookiePreferences from "@islands/CookiePreferences.tsx";
 export default function CookiePolicyPage() {
   return (
     <>
-      <Head>
-        <title>Cookie政策 - Athena</title>
-        <meta
-          name="description"
-          content="Athena Cookie政策，了解我们如何使用Cookie和类似技术"
-        />
-      </Head>
       <Layout title="Cookie政策" backToTopVariant="warning">
         <div className="max-w-4xl mx-auto">
           {/* 页面头部 */}

@@ -1,26 +1,8 @@
-import { Head } from "fresh/runtime";
+
 
 export default function Error502() {
   return (
     <>
-      <Head>
-        <title>502 - 网关错误 | Athena</title>
-        <meta
-          name="description"
-          content="502错误页面 - 作为网关的服务器从上游服务器收到无效响应，请稍后重试。"
-        />
-        <meta
-          name="keywords"
-          content="502错误, 网关错误, 服务器错误, 网络故障, 连接问题"
-        />
-        <meta property="og:title" content="502 - 网关错误 | Athena " />
-        <meta
-          property="og:description"
-          content="502错误页面 - 作为网关的服务器从上游服务器收到无效响应，请稍后重试。"
-        />
-        <meta property="og:type" content="website" />
-        <meta name="robots" content="noindex, nofollow" />
-      </Head>
       <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         {/* 背景装饰 */}
         <div className="absolute inset-0 overflow-hidden">

@@ -3,8 +3,8 @@
  * 只有管理员才能访问
  */
 
-import { Head } from "fresh/runtime";
-import { HandlerContext, PageProps } from "fresh";
+
+import { FreshContext, PageProps } from "fresh";
 import Layout from "@components/layout/Layout.tsx";
 import { getAuthContext } from "@utils/middleware.ts";
 import type { AppUser } from "@utils/auth.ts";
@@ -17,7 +17,7 @@ interface AdminPageProps {
 }
 
 export const handler = {
-  async GET(ctx: HandlerContext) {
+  async GET(ctx: FreshContext) {
     const req = ctx.req;
     const authContext = await getAuthContext(req);
 
@@ -73,10 +73,6 @@ export default function AdminPage({ data }: PageProps<AdminPageProps>) {
 
   return (
     <>
-      <Head>
-        <title>管理员面板 - Athena</title>
-        <meta name="description" content="系统管理员控制面板" />
-      </Head>
       <Layout title="管理员面板">
         {/* 动态背景 */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
