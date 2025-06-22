@@ -1,6 +1,63 @@
 {
   "recommendations": [
+    // 🦕 Deno 核心扩展
     "denoland.vscode-deno",
-    "bradlc.vscode-tailwindcss"
+    // 🎨 主题和图标
+    "zhuangtongfa.material-theme",
+    "pkief.material-icon-theme",
+    "oderwat.indent-rainbow",
+    "aaron-bond.better-comments",
+    // 📝 代码格式化和质量
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-typescript-next",
+    // 🧪 测试和调试
+    "ms-vscode.test-adapter-converter",
+    "hbenl.vscode-test-explorer",
+    // 🔧 开发工具
+    "ms-vscode.vscode-json",
+    "redhat.vscode-yaml",
+    "ms-vscode.hexeditor",
+    "formulahendry.auto-rename-tag",
+    "christian-kohler.path-intellisense",
+    // 📊 Git 和版本控制
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "donjayamanne.githistory",
+    // 🎯 React/Preact 开发
+    "ms-vscode.vscode-typescript-next",
+    "bradlc.vscode-tailwindcss",
+    "formulahendry.auto-close-tag",
+    // 📱 预览和调试
+    "ms-vscode.live-server",
+    "ritwickdey.liveserver",
+    // 🔍 搜索和导航
+    "ms-vscode.vscode-goto-next-previous-member",
+    "alefragnani.bookmarks",
+    // 📝 文档和注释
+    "yzhang.markdown-all-in-one",
+    "shd101wyy.markdown-preview-enhanced",
+    "davidanson.vscode-markdownlint",
+    // 🎨 CSS 和样式
+    "stylelint.vscode-stylelint",
+    "mrmlnc.vscode-scss",
+    "sibiraj-s.vscode-scss-formatter",
+    // 🔧 实用工具
+    "ms-vscode.vscode-todo-highlight",
+    "gruntfuggly.todo-tree",
+    "streetsidesoftware.code-spell-checker",
+    "ms-vscode.wordcount",
+    // 📊 性能和分析
+    "ms-vscode.vscode-edge-devtools",
+    "firefox-devtools.vscode-firefox-debug",
+    // 🎯 项目管理
+    "alefragnani.project-manager",
+    "ms-vscode.vscode-github-issue-notebooks"
+  ],
+  "unwantedRecommendations": [
+    // 🚫 不推荐的扩展（可能与 Deno 冲突）
+    "ms-vscode.vscode-node-azure-pack",
+    "ms-vscode.vscode-node-pack",
+    "ms-vscode.vscode-npm-script"
   ]
 }

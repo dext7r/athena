@@ -42,7 +42,7 @@
     "update": "deno run -A -r https://fresh.deno.dev/update .",
     "test": "deno test --allow-all",
     "test:watch": "deno test --allow-all --watch",
-    "test:coverage": "deno test --allow-all --coverage=coverage",
+    "test:coverage": "deno test --allow-all --coverage=coverage && deno coverage coverage --html",
     "test:coverage-report": "deno coverage coverage --html",
     "test:unit": "deno test --allow-all test/hooks/ test/utils/ test/stores/",
     "test:integration": "deno test --allow-all test/integration/",

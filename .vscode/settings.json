@@ -1,20 +1,206 @@
 {
+  // ===========================================
+  // 🎯 Deno Fresh 项目 VSCode 配置
+  // ===========================================
+  // 📁 文件浏览器配置
+  "explorer.sortOrder": "foldersNestsFiles",
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    // 📄 配置文件嵌套
+    "deno.json": "deno.lock,fresh.gen.ts,fresh.config.ts,tailwind.config.ts,tsconfig.json,dev.ts,main.ts,athena.code-workspace",
+    "README.md": "CHANGELOG.md,CONTRIBUTING.md,CODE_OF_CONDUCT.md,SECURITY.md,LICENSE",
+    // 🧪 测试文件嵌套
+    "*.ts": "${capture}.test.ts,${capture}.spec.ts,${capture}.d.ts",
+    "*.tsx": "${capture}.test.tsx,${capture}.spec.tsx",
+    // 🎨 样式文件嵌套
+    "*.scss": "${capture}.css,${capture}.css.map",
+    "main.scss": "*.scss,*.css",
+    // 📦 包管理文件嵌套
+    "package.json": "package-lock.json,yarn.lock,pnpm-lock.yaml,.npmrc,.yarnrc",
+    // 📄 其他文件嵌套
+    "*.env": "${capture}.env.example,*.env,.gitignore"
+  },
+  // 🎨 文件图标主题
+  "workbench.iconTheme": "material-icon-theme",
+  "material-icon-theme.folders.associations": {
+    "routes": "routes",
+    "islands": "components",
+    "components": "components",
+    "hooks": "hook",
+    "stores": "state-management",
+    "utils": "tools",
+    "styles": "sass",
+    "static": "public",
+    "test": "test",
+    "docs": "docs",
+    "_fresh": "temp"
+  },
+  "material-icon-theme.files.associations": {
+    "fresh.gen.ts": "deno",
+    "fresh.config.ts": "deno",
+    "dev.ts": "deno",
+    "main.ts": "deno",
+    "*.test.ts": "test-ts",
+    "*.test.tsx": "test-jsx"
+  },
+  // 🚫 隐藏不必要的文件
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/_fresh": true,
+    "**/coverage": true,
+    "**/*.log": true
+  },
+  // 👀 搜索排除配置
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/coverage": true,
+    "**/_fresh": true,
+    "**/fresh.gen.ts": true,
+    "**/*.log": true,
+    "**/deno.lock": true
+  },
+  // 📝 编辑器配置
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.defaultFormatter": "denoland.vscode-deno",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.rulers": [
+    80,
+    120
+  ],
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 120,
+  // 🦕 Deno 配置
   "deno.enable": true,
   "deno.lint": true,
-  "editor.defaultFormatter": "denoland.vscode-deno",
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "denoland.vscode-deno"
-  },
+  "deno.suggest.imports.autoDiscover": true,
+  "deno.suggest.imports.autoDiscoverOn": true,
+  "deno.codeLens.implementations": true,
+  "deno.codeLens.references": true,
+  "deno.codeLens.referencesAllFunctions": true,
+  // 📁 路径映射配置（模拟 src 目录结构）
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "typescript.suggest.autoImports": true,
+  "typescript.suggest.completeFunctionCalls": true,
+  // 🎯 语言特定配置
   "[typescript]": {
-    "editor.defaultFormatter": "denoland.vscode-deno"
+    "editor.defaultFormatter": "denoland.vscode-deno",
+    "editor.formatOnSave": true
   },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "denoland.vscode-deno"
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "denoland.vscode-deno",
+    "editor.formatOnSave": true
   },
   "[javascript]": {
     "editor.defaultFormatter": "denoland.vscode-deno"
   },
-  "css.customData": [
-    ".vscode/tailwind.json"
-  ]
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": false
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": false
+  },
+  "[css]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "vscode.markdown-language-features",
+    "editor.wordWrap": "on"
+  },
+  // 🧪 测试配置
+  "testing.automaticallyOpenPeekView": "never",
+  // 🔍 IntelliSense 配置
+  "typescript.inlayHints.parameterNames.enabled": "literals",
+  "typescript.inlayHints.parameterTypes.enabled": true,
+  "typescript.inlayHints.variableTypes.enabled": true,
+  "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  // 🎨 主题和外观
+  "workbench.colorTheme": "One Dark Pro Darker",
+  "workbench.preferredDarkColorTheme": "One Dark Pro Darker",
+  // 📁 面包屑导航
+  "breadcrumbs.enabled": true,
+  "breadcrumbs.showFiles": true,
+  // 🔧 终端配置
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.fontFamily": "MesloLGS NF, 'Courier New', monospace",
+  // 🚀 任务配置
+  "task.autoDetect": "on",
+  "task.showDecorations": true,
+  // 📊 Git 配置
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "git.postCommitCommand": "none",
+  // 🔄 自动保存配置
+  "files.autoSave": "onFocusChange",
+  "files.autoSaveDelay": 1000,
+  // 🎯 Emmet 配置
+  "emmet.includeLanguages": {
+    "typescript": "html",
+    "typescriptreact": "html"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  // 📱 移动端预览
+  "livePreview.defaultPreviewPath": "/",
+  "livePreview.portNumber": 8000,
+  // 🎨 CSS 配置
+  "css.validate": true,
+  "scss.validate": true,
+  "less.validate": true,
+  // 🔍 搜索配置
+  "search.smartCase": true,
+  "search.useGlobalIgnoreFiles": true,
+  "search.useParentIgnoreFiles": true,
+  // 📝 代码片段配置
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "editor.snippetSuggestions": "top",
+  // 🎯 智能感知配置
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  // 🔗 链接预览
+  "editor.links": true,
+  "workbench.editor.enablePreview": true,
+  "workbench.editor.enablePreviewFromQuickOpen": true,
+  // 📊 状态栏配置
+  "problems.showCurrentInStatus": true,
+  // 🎨 缩进指示
+  "editor.guides.indentation": true,
+  "editor.guides.bracketPairs": true,
+  "editor.bracketPairColorization.enabled": true,
+  // 🔧 扩展配置
+  "extensions.autoCheckUpdates": true,
+  "extensions.autoUpdate": true,
+  // 📁 工作区信任
+  "security.workspace.trust.untrustedFiles": "open",
+  // 🎯 项目特定配置
+  "files.associations": {
+    "*.tsx": "typescriptreact",
+    "*.ts": "typescript",
+    "fresh.gen.ts": "typescript",
+    "fresh.config.ts": "typescript",
+    "deno.json": "jsonc",
+    "*.test.ts": "typescript",
+    "*.test.tsx": "typescriptreact"
+  },
+  "testing.automaticallyOpenTestResults": "neverOpen"
 }

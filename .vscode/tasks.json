@@ -1,0 +1,337 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    // 🚀 开发服务器任务
+    {
+      "label": "🚀 启动开发服务器",
+      "type": "shell",
+      "command": "deno",
+      "args": [
+        "task",
+        "start"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": [],
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "icon": {
+        "id": "rocket",
+        "color": "terminal.ansiGreen"
+      }
+    },
+    // 📦 构建任务
+    {
+      "label": "📦 构建项目",
+      "type": "shell",
+      "command": "deno",
+      "args": [
+        "task",
+        "build"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "icon": {
+        "id": "package",
+        "color": "terminal.ansiBlue"
+      }
+    },
+    // 👀 预览任务
+    {
+      "label": "👀 预览生产版本",
+      "type": "shell",
+      "command": "deno",
+      "args": [
+        "task",
+        "preview"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": [],
+      "icon": {
+        "id": "preview",
+        "color": "terminal.ansiYellow"
+      }
+    },
+    // 🧪 测试任务
+    {
+      "label": "🧪 运行所有测试",
+      "type": "shell",
+      "command": "deno",
+      "args": [
+        "task",
+        "test"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": [],
+      "icon": {
+        "id": "beaker",
+        "color": "terminal.ansiMagenta"
+      }
+    },
+    // 🧪 单元测试
+    {
+      "label": "🔬 运行单元测试",
+      "type": "shell",
+      "command": "deno",
+      "args": [
+        "task",
+        "test:unit"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": [],
+      "icon": {
+        "id": "microscope",
+        "color": "terminal.ansiCyan"
+      }
+    },
+    // 📊 测试覆盖率
+    {
+      "label": "📊 生成测试覆盖率",
+      "type": "shell",
+      "command": "deno",
+      "args": [
+        "task",
+        "test:coverage"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": [],
+      "icon": {
+        "id": "graph",
+        "color": "terminal.ansiGreen"
+      }
+    },
+    // ✅ 代码质量检查
+    {
+      "label": "✅ 代码质量检查",
+      "type": "shell",
+      "command": "deno",
+      "args": [
+        "task",
+        "check"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "icon": {
+        "id": "check",
+        "color": "terminal.ansiGreen"
+      }
+    },
+    // 🎨 格式化代码
+    {
+      "label": "🎨 格式化代码",
+      "type": "shell",
+      "command": "deno",
+      "args": [
+        "fmt"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "problemMatcher": [],
+      "icon": {
+        "id": "paintbrush",
+        "color": "terminal.ansiYellow"
+      }
+    },
+    // 🔍 Lint 检查
+    {
+      "label": "🔍 Lint 检查",
+      "type": "shell",
+      "command": "deno",
+      "args": [
+        "lint"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": [],
+      "icon": {
+        "id": "search",
+        "color": "terminal.ansiRed"
+      }
+    },
+    // 🔄 更新依赖
+    {
+      "label": "🔄 更新框架",
+      "type": "shell",
+      "command": "deno",
+      "args": [
+        "task",
+        "update"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": [],
+      "icon": {
+        "id": "sync",
+        "color": "terminal.ansiBlue"
+      }
+    },
+    // 📋 生成清单
+    {
+      "label": "📋 生成 Fresh 清单",
+      "type": "shell",
+      "command": "deno",
+      "args": [
+        "task",
+        "manifest"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "problemMatcher": [],
+      "icon": {
+        "id": "list-unordered",
+        "color": "terminal.ansiWhite"
+      }
+    },
+    // 🧹 清理缓存
+    {
+      "label": "🧹 清理 Deno 缓存",
+      "type": "shell",
+      "command": "deno",
+      "args": [
+        "cache",
+        "--reload",
+        "main.ts"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": [],
+      "icon": {
+        "id": "trash",
+        "color": "terminal.ansiRed"
+      }
+    },
+    // 🌐 打开浏览器
+    {
+      "label": "🌐 在浏览器中打开",
+      "type": "shell",
+      "command": "open",
+      "args": [
+        "http://localhost:8000"
+      ],
+      "windows": {
+        "command": "start",
+        "args": [
+          "http://localhost:8000"
+        ]
+      },
+      "linux": {
+        "command": "xdg-open",
+        "args": [
+          "http://localhost:8000"
+        ]
+      },
+      "group": "build",
+      "presentation": {
+        "echo": false,
+        "reveal": "never",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "problemMatcher": [],
+      "icon": {
+        "id": "globe",
+        "color": "terminal.ansiBlue"
+      }
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    // 🦕 Deno 调试配置
+    {
+      "name": "🦕 调试 Deno 应用",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "deno",
+      "runtimeArgs": [
+        "run",
+        "--inspect-wait",
+        "--allow-all",
+        "dev.ts"
+      ],
+      "attachSimplePort": 9229,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "restart": true,
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    // 🧪 调试测试
+    {
+      "name": "🧪 调试测试",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "deno",
+      "runtimeArgs": [
+        "test",
+        "--inspect-wait",
+        "--allow-all",
+        "${file}"
+      ],
+      "attachSimplePort": 9229,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    // 🌐 调试当前文件
+    {
+      "name": "🌐 调试当前文件",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "deno",
+      "runtimeArgs": [
+        "run",
+        "--inspect-wait",
+        "--allow-all",
+        "${file}"
+      ],
+      "attachSimplePort": 9229,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    // 🔧 附加到运行中的进程
+    {
+      "name": "🔧 附加到 Deno 进程",
+      "type": "node",
+      "request": "attach",
+      "cwd": "${workspaceFolder}",
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "${workspaceFolder}",
+      "port": 9229,
+      "restart": true,
+      "sourceMaps": true
+    }
+  ],
+  "compounds": [
+    // 🚀 启动并调试
+    {
+      "name": "🚀 启动并调试应用",
+      "configurations": [
+        "🦕 调试 Deno 应用"
+      ],
+      "stopAll": true,
+      "presentation": {
+        "hidden": false,
+        "group": "debug",
+        "order": 1
+      }
+    }
+  ]
+}

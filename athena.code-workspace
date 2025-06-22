@@ -1,0 +1,155 @@
+{
+  "folders": [
+    {
+      "name": "🎯 Athena Project",
+      "path": "."
+    },
+    {
+      "name": "📄 Routes (路由)",
+      "path": "./routes"
+    },
+    {
+      "name": "🏝️ Islands (交互组件)",
+      "path": "./islands"
+    },
+    {
+      "name": "🧩 Components (组件)",
+      "path": "./components"
+    },
+    {
+      "name": "🎣 Hooks (钩子)",
+      "path": "./hooks"
+    },
+    {
+      "name": "🐻 Stores (状态管理)",
+      "path": "./stores"
+    },
+    {
+      "name": "🔧 Utils (工具)",
+      "path": "./utils"
+    },
+    {
+      "name": "🎨 Styles (样式)",
+      "path": "./styles"
+    },
+    {
+      "name": "📁 Static (静态资源)",
+      "path": "./static"
+    },
+    {
+      "name": "🧪 Tests (测试)",
+      "path": "./test"
+    },
+    {
+      "name": "📚 Docs (文档)",
+      "path": "./docs"
+    }
+  ],
+  "settings": {
+    // 继承基础设置
+    "deno.enable": true,
+    "deno.lint": true,
+    "deno.unstable": true,
+    // 工作区特定设置
+    "workbench.tree.indent": 20,
+    "workbench.tree.renderIndentGuides": "always",
+    // 文件关联
+    "files.associations": {
+      "*.tsx": "typescriptreact",
+      "*.ts": "typescript",
+      "fresh.gen.ts": "typescript",
+      "fresh.config.ts": "typescript",
+      "deno.json": "jsonc"
+    },
+    // 搜索配置
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/coverage": true,
+      "**/_fresh": true,
+      "**/fresh.gen.ts": true,
+      "**/*.log": true,
+      "**/deno.lock": true
+    },
+    // 文件浏览器配置
+    "explorer.sortOrder": "foldersNestsFiles",
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+      "deno.json": "deno.lock,fresh.gen.ts,fresh.config.ts,tailwind.config.ts,tsconfig.json",
+      "README.md": "CHANGELOG.md,CONTRIBUTING.md,CODE_OF_CONDUCT.md,SECURITY.md,LICENSE",
+      "*.ts": "${capture}.test.ts,${capture}.spec.ts,${capture}.d.ts",
+      "*.tsx": "${capture}.test.tsx,${capture}.spec.tsx"
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "denoland.vscode-deno",
+      "zhuangtongfa.material-theme",
+      "pkief.material-icon-theme",
+      "esbenp.prettier-vscode",
+      "bradlc.vscode-tailwindcss",
+      "eamodio.gitlens"
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "🚀 启动开发服务器",
+        "type": "shell",
+        "command": "deno",
+        "args": [
+          "task",
+          "start"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "new"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "🧪 运行测试",
+        "type": "shell",
+        "command": "deno",
+        "args": [
+          "task",
+          "test"
+        ],
+        "group": "test",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "dedicated"
+        },
+        "problemMatcher": []
+      }
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "🦕 调试 Deno 应用",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceFolder}",
+        "runtimeExecutable": "deno",
+        "runtimeArgs": [
+          "run",
+          "--inspect-wait",
+          "--allow-all",
+          "dev.ts"
+        ],
+        "attachSimplePort": 9229,
+        "console": "integratedTerminal"
+      }
+    ]
+  }
+}
