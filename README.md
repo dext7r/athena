@@ -11,6 +11,8 @@
   <img src="https://github.com/dext7r/athena/actions/workflows/test.yml/badge.svg" alt="Tests">
   <img src="https://github.com/dext7r/athena/actions/workflows/deploy.yml/badge.svg" alt="Deploy">
   <img src="https://codecov.io/gh/dext7r/athena/branch/main/graph/badge.svg" alt="Coverage">
+  <img src="https://img.shields.io/badge/GitHub%20Pages-121013?style=flat&logo=github&logoColor=white" alt="GitHub Pages">
+  <img src="https://img.shields.io/website?url=https%3A//dext7r.github.io/athena&label=Coverage%20Report" alt="Coverage Report">
 </p>
 
 <p align="center">
@@ -22,6 +24,7 @@
   <a href="https://athena.deno.dev">🌐 在线演示</a> •
   <a href="https://github.com/dext7r/athena">📦 GitHub</a> •
   <a href="https://athena.deno.dev/docs">📚 文档</a> •
+  <a href="https://dext7r.github.io/athena">📊 测试报告</a> •
   <a href="https://github.com/dext7r/athena/issues">🐛 问题反馈</a>
 </p>
 
