@@ -79,7 +79,11 @@
     }
   },
   "exclude": [
-    "**/_fresh/*"
+    "**/_fresh/*",
+    "**/.git",
+    "**/.vscode",
+    "**/.github",
+    "**/.md"
   ],
   "imports": {
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
