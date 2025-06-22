@@ -6,7 +6,7 @@
 // 会话信息接口
 export interface SessionInfo {
   id: string;
-  userId: number;
+  userId: string;
   deviceInfo: DeviceInfo;
   ipAddress: string;
   location?: LocationInfo;
@@ -48,7 +48,7 @@ export interface SessionStats {
 
 // 临时存储会话数据（实际项目中应该使用数据库）
 const sessions = new Map<string, SessionInfo>();
-const userSessions = new Map<number, Set<string>>();
+const userSessions = new Map<string, Set<string>>();
 
 /**
  * 解析用户代理字符串
@@ -135,7 +135,7 @@ export function generateSessionId(): string {
  * 创建新会话
  */
 export function createSession(
-  userId: number,
+  userId: string,
   req: Request,
   expirationHours: number = 24 * 7, // 默认7天
 ): SessionInfo {
@@ -221,7 +221,7 @@ export function deleteSession(sessionId: string): boolean {
  * 获取用户的所有会话
  */
 export function getUserSessions(
-  userId: number,
+  userId: string,
   currentSessionId?: string,
 ): SessionInfo[] {
   const sessionIds = userSessions.get(userId);
@@ -259,7 +259,7 @@ export function getUserSessions(
  * 删除用户的其他会话（保留当前会话）
  */
 export function deleteOtherUserSessions(
-  userId: number,
+  userId: string,
   currentSessionId: string,
 ): number {
   const sessionIds = userSessions.get(userId);
@@ -280,7 +280,7 @@ export function deleteOtherUserSessions(
 /**
  * 删除用户的所有会话
  */
-export function deleteAllUserSessions(userId: number): number {
+export function deleteAllUserSessions(userId: string): number {
   const sessionIds = userSessions.get(userId);
   if (!sessionIds) return 0;
 
@@ -297,7 +297,7 @@ export function deleteAllUserSessions(userId: number): number {
 /**
  * 获取用户会话统计
  */
-export function getUserSessionStats(userId: number): SessionStats {
+export function getUserSessionStats(userId: string): SessionStats {
   const userSessionList = getUserSessions(userId);
   const activeSessions = userSessionList.filter((s) => s.isActive).length;
 

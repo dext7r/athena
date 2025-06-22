@@ -145,7 +145,7 @@ export function clearAuthCookie(): string {
  */
 export function userFromJWTPayload(payload: JWTPayload): Partial<AppUser> {
   return {
-    id: parseInt(payload.sub),
+    id: payload.sub,
     username: payload.username,
     name: payload.name,
     email: payload.email,

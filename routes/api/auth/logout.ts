@@ -3,15 +3,32 @@
  * POST /api/auth/logout
  */
 
-import { HandlerContext } from "$fresh/server.ts";
 import { clearAuthCookie } from "@utils/jwt.ts";
+import { getAuthContext } from "@utils/middleware.ts";
+import { deleteSession } from "@utils/session.ts";
 
 export const handler = {
-  POST(req: Request, _ctx: HandlerContext): Response {
+  async POST(req: Request): Promise<Response> {
     try {
+      // 获取认证上下文
+      const authContext = await getAuthContext(req);
+
       // 获取重定向 URL
       const url = new URL(req.url);
       const redirectTo = url.searchParams.get("redirect") || "/";
+
+      // 如果用户已登录，删除会话
+      if (authContext.isAuthenticated && authContext.sessionId) {
+        try {
+          const deleted = deleteSession(authContext.sessionId);
+          console.log(
+            `Session ${authContext.sessionId} deletion:`,
+            deleted ? "success" : "failed",
+          );
+        } catch (error) {
+          console.error("Failed to delete session:", error);
+        }
+      }
 
       // 创建响应，清除认证 Cookie
       const response = new Response(
@@ -46,7 +63,7 @@ export const handler = {
   },
 
   // 支持 GET 请求进行重定向退出
-  GET(req: Request, _ctx: HandlerContext): Response {
+  GET(req: Request): Response {
     try {
       const url = new URL(req.url);
       const redirectTo = url.searchParams.get("redirect") || "/";

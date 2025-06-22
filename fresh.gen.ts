@@ -6,20 +6,27 @@ import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $about from "./routes/about.tsx";
 import * as $admin from "./routes/admin.tsx";
+import * as $api_auth_provider_ from "./routes/api/auth/[provider].ts";
 import * as $api_auth_callback from "./routes/api/auth/callback.ts";
 import * as $api_auth_github from "./routes/api/auth/github.ts";
 import * as $api_auth_logout from "./routes/api/auth/logout.ts";
 import * as $api_auth_me from "./routes/api/auth/me.ts";
 import * as $api_auth_mfa_setup from "./routes/api/auth/mfa/setup.ts";
 import * as $api_auth_mfa_verify from "./routes/api/auth/mfa/verify.ts";
+import * as $api_auth_providers from "./routes/api/auth/providers.ts";
 import * as $api_auth_sessions from "./routes/api/auth/sessions.ts";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $api_security_account_lock from "./routes/api/security/account-lock.ts";
 import * as $api_security_audit_logs from "./routes/api/security/audit-logs.ts";
 import * as $components from "./routes/components.tsx";
+import * as $docs_auth from "./routes/docs/auth.tsx";
+import * as $docs_index from "./routes/docs/index.tsx";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $hooks from "./routes/hooks.tsx";
 import * as $index from "./routes/index.tsx";
+import * as $legal_cookies from "./routes/legal/cookies.tsx";
+import * as $legal_privacy from "./routes/legal/privacy.tsx";
+import * as $legal_terms from "./routes/legal/terms.tsx";
 import * as $profile from "./routes/profile.tsx";
 import * as $security_audit_logs from "./routes/security/audit-logs.tsx";
 import * as $security_emergency from "./routes/security/emergency.tsx";
@@ -36,8 +43,10 @@ import * as $status_index from "./routes/status/index.tsx";
 import * as $AccountLockManager from "./islands/AccountLockManager.tsx";
 import * as $AuditLogViewer from "./islands/AuditLogViewer.tsx";
 import * as $AuthMenu from "./islands/AuthMenu.tsx";
+import * as $BackToTop from "./islands/BackToTop.tsx";
 import * as $CodeBlock from "./islands/CodeBlock.tsx";
 import * as $ComponentsDemo from "./islands/ComponentsDemo.tsx";
+import * as $CookiePreferences from "./islands/CookiePreferences.tsx";
 import * as $CopyButton from "./islands/CopyButton.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $CounterDemo from "./islands/CounterDemo.tsx";
@@ -62,20 +71,27 @@ const manifest = {
     "./routes/_app.tsx": $_app,
     "./routes/about.tsx": $about,
     "./routes/admin.tsx": $admin,
+    "./routes/api/auth/[provider].ts": $api_auth_provider_,
     "./routes/api/auth/callback.ts": $api_auth_callback,
     "./routes/api/auth/github.ts": $api_auth_github,
     "./routes/api/auth/logout.ts": $api_auth_logout,
     "./routes/api/auth/me.ts": $api_auth_me,
     "./routes/api/auth/mfa/setup.ts": $api_auth_mfa_setup,
     "./routes/api/auth/mfa/verify.ts": $api_auth_mfa_verify,
+    "./routes/api/auth/providers.ts": $api_auth_providers,
     "./routes/api/auth/sessions.ts": $api_auth_sessions,
     "./routes/api/joke.ts": $api_joke,
     "./routes/api/security/account-lock.ts": $api_security_account_lock,
     "./routes/api/security/audit-logs.ts": $api_security_audit_logs,
     "./routes/components.tsx": $components,
+    "./routes/docs/auth.tsx": $docs_auth,
+    "./routes/docs/index.tsx": $docs_index,
     "./routes/greet/[name].tsx": $greet_name_,
     "./routes/hooks.tsx": $hooks,
     "./routes/index.tsx": $index,
+    "./routes/legal/cookies.tsx": $legal_cookies,
+    "./routes/legal/privacy.tsx": $legal_privacy,
+    "./routes/legal/terms.tsx": $legal_terms,
     "./routes/profile.tsx": $profile,
     "./routes/security/audit-logs.tsx": $security_audit_logs,
     "./routes/security/emergency.tsx": $security_emergency,
@@ -94,8 +110,10 @@ const manifest = {
     "./islands/AccountLockManager.tsx": $AccountLockManager,
     "./islands/AuditLogViewer.tsx": $AuditLogViewer,
     "./islands/AuthMenu.tsx": $AuthMenu,
+    "./islands/BackToTop.tsx": $BackToTop,
     "./islands/CodeBlock.tsx": $CodeBlock,
     "./islands/ComponentsDemo.tsx": $ComponentsDemo,
+    "./islands/CookiePreferences.tsx": $CookiePreferences,
     "./islands/CopyButton.tsx": $CopyButton,
     "./islands/Counter.tsx": $Counter,
     "./islands/CounterDemo.tsx": $CounterDemo,

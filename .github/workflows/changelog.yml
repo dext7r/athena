@@ -1,0 +1,254 @@
+name: Update Changelog
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    types: [closed]
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  update-changelog:
+    name: Update Changelog
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true) || github.event_name == 'push'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Get latest release
+        id: latest_release
+        run: |
+          # Get the latest release tag
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+
+          if [ -z "$LATEST_TAG" ]; then
+            echo "📋 No previous releases found"
+            echo "since_tag=" >> $GITHUB_OUTPUT
+            echo "commit_range=HEAD" >> $GITHUB_OUTPUT
+          else
+            echo "📋 Latest release: $LATEST_TAG"
+            echo "since_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+            echo "commit_range=$LATEST_TAG..HEAD" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Analyze recent changes
+        id: changes
+        run: |
+          COMMIT_RANGE="${{ steps.latest_release.outputs.commit_range }}"
+
+          echo "🔍 Analyzing changes in range: $COMMIT_RANGE"
+
+          # Count different types of changes
+          FEATURE_COUNT=$(git log $COMMIT_RANGE --oneline --grep="feat\|feature" --grep="add" --grep="新增" | wc -l || echo "0")
+          FIX_COUNT=$(git log $COMMIT_RANGE --oneline --grep="fix\|bug" --grep="修复" | wc -l || echo "0")
+          IMPROVEMENT_COUNT=$(git log $COMMIT_RANGE --oneline --grep="improve\|enhance" --grep="优化" --grep="改进" | wc -l || echo "0")
+          DOC_COUNT=$(git log $COMMIT_RANGE --oneline --grep="docs\|doc" --grep="文档" | wc -l || echo "0")
+          TEST_COUNT=$(git log $COMMIT_RANGE --oneline --grep="test" --grep="测试" | wc -l || echo "0")
+
+          TOTAL_CHANGES=$((FEATURE_COUNT + FIX_COUNT + IMPROVEMENT_COUNT + DOC_COUNT + TEST_COUNT))
+
+          echo "📊 Change summary:"
+          echo "  - Features: $FEATURE_COUNT"
+          echo "  - Bug fixes: $FIX_COUNT"
+          echo "  - Improvements: $IMPROVEMENT_COUNT"
+          echo "  - Documentation: $DOC_COUNT"
+          echo "  - Tests: $TEST_COUNT"
+          echo "  - Total: $TOTAL_CHANGES"
+
+          echo "feature_count=$FEATURE_COUNT" >> $GITHUB_OUTPUT
+          echo "fix_count=$FIX_COUNT" >> $GITHUB_OUTPUT
+          echo "improvement_count=$IMPROVEMENT_COUNT" >> $GITHUB_OUTPUT
+          echo "doc_count=$DOC_COUNT" >> $GITHUB_OUTPUT
+          echo "test_count=$TEST_COUNT" >> $GITHUB_OUTPUT
+          echo "total_changes=$TOTAL_CHANGES" >> $GITHUB_OUTPUT
+
+      - name: Generate unreleased section
+        if: steps.changes.outputs.total_changes > 0
+        run: |
+          COMMIT_RANGE="${{ steps.latest_release.outputs.commit_range }}"
+
+          echo "📝 Generating unreleased changelog section..."
+
+          # Create unreleased section
+          UNRELEASED_CONTENT="## [未发布]
+
+          ### 最近更改
+
+          "
+
+          # Add features
+          if [ "${{ steps.changes.outputs.feature_count }}" -gt "0" ]; then
+            UNRELEASED_CONTENT="$UNRELEASED_CONTENT
+          #### ✨ 新增功能
+
+          "
+            git log $COMMIT_RANGE --oneline --grep="feat\|feature" --grep="add" --grep="新增" | while read line; do
+              UNRELEASED_CONTENT="$UNRELEASED_CONTENT- $line
+          "
+            done
+          fi
+
+          # Add bug fixes
+          if [ "${{ steps.changes.outputs.fix_count }}" -gt "0" ]; then
+            UNRELEASED_CONTENT="$UNRELEASED_CONTENT
+          #### 🐛 问题修复
+
+          "
+            git log $COMMIT_RANGE --oneline --grep="fix\|bug" --grep="修复" | while read line; do
+              UNRELEASED_CONTENT="$UNRELEASED_CONTENT- $line
+          "
+            done
+          fi
+
+          # Add improvements
+          if [ "${{ steps.changes.outputs.improvement_count }}" -gt "0" ]; then
+            UNRELEASED_CONTENT="$UNRELEASED_CONTENT
+          #### 🔧 改进优化
+
+          "
+            git log $COMMIT_RANGE --oneline --grep="improve\|enhance" --grep="优化" --grep="改进" | while read line; do
+              UNRELEASED_CONTENT="$UNRELEASED_CONTENT- $line
+          "
+            done
+          fi
+
+          # Add documentation
+          if [ "${{ steps.changes.outputs.doc_count }}" -gt "0" ]; then
+            UNRELEASED_CONTENT="$UNRELEASED_CONTENT
+          #### 📚 文档更新
+
+          "
+            git log $COMMIT_RANGE --oneline --grep="docs\|doc" --grep="文档" | while read line; do
+              UNRELEASED_CONTENT="$UNRELEASED_CONTENT- $line
+          "
+            done
+          fi
+
+          # Add tests
+          if [ "${{ steps.changes.outputs.test_count }}" -gt "0" ]; then
+            UNRELEASED_CONTENT="$UNRELEASED_CONTENT
+          #### 🧪 测试相关
+
+          "
+            git log $COMMIT_RANGE --oneline --grep="test" --grep="测试" | while read line; do
+              UNRELEASED_CONTENT="$UNRELEASED_CONTENT- $line
+          "
+            done
+          fi
+
+          # Save to file
+          echo "$UNRELEASED_CONTENT" > unreleased_changes.md
+          echo "✅ Generated unreleased changes"
+
+      - name: Update CHANGELOG.md
+        if: steps.changes.outputs.total_changes > 0
+        run: |
+          echo "📝 Updating CHANGELOG.md..."
+
+          if [ ! -f "CHANGELOG.md" ]; then
+            echo "📄 Creating new CHANGELOG.md"
+            cat > CHANGELOG.md << 'EOF'
+          # 更新日志
+
+          本文件记录了 Athena 项目的所有重要更改。
+
+          格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.0.0/)，
+          并且本项目遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
+
+          ## [未发布]
+
+          ### 最近更改
+
+          暂无未发布的更改。
+
+          EOF
+          fi
+
+          # Read current changelog
+          if [ -f "unreleased_changes.md" ]; then
+            # Replace the unreleased section
+            NEW_UNRELEASED=$(cat unreleased_changes.md)
+
+            # Use Deno to update the changelog
+            deno eval "
+              const fs = Deno;
+              let content = fs.readTextFileSync('CHANGELOG.md');
+
+              // Find and replace the unreleased section
+              const unreleasedRegex = /## \[未发布\][\s\S]*?(?=## \[|$)/;
+              const newUnreleased = fs.readTextFileSync('unreleased_changes.md');
+
+              if (unreleasedRegex.test(content)) {
+                content = content.replace(unreleasedRegex, newUnreleased + '\n');
+              } else {
+                // If no unreleased section found, add it after the header
+                const headerEnd = content.indexOf('\n\n') + 2;
+                content = content.slice(0, headerEnd) + newUnreleased + '\n\n' + content.slice(headerEnd);
+              }
+
+              fs.writeTextFileSync('CHANGELOG.md', content);
+            "
+
+            echo "✅ Updated CHANGELOG.md with unreleased changes"
+          fi
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if [ -n "$(git status --porcelain CHANGELOG.md)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "📝 CHANGELOG.md has been updated"
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "📝 No changes to CHANGELOG.md"
+          fi
+
+      - name: Commit changelog updates
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          git add CHANGELOG.md
+          git commit -m "docs: update changelog with recent changes [skip ci]"
+          git push origin HEAD:${{ github.ref_name }}
+
+          echo "✅ Committed changelog updates"
+
+      - name: Generate changelog summary
+        if: steps.changes.outputs.total_changes > 0
+        run: |
+          echo "📊 Changelog Update Summary:"
+          echo "  - Total changes: ${{ steps.changes.outputs.total_changes }}"
+          echo "  - Features: ${{ steps.changes.outputs.feature_count }}"
+          echo "  - Bug fixes: ${{ steps.changes.outputs.fix_count }}"
+          echo "  - Improvements: ${{ steps.changes.outputs.improvement_count }}"
+          echo "  - Documentation: ${{ steps.changes.outputs.doc_count }}"
+          echo "  - Tests: ${{ steps.changes.outputs.test_count }}"
+
+          if [ "${{ steps.check_changes.outputs.has_changes }}" = "true" ]; then
+            echo "✅ CHANGELOG.md has been updated"
+          else
+            echo "ℹ️ No updates needed for CHANGELOG.md"
+          fi
+
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -f unreleased_changes.md
+          echo "🧹 Cleanup completed"

@@ -1,0 +1,301 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (e.g., v1.0.0)"
+        required: true
+        type: string
+      prerelease:
+        description: "Is this a pre-release?"
+        required: false
+        type: boolean
+        default: false
+      draft:
+        description: "Create as draft release?"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Cache Deno dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/deno
+          key: ${{ runner.os }}-deno-${{ hashFiles('**/deno.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-deno-
+
+      - name: Determine version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION="${{ github.ref_name }}"
+          fi
+
+          # Remove 'v' prefix if present
+          VERSION_NUMBER=${VERSION#v}
+
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "version_number=${VERSION_NUMBER}" >> $GITHUB_OUTPUT
+          echo "tag_name=${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Validate version format
+        run: |
+          VERSION="${{ steps.version.outputs.version_number }}"
+          if ! echo "$VERSION" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.-]+)?$'; then
+            echo "❌ Invalid version format: $VERSION"
+            echo "Expected format: x.y.z or x.y.z-prerelease"
+            exit 1
+          fi
+          echo "✅ Version format is valid: $VERSION"
+
+      - name: Update version in deno.json
+        run: |
+          VERSION="${{ steps.version.outputs.version_number }}"
+
+          # Update version in deno.json
+          deno eval "
+            const config = JSON.parse(Deno.readTextFileSync('deno.json'));
+            config.version = '$VERSION';
+            Deno.writeTextFileSync('deno.json', JSON.stringify(config, null, 2) + '\n');
+          "
+
+          echo "✅ Updated deno.json version to $VERSION"
+
+      - name: Run tests before release
+        run: |
+          echo "🧪 Running tests before release..."
+          deno task check
+          deno task test
+
+      - name: Build project
+        run: |
+          echo "🔨 Building project..."
+          deno task build
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          echo "📝 Generating changelog..."
+
+          # Get the previous tag
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          CURRENT_TAG="${{ steps.version.outputs.tag_name }}"
+
+          if [ -z "$PREVIOUS_TAG" ]; then
+            echo "📋 First release - generating full changelog"
+            COMMIT_RANGE="HEAD"
+          else
+            echo "📋 Generating changelog from $PREVIOUS_TAG to $CURRENT_TAG"
+            COMMIT_RANGE="$PREVIOUS_TAG..HEAD"
+          fi
+
+          # Generate changelog content
+          CHANGELOG_CONTENT=$(cat << 'EOF'
+          ## 🚀 What's Changed
+
+          EOF
+          )
+
+          # Get commits and categorize them
+          FEATURES=$(git log $COMMIT_RANGE --oneline --grep="feat\|feature" --grep="add" --grep="新增" || echo "")
+          FIXES=$(git log $COMMIT_RANGE --oneline --grep="fix\|bug" --grep="修复" || echo "")
+          IMPROVEMENTS=$(git log $COMMIT_RANGE --oneline --grep="improve\|enhance" --grep="优化" --grep="改进" || echo "")
+          DOCS=$(git log $COMMIT_RANGE --oneline --grep="docs\|doc" --grep="文档" || echo "")
+          TESTS=$(git log $COMMIT_RANGE --oneline --grep="test" --grep="测试" || echo "")
+
+          # Build changelog sections
+          if [ ! -z "$FEATURES" ]; then
+            CHANGELOG_CONTENT="$CHANGELOG_CONTENT
+          ### ✨ New Features
+          $FEATURES
+          "
+          fi
+
+          if [ ! -z "$FIXES" ]; then
+            CHANGELOG_CONTENT="$CHANGELOG_CONTENT
+          ### 🐛 Bug Fixes
+          $FIXES
+          "
+          fi
+
+          if [ ! -z "$IMPROVEMENTS" ]; then
+            CHANGELOG_CONTENT="$CHANGELOG_CONTENT
+          ### 🔧 Improvements
+          $IMPROVEMENTS
+          "
+          fi
+
+          if [ ! -z "$DOCS" ]; then
+            CHANGELOG_CONTENT="$CHANGELOG_CONTENT
+          ### 📚 Documentation
+          $DOCS
+          "
+          fi
+
+          if [ ! -z "$TESTS" ]; then
+            CHANGELOG_CONTENT="$CHANGELOG_CONTENT
+          ### 🧪 Tests
+          $TESTS
+          "
+          fi
+
+          # Add installation instructions
+          CHANGELOG_CONTENT="$CHANGELOG_CONTENT
+
+          ## 📦 Installation
+
+          \`\`\`bash
+          # Clone the repository
+          git clone https://github.com/dext7r/athena.git
+          cd athena
+
+          # Start development server
+          deno task start
+          \`\`\`
+
+          ## 🔗 Links
+
+          - 🌐 [Live Demo](https://athena.deno.dev)
+          - 📚 [Documentation](https://athena.deno.dev/docs)
+          - 📊 [Test Coverage](https://dext7r.github.io/athena/html/index.html)
+          - 🐛 [Report Issues](https://github.com/dext7r/athena/issues)
+          "
+
+          # Save changelog to file
+          echo "$CHANGELOG_CONTENT" > release_changelog.md
+
+          # Output for GitHub
+          echo "changelog_file=release_changelog.md" >> $GITHUB_OUTPUT
+          echo "✅ Changelog generated successfully"
+
+      - name: Create/Update Git tag
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          TAG_NAME="${{ steps.version.outputs.tag_name }}"
+
+          # Check if tag already exists
+          if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+            echo "⚠️ Tag $TAG_NAME already exists, deleting and recreating..."
+            git tag -d "$TAG_NAME"
+            git push origin ":refs/tags/$TAG_NAME" || true
+          fi
+
+          # Create new tag
+          git tag -a "$TAG_NAME" -m "Release $TAG_NAME"
+          git push origin "$TAG_NAME"
+          echo "✅ Created and pushed tag $TAG_NAME"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.tag_name }}
+          name: Release ${{ steps.version.outputs.tag_name }}
+          body_path: ${{ steps.changelog.outputs.changelog_file }}
+          draft: ${{ github.event.inputs.draft == 'true' }}
+          prerelease: ${{ github.event.inputs.prerelease == 'true' }}
+          generate_release_notes: true
+          files: |
+            deno.json
+            README.md
+            CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update CHANGELOG.md
+        run: |
+          VERSION="${{ steps.version.outputs.version_number }}"
+          TAG_NAME="${{ steps.version.outputs.tag_name }}"
+          DATE=$(date +%Y-%m-%d)
+
+          # Read the generated changelog
+          RELEASE_NOTES=$(cat release_changelog.md)
+
+          # Create new changelog entry
+          NEW_ENTRY="## [$VERSION] - $DATE
+
+          $RELEASE_NOTES
+
+          "
+
+          # Update CHANGELOG.md
+          if [ -f "CHANGELOG.md" ]; then
+            # Insert new entry after the "## [未发布]" section
+            sed -i "/## \[未发布\]/r /dev/stdin" CHANGELOG.md << EOF
+
+          $NEW_ENTRY
+          EOF
+          else
+            # Create new CHANGELOG.md
+            cat > CHANGELOG.md << EOF
+          # 更新日志
+
+          本文件记录了 Athena 项目的所有重要更改。
+
+          格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.0.0/)，
+          并且本项目遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
+
+          ## [未发布]
+
+          $NEW_ENTRY
+          EOF
+          fi
+
+          echo "✅ Updated CHANGELOG.md with release $VERSION"
+
+      - name: Commit version updates
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          git add deno.json CHANGELOG.md
+          git commit -m "chore: release ${{ steps.version.outputs.tag_name }}" || exit 0
+          git push origin HEAD:${{ github.ref_name }}
+
+          echo "✅ Committed version updates"
+
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -f release_changelog.md
+          echo "🧹 Cleanup completed"
+
+  notify:
+    name: Notify Release
+    runs-on: ubuntu-latest
+    needs: release
+    if: success()
+
+    steps:
+      - name: Notify success
+        run: |
+          echo "🎉 Release ${{ needs.release.outputs.tag_name || github.ref_name }} created successfully!"
+          echo "📦 GitHub Release: https://github.com/${{ github.repository }}/releases/tag/${{ needs.release.outputs.tag_name || github.ref_name }}"

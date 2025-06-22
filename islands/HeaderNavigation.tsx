@@ -14,6 +14,7 @@ export default function HeaderNavigation() {
       />
       <NavLink href="/hooks" label="Hooks" active={isPathActive("/hooks")} />
       <NavLink href="/state" label="状态" active={isPathActive("/state")} />
+      <NavLink href="/docs" label="文档" active={isPathActive("/docs")} />
       <StatusDropdownIsland active={isStatusActive()} />
       <NavLink href="/about" label="关于" active={isPathActive("/about")} />
     </nav>

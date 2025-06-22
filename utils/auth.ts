@@ -1,28 +1,129 @@
 /**
- * GitHub OAuth 认证工具
+ * 多提供商 OAuth 认证工具
  */
 
-// GitHub OAuth 配置
-export const GITHUB_OAUTH_CONFIG = {
-  clientId: Deno.env.get("GITHUB_CLIENT_ID") || "",
-  clientSecret: Deno.env.get("GITHUB_CLIENT_SECRET") || "",
-  redirectUri: `${
-    Deno.env.get("APP_BASE_URL") || "http://localhost:8000"
-  }/api/auth/callback`,
-  scope: "user:email",
-  authorizeUrl: "https://github.com/login/oauth/authorize",
-  tokenUrl: "https://github.com/login/oauth/access_token",
-  userApiUrl: "https://api.github.com/user",
+import { getEnv } from "@utils/env.ts";
+
+// OAuth 提供商类型
+export type OAuthProvider = "github" | "google" | "microsoft" | "gitee";
+
+// OAuth 提供商配置接口
+export interface OAuthConfig {
+  clientId: string;
+  clientSecret: string;
+  redirectUri: string;
+  scope: string;
+  authorizeUrl: string;
+  tokenUrl: string;
+  userApiUrl: string;
+  name: string;
+  displayName: string;
+  icon: string;
+  color: string;
+}
+
+// 基础重定向 URI
+const getBaseRedirectUri = () =>
+  `${getEnv("APP_BASE_URL", "http://localhost:8000")}/api/auth/callback`;
+
+// OAuth 提供商配置
+export const OAUTH_PROVIDERS: Record<OAuthProvider, OAuthConfig> = {
+  github: {
+    clientId: getEnv("GITHUB_CLIENT_ID", ""),
+    clientSecret: getEnv("GITHUB_CLIENT_SECRET", ""),
+    redirectUri: getBaseRedirectUri(),
+    scope: "user:email",
+    authorizeUrl: "https://github.com/login/oauth/authorize",
+    tokenUrl: "https://github.com/login/oauth/access_token",
+    userApiUrl: "https://api.github.com/user",
+    name: "github",
+    displayName: "GitHub",
+    icon: "github",
+    color: "#24292f",
+  },
+  google: {
+    clientId: getEnv("GOOGLE_CLIENT_ID"),
+    clientSecret: getEnv("GOOGLE_CLIENT_SECRET"),
+    redirectUri: getBaseRedirectUri(),
+    scope: "openid email profile",
+    authorizeUrl: "https://accounts.google.com/o/oauth2/v2/auth",
+    tokenUrl: "https://oauth2.googleapis.com/token",
+    userApiUrl: "https://www.googleapis.com/oauth2/v2/userinfo",
+    name: "google",
+    displayName: "Google",
+    icon: "google",
+    color: "#4285f4",
+  },
+  microsoft: {
+    clientId: getEnv("MICROSOFT_CLIENT_ID"),
+    clientSecret: getEnv("MICROSOFT_CLIENT_SECRET"),
+    redirectUri: getBaseRedirectUri(),
+    scope: "openid email profile",
+    authorizeUrl:
+      "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+    tokenUrl: "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+    userApiUrl: "https://graph.microsoft.com/v1.0/me",
+    name: "microsoft",
+    displayName: "Microsoft",
+    icon: "microsoft",
+    color: "#0078d4",
+  },
+  gitee: {
+    clientId: getEnv("GITEE_CLIENT_ID"),
+    clientSecret: getEnv("GITEE_CLIENT_SECRET"),
+    redirectUri: getBaseRedirectUri(),
+    scope: "user_info",
+    authorizeUrl: "https://gitee.com/oauth/authorize",
+    tokenUrl: "https://gitee.com/oauth/token",
+    userApiUrl: "https://gitee.com/api/v5/user",
+    name: "gitee",
+    displayName: "Gitee",
+    icon: "gitee",
+    color: "#c71d23",
+  },
 };
+
+// 向后兼容的 GitHub 配置
+export const GITHUB_OAUTH_CONFIG = OAUTH_PROVIDERS.github;
 
 // JWT 配置
 export const JWT_CONFIG = {
-  secret: Deno.env.get("JWT_SECRET") || "default_secret_key",
-  expiresIn: parseInt(Deno.env.get("SESSION_EXPIRE_TIME") || "86400"), // 24小时
+  secret: getEnv("JWT_SECRET", "default_secret_key"),
+  expiresIn: parseInt(getEnv("SESSION_EXPIRE_TIME", "86400")), // 24小时
 };
 
+/**
+ * 获取已配置的 OAuth 提供商
+ */
+export function getAvailableOAuthProviders(): OAuthConfig[] {
+  return Object.values(OAUTH_PROVIDERS).filter((provider) =>
+    provider.clientId && provider.clientSecret &&
+    provider.clientId !== `your_${provider.name}_client_id`
+  );
+}
+
+/**
+ * 检查特定 OAuth 提供商是否已配置
+ */
+export function isProviderConfigured(provider: OAuthProvider): boolean {
+  const config = OAUTH_PROVIDERS[provider];
+  return !!(config.clientId && config.clientSecret &&
+    config.clientId !== `your_${provider}_client_id`);
+}
+
+// OAuth 用户信息通用接口
+export interface OAuthUser {
+  id: string | number;
+  username?: string;
+  name?: string | null;
+  email?: string | null;
+  avatar?: string;
+  profileUrl?: string;
+  [key: string]: unknown; // 允许提供商特定的字段
+}
+
 // GitHub 用户信息接口
-export interface GitHubUser {
+export interface GitHubUser extends OAuthUser {
   id: number;
   login: string;
   name: string | null;
@@ -40,9 +141,50 @@ export interface GitHubUser {
   updated_at: string;
 }
 
+// Google 用户信息接口
+export interface GoogleUser extends OAuthUser {
+  id: string;
+  email: string;
+  verified_email: boolean;
+  name: string;
+  given_name: string;
+  family_name: string;
+  picture: string;
+  locale: string;
+}
+
+// Microsoft 用户信息接口
+export interface MicrosoftUser extends OAuthUser {
+  id: string;
+  displayName: string;
+  givenName: string;
+  surname: string;
+  userPrincipalName: string;
+  mail: string;
+}
+
+// Gitee 用户信息接口
+export interface GiteeUser extends OAuthUser {
+  id: number;
+  login: string;
+  name: string;
+  avatar_url: string;
+  url: string;
+  html_url: string;
+  email: string;
+  bio: string;
+  blog: string;
+  location: string;
+  public_repos: number;
+  followers: number;
+  following: number;
+  created_at: string;
+  updated_at: string;
+}
+
 // 应用用户信息接口
 export interface AppUser {
-  id: number;
+  id: string;
   username: string;
   name: string | null;
   email: string | null;
@@ -52,11 +194,12 @@ export interface AppUser {
   location: string | null;
   company: string | null;
   website: string | null;
-  publicRepos: number;
-  followers: number;
-  following: number;
+  publicRepos?: number;
+  followers?: number;
+  following?: number;
   joinedAt: string;
   lastLoginAt: string;
+  provider: OAuthProvider; // 添加提供商信息
 }
 
 /**
@@ -133,7 +276,7 @@ export async function fetchGitHubUser(
  */
 export function transformGitHubUser(githubUser: GitHubUser): AppUser {
   return {
-    id: githubUser.id,
+    id: githubUser.id.toString(),
     username: githubUser.login,
     name: githubUser.name,
     email: githubUser.email,
@@ -148,6 +291,7 @@ export function transformGitHubUser(githubUser: GitHubUser): AppUser {
     following: githubUser.following,
     joinedAt: githubUser.created_at,
     lastLoginAt: new Date().toISOString(),
+    provider: "github",
   };
 }
 
