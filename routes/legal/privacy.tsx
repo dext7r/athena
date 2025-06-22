@@ -4,6 +4,7 @@
 
 import { Head } from "$fresh/runtime.ts";
 import Layout from "@components/layout/Layout.tsx";
+import LegalNavigation from "@components/legal/LegalNavigation.tsx";
 
 export default function PrivacyPage() {
   return (
@@ -45,9 +46,9 @@ export default function PrivacyPage() {
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               我们重视您的隐私。本政策说明我们如何收集、使用、披露和保护您的个人信息。
             </p>
-            <div className="mt-6 text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-lg text-gray-600 dark:text-gray-400">
               最后更新时间：2025年6月22日
-            </div>
+            </p>
           </div>
 
           {/* 目录导航 */}
@@ -665,7 +666,7 @@ export default function PrivacyPage() {
             </p>
             <div className="flex justify-center gap-4">
               <a
-                href="/terms"
+                href="/legal/terms"
                 className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
               >
                 服务条款
@@ -679,6 +680,9 @@ export default function PrivacyPage() {
               </a>
             </div>
           </div>
+
+          {/* 法律页面导航 */}
+          <LegalNavigation currentPage="privacy" />
         </div>
       </Layout>
     </>

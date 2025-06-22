@@ -80,11 +80,8 @@ export const handler = {
       // 转换为应用用户格式
       const appUser = oauthProvider.transformUser(oauthUser);
 
-      // 创建会话（将字符串ID转换为数字，如果无法转换则使用哈希）
-      const numericUserId = isNaN(Number(appUser.id))
-        ? Math.abs(hashCode(appUser.id))
-        : Number(appUser.id);
-      const session = createSession(numericUserId, req);
+      // 创建会话（使用字符串ID）
+      const session = createSession(appUser.id, req);
 
       // 生成 JWT 令牌（包含会话ID）
       const jwt = await generateJWT(appUser, session.id);
@@ -153,17 +150,4 @@ function parseCookies(cookieHeader: string): Record<string, string> {
   });
 
   return cookies;
-}
-
-/**
- * 简单的字符串哈希函数
- */
-function hashCode(str: string): number {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash; // 转换为32位整数
-  }
-  return hash;
 }

@@ -30,6 +30,10 @@ const testCategories = [
   { name: "安全测试", pattern: "test/security/**/*.test.ts" },
   { name: "状态管理", pattern: "test/stores/**/*.test.ts" },
   { name: "工具函数", pattern: "test/utils/**/*.test.ts" },
+  { name: "BackToTop组件", pattern: "test/components/BackToTop.test.ts" },
+  { name: "BackToTop集成", pattern: "test/integration/BackToTop.test.ts" },
+  { name: "BackToTop性能", pattern: "test/performance/BackToTop.test.ts" },
+  { name: "BackToTop工具", pattern: "test/utils/BackToTop.test.ts" },
 ];
 
 async function runTests(): Promise<TestSummary> {

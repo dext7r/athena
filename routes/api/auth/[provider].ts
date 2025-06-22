@@ -13,7 +13,7 @@ export const handler = {
     try {
       // 获取提供商名称
       const provider = ctx.params.provider as OAuthProvider;
-      
+
       // 验证提供商是否支持
       const availableProviders = OAuthProviderFactory.getAvailableProviders();
       if (!availableProviders.includes(provider)) {
@@ -32,7 +32,7 @@ export const handler = {
 
       // 获取提供商实例
       const oauthProvider = OAuthProviderFactory.getProvider(provider);
-      
+
       // 验证提供商配置
       const configValidation = oauthProvider.validateConfig();
       if (!configValidation.valid) {

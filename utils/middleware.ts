@@ -4,12 +4,12 @@
  */
 
 import { HandlerContext } from "$fresh/server.ts";
+import type { AppUser } from "./auth.ts";
 import {
   extractTokenFromRequest,
   userFromJWTPayload,
   verifyJWT,
 } from "./jwt.ts";
-import type { AppUser } from "./auth.ts";
 import { updateSessionActivity } from "./session.ts";
 
 // 认证上下文接口
@@ -207,7 +207,7 @@ export function getCurrentUser(
 /**
  * 从认证上下文中获取用户ID，确保类型安全
  */
-export function getUserId(authContext: AuthContext): number | null {
+export function getUserId(authContext: AuthContext): string | null {
   return authContext.user?.id || null;
 }
 
@@ -215,7 +215,7 @@ export function getUserId(authContext: AuthContext): number | null {
  * 验证用户ID是否有效，如果无效则返回错误响应
  */
 export function validateUserId(
-  userId: number | undefined | null,
+  userId: string | undefined | null,
 ): Response | null {
   if (!userId) {
     return new Response(

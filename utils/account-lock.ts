@@ -20,7 +20,7 @@ export enum LockReason {
 export interface AccountLockStatus {
   isLocked: boolean;
   lockedAt?: Date;
-  lockedBy?: number; // 锁定操作者的用户ID
+  lockedBy?: string; // 锁定操作者的用户ID
   reason?: LockReason;
   description?: string;
   unlockAt?: Date; // 自动解锁时间
@@ -29,12 +29,12 @@ export interface AccountLockStatus {
 }
 
 // 临时存储账户锁定状态（实际项目中应该使用数据库）
-const accountLocks = new Map<number, AccountLockStatus>();
+const accountLocks = new Map<string, AccountLockStatus>();
 
 /**
  * 检查账户是否被锁定
  */
-export function isAccountLocked(userId: number): boolean {
+export function isAccountLocked(userId: string): boolean {
   const lockStatus = accountLocks.get(userId);
 
   if (!lockStatus || !lockStatus.isLocked) {
@@ -53,7 +53,7 @@ export function isAccountLocked(userId: number): boolean {
 /**
  * 获取账户锁定状态
  */
-export function getAccountLockStatus(userId: number): AccountLockStatus {
+export function getAccountLockStatus(userId: string): AccountLockStatus {
   const lockStatus = accountLocks.get(userId);
 
   if (!lockStatus) {
@@ -73,11 +73,11 @@ export function getAccountLockStatus(userId: number): AccountLockStatus {
  * 锁定账户
  */
 export function lockAccount(
-  userId: number,
+  userId: string,
   reason: LockReason,
   description: string,
   options: {
-    lockedBy?: number;
+    lockedBy?: string;
     duration?: number; // 锁定时长（分钟）
     ipAddress?: string;
     username?: string;
@@ -128,10 +128,10 @@ export function lockAccount(
  * 解锁账户
  */
 export function unlockAccount(
-  userId: number,
+  userId: string,
   description: string,
   options: {
-    unlockedBy?: number;
+    unlockedBy?: string;
     ipAddress?: string;
     username?: string;
   } = {},
@@ -172,7 +172,7 @@ export function unlockAccount(
  * 记录失败尝试
  */
 export function recordFailedAttempt(
-  userId: number,
+  userId: string,
   attemptType: string,
   ipAddress?: string,
   username?: string,
@@ -228,7 +228,7 @@ export function recordFailedAttempt(
 /**
  * 重置失败尝试计数
  */
-export function resetFailedAttempts(userId: number): void {
+export function resetFailedAttempts(userId: string): void {
   const lockStatus = accountLocks.get(userId);
 
   if (lockStatus) {
@@ -244,7 +244,7 @@ export function resetFailedAttempts(userId: number): void {
  * 紧急锁定账户（用户主动请求）
  */
 export function emergencyLockAccount(
-  userId: number,
+  userId: string,
   username: string,
   ipAddress: string,
   reason?: string,
@@ -267,7 +267,7 @@ export function emergencyLockAccount(
  * 检测可疑活动并锁定账户
  */
 export function lockForSuspiciousActivity(
-  userId: number,
+  userId: string,
   username: string,
   activityDescription: string,
   ipAddress?: string,
@@ -319,9 +319,9 @@ export function getLockReasonDescription(reason: LockReason): string {
  * 获取所有锁定的账户（管理员功能）
  */
 export function getAllLockedAccounts(): Array<
-  { userId: number; status: AccountLockStatus }
+  { userId: string; status: AccountLockStatus }
 > {
-  const lockedAccounts: Array<{ userId: number; status: AccountLockStatus }> =
+  const lockedAccounts: Array<{ userId: string; status: AccountLockStatus }> =
     [];
 
   for (const [userId, status] of accountLocks) {

@@ -707,6 +707,379 @@ export const handler = {
               </div>
             </div>
           </section>
+
+          {/* 安全最佳实践 */}
+          <section id="security" className="mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-gray-700 pb-3">
+              🔒 安全最佳实践
+            </h2>
+
+            <div className="space-y-8">
+              {/* JWT 安全 */}
+              <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  JWT 令牌安全
+                </h3>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-medium text-green-700 dark:text-green-400 mb-2">
+                        ✅ 推荐做法
+                      </h4>
+                      <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                        <li>• 使用强随机密钥（至少256位）</li>
+                        <li>• 设置合理的过期时间（24小时内）</li>
+                        <li>• 使用 HttpOnly Cookie 存储</li>
+                        <li>• 启用 SameSite 保护</li>
+                        <li>• 定期轮换密钥</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-red-700 dark:text-red-400 mb-2">
+                        ❌ 避免做法
+                      </h4>
+                      <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                        <li>• 在 localStorage 中存储令牌</li>
+                        <li>• 使用弱密钥或默认密钥</li>
+                        <li>• 设置过长的过期时间</li>
+                        <li>• 在 URL 中传递令牌</li>
+                        <li>• 忽略令牌验证</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="font-medium text-gray-900 dark:text-white mb-2">
+                      环境变量配置
+                    </h4>
+                    <div className="bg-gray-900 dark:bg-gray-700 rounded-lg p-4 overflow-x-auto">
+                      <pre className="text-green-400 text-sm">
+{`# 生成强随机密钥
+JWT_SECRET=$(openssl rand -base64 32)
+
+# 设置合理的过期时间（秒）
+SESSION_EXPIRE_TIME=86400  # 24小时
+
+# 启用安全Cookie设置
+SECURE_COOKIES=true
+SAMESITE_STRICT=true`}
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* HTTPS 和 Cookie 安全 */}
+              <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  HTTPS 和 Cookie 安全
+                </h3>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-medium text-gray-900 dark:text-white mb-2">
+                      Cookie 安全配置
+                    </h4>
+                    <div className="bg-gray-900 dark:bg-gray-700 rounded-lg p-4 overflow-x-auto">
+                      <pre className="text-green-400 text-sm">
+{`// 安全的 Cookie 设置
+const secureCookie = [
+  "auth_token=jwt_token_here",
+  "HttpOnly",                    // 防止 XSS 攻击
+  "Secure",                      // 仅在 HTTPS 下传输
+  "SameSite=Strict",            // 防止 CSRF 攻击
+  "Max-Age=86400",              // 24小时过期
+  "Path=/",                     // 全站有效
+].join("; ");`}
+                      </pre>
+                    </div>
+                  </div>
+
+                  <div className="bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+                    <div className="flex items-start gap-3">
+                      <svg
+                        className="w-5 h-5 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
+                        />
+                      </svg>
+                      <div>
+                        <h4 className="font-medium text-yellow-900 dark:text-yellow-100 mb-1">
+                          重要提醒
+                        </h4>
+                        <p className="text-yellow-800 dark:text-yellow-200 text-sm">
+                          生产环境必须使用 HTTPS。在开发环境中，Secure
+                          标志会阻止 Cookie 在 HTTP 下工作。
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 防护措施 */}
+              <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  常见攻击防护
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="font-medium text-gray-900 dark:text-white mb-3">
+                      CSRF 防护
+                    </h4>
+                    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+                      <li>• 使用 SameSite Cookie 属性</li>
+                      <li>• 验证 Referer 头</li>
+                      <li>• 实施 CSRF 令牌</li>
+                      <li>• 双重提交 Cookie</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900 dark:text-white mb-3">
+                      XSS 防护
+                    </h4>
+                    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+                      <li>• 使用 HttpOnly Cookie</li>
+                      <li>• 输入验证和转义</li>
+                      <li>• 内容安全策略 (CSP)</li>
+                      <li>• 避免 innerHTML 使用</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900 dark:text-white mb-3">
+                      会话劫持防护
+                    </h4>
+                    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+                      <li>• 强制 HTTPS 传输</li>
+                      <li>• 定期轮换会话ID</li>
+                      <li>• 监控异常登录</li>
+                      <li>• 实施会话超时</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900 dark:text-white mb-3">
+                      暴力破解防护
+                    </h4>
+                    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+                      <li>• 实施速率限制</li>
+                      <li>• 账户锁定机制</li>
+                      <li>• 验证码保护</li>
+                      <li>• 监控失败尝试</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 部署指南 */}
+          <section id="deployment" className="mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-gray-700 pb-3">
+              🚀 部署指南
+            </h2>
+
+            <div className="space-y-8">
+              {/* 环境变量配置 */}
+              <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  环境变量配置
+                </h3>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-medium text-gray-900 dark:text-white mb-2">
+                      必需的环境变量
+                    </h4>
+                    <div className="bg-gray-900 dark:bg-gray-700 rounded-lg p-4 overflow-x-auto">
+                      <pre className="text-green-400 text-sm">
+{`# 基础配置
+BASE_URL=https://yourdomain.com
+JWT_SECRET=your_super_secret_jwt_key_here
+SESSION_EXPIRE_TIME=86400
+
+# GitHub OAuth
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
+
+# Google OAuth
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+# Microsoft OAuth
+MICROSOFT_CLIENT_ID=your_microsoft_client_id
+MICROSOFT_CLIENT_SECRET=your_microsoft_client_secret
+
+# Gitee OAuth
+GITEE_CLIENT_ID=your_gitee_client_id
+GITEE_CLIENT_SECRET=your_gitee_client_secret`}
+                      </pre>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="font-medium text-gray-900 dark:text-white mb-2">
+                      可选的环境变量
+                    </h4>
+                    <div className="bg-gray-900 dark:bg-gray-700 rounded-lg p-4 overflow-x-auto">
+                      <pre className="text-green-400 text-sm">
+{`# 安全配置
+SECURE_COOKIES=true
+SAMESITE_STRICT=true
+CORS_ORIGIN=https://yourdomain.com
+
+# 日志配置
+LOG_LEVEL=info
+ENABLE_AUTH_LOGS=true
+
+# 会话配置
+MAX_SESSIONS_PER_USER=10
+SESSION_CLEANUP_INTERVAL=3600`}
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Deno Deploy 部署 */}
+              <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  Deno Deploy 部署
+                </h3>
+                <div className="space-y-4">
+                  <ol className="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
+                    <li>
+                      <strong>连接 GitHub 仓库</strong>
+                      <p className="text-sm mt-1 ml-6">
+                        在 Deno Deploy 控制台中连接你的 GitHub 仓库
+                      </p>
+                    </li>
+                    <li>
+                      <strong>配置环境变量</strong>
+                      <p className="text-sm mt-1 ml-6">
+                        在项目设置中添加所有必需的环境变量
+                      </p>
+                    </li>
+                    <li>
+                      <strong>设置自定义域名</strong>
+                      <p className="text-sm mt-1 ml-6">
+                        配置你的域名并确保 HTTPS 证书正常工作
+                      </p>
+                    </li>
+                    <li>
+                      <strong>更新 OAuth 回调 URL</strong>
+                      <p className="text-sm mt-1 ml-6">
+                        在各个 OAuth 提供商中更新回调 URL 为生产域名
+                      </p>
+                    </li>
+                  </ol>
+
+                  <div className="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                    <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-2">
+                      部署检查清单
+                    </h4>
+                    <ul className="text-blue-800 dark:text-blue-200 text-sm space-y-1">
+                      <li>□ 所有环境变量已配置</li>
+                      <li>□ OAuth 应用回调 URL 已更新</li>
+                      <li>□ HTTPS 证书正常工作</li>
+                      <li>□ 认证流程测试通过</li>
+                      <li>□ 会话管理功能正常</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 故障排除 */}
+          <section id="troubleshooting" className="mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-gray-700 pb-3">
+              🔧 故障排除
+            </h2>
+
+            <div className="space-y-6">
+              {/* 常见问题 */}
+              <div className="space-y-4">
+                {[
+                  {
+                    question: "OAuth 登录失败，显示 'invalid_client' 错误",
+                    answer:
+                      "检查 OAuth 应用的 Client ID 和 Client Secret 是否正确配置，确保回调 URL 与 OAuth 应用设置中的 URL 完全匹配。",
+                  },
+                  {
+                    question: "用户登录后立即被重定向到登录页面",
+                    answer:
+                      "可能是 JWT 密钥配置错误或 Cookie 设置问题。检查 JWT_SECRET 环境变量，确保在生产环境中启用了 HTTPS。",
+                  },
+                  {
+                    question: "会话管理 API 返回 401 错误",
+                    answer:
+                      "确保请求包含有效的认证 Cookie 或 Authorization 头，检查 JWT 令牌是否过期。",
+                  },
+                  {
+                    question: "在开发环境中 Cookie 无法设置",
+                    answer:
+                      "在开发环境中禁用 Secure Cookie 标志，或使用 HTTPS 进行本地开发。",
+                  },
+                  {
+                    question: "多个会话之间出现冲突",
+                    answer:
+                      "检查会话存储实现，确保会话 ID 的唯一性，考虑实施会话清理机制。",
+                  },
+                ].map((faq, index) => (
+                  <div
+                    key={index}
+                    className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6"
+                  >
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
+                      Q: {faq.question}
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300 text-sm">
+                      A: {faq.answer}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* 调试技巧 */}
+              <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  调试技巧
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="font-medium text-gray-900 dark:text-white mb-2">
+                      启用详细日志
+                    </h4>
+                    <div className="bg-gray-900 dark:bg-gray-700 rounded-lg p-3 text-sm">
+                      <pre className="text-green-400">
+{`# 在 .env 中添加
+LOG_LEVEL=debug
+ENABLE_AUTH_LOGS=true`}
+                      </pre>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900 dark:text-white mb-2">
+                      检查 JWT 令牌
+                    </h4>
+                    <div className="bg-gray-900 dark:bg-gray-700 rounded-lg p-3 text-sm">
+                      <pre className="text-green-400">
+{`// 在浏览器控制台中
+document.cookie
+  .split(';')
+  .find(c => c.includes('auth_token'))`}
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </Layout>
     </>

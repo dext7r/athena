@@ -40,6 +40,8 @@ export default function BackToTop({
   const [isVisible, setIsVisible] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0); // 滚动进度 0-1
+  const [isUserScrolling, setIsUserScrolling] = useState(false); // 用户是否正在滚动
+  const [scrollStopTimer, setScrollStopTimer] = useState<number | null>(null);
 
   // 监听滚动事件 - 支持自定义滚动容器
   useEffect(() => {
@@ -73,6 +75,21 @@ export default function BackToTop({
       const shouldShow = scrollTop > threshold;
       setIsVisible(shouldShow);
       setScrollProgress(progress);
+
+      // 用户滚动检测逻辑
+      setIsUserScrolling(true);
+
+      // 清除之前的定时器
+      if (scrollStopTimer) {
+        clearTimeout(scrollStopTimer);
+      }
+
+      // 设置新的定时器，300ms后认为滚动停止
+      const newTimer = setTimeout(() => {
+        setIsUserScrolling(false);
+      }, 300);
+
+      setScrollStopTimer(newTimer);
     };
 
     // 监听window滚动
@@ -91,8 +108,12 @@ export default function BackToTop({
       if (scrollContainer) {
         scrollContainer.removeEventListener("scroll", handleScroll);
       }
+      // 清理定时器
+      if (scrollStopTimer) {
+        clearTimeout(scrollStopTimer);
+      }
     };
-  }, [threshold]);
+  }, [threshold, scrollStopTimer]);
 
   // 平滑滚动到顶部 - 支持自定义滚动容器
   const scrollToTop = () => {
@@ -179,7 +200,6 @@ export default function BackToTop({
   const getVariantStyles = () => {
     // 如果滚动进度大于0，使用动态颜色
     if (scrollProgress > 0) {
-      const dynamicColor = getDynamicColor();
       return `text-white shadow-lg`;
     }
 
@@ -258,23 +278,43 @@ export default function BackToTop({
       title="返回顶部"
       aria-label="返回顶部"
     >
-      {/* 返回顶部图标 */}
-      <svg
-        className={`${getIconSize()} transition-transform duration-200 ${
-          isScrolling ? "animate-bounce" : ""
-        }`}
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M5 10l7-7m0 0l7 7m-7-7v18"
-        />
-      </svg>
+      {/* 根据滚动状态显示不同内容 */}
+      {isUserScrolling && scrollProgress > 0
+        ? (
+          // 滚动时显示百分比
+          <div className="flex items-center justify-center w-full h-full">
+            <span
+              className={`font-bold transition-all duration-200 ${
+                size === "sm"
+                  ? "text-xs"
+                  : size === "md"
+                  ? "text-sm"
+                  : "text-base"
+              }`}
+            >
+              {Math.round(scrollProgress * 100)}%
+            </span>
+          </div>
+        )
+        : (
+          // 停止滚动时显示箭头图标
+          <svg
+            className={`${getIconSize()} transition-transform duration-200 ${
+              isScrolling ? "animate-bounce" : ""
+            }`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
+            />
+          </svg>
+        )}
 
       {/* 滚动进度环 */}
       {scrollProgress > 0 && !isScrolling && (

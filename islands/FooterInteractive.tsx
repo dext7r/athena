@@ -340,7 +340,7 @@ export default function FooterInteractive(
                       联系我们
                     </a>
                     <a
-                      href="#"
+                      href="/docs"
                       className="block text-xs text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       使用文档
@@ -428,21 +428,21 @@ export default function FooterInteractive(
                   </div>
                   <div className="flex items-center justify-center gap-3 text-xs text-gray-500 dark:text-gray-500">
                     <a
-                      href="#"
+                      href="/legal/privacy"
                       className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
                     >
                       隐私政策
                     </a>
                     <span>•</span>
                     <a
-                      href="#"
+                      href="/legal/terms"
                       className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
                     >
                       服务条款
                     </a>
                     <span>•</span>
                     <a
-                      href="#"
+                      href="/legal/cookies"
                       className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
                     >
                       Cookie
@@ -575,7 +575,7 @@ export default function FooterInteractive(
                       </span>
                     </a>
                     <a
-                      href="#"
+                      href="/docs"
                       className="group flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-300"
                     >
                       <div className="w-2 h-2 bg-orange-500/60 rounded-full group-hover:bg-orange-500 group-hover:scale-125 transition-all duration-300">
@@ -671,19 +671,19 @@ export default function FooterInteractive(
                   </div>
                   <div className="flex items-center gap-6 text-xs text-gray-500 dark:text-gray-500">
                     <a
-                      href="#"
+                      href="/legal/privacy"
                       className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
                     >
                       隐私政策
                     </a>
                     <a
-                      href="#"
+                      href="/legal/terms"
                       className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
                     >
                       服务条款
                     </a>
                     <a
-                      href="#"
+                      href="/legal/cookies"
                       className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
                     >
                       Cookie 政策

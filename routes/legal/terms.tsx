@@ -4,6 +4,7 @@
 
 import { Head } from "$fresh/runtime.ts";
 import Layout from "@components/layout/Layout.tsx";
+import LegalNavigation from "@components/legal/LegalNavigation.tsx";
 
 export default function TermsPage() {
   return (
@@ -46,9 +47,9 @@ export default function TermsPage() {
               欢迎使用 Athena
               服务。请仔细阅读以下条款，使用我们的服务即表示您同意这些条款。
             </p>
-            <div className="mt-6 text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-lg text-gray-600 dark:text-gray-400">
               最后更新时间：2025年6月22日
-            </div>
+            </p>
           </div>
 
           {/* 目录导航 */}
@@ -244,7 +245,7 @@ export default function TermsPage() {
               <div className="space-y-4 text-gray-700 dark:text-gray-300">
                 <p>
                   您的隐私对我们很重要。请查看我们的<a
-                    href="/privacy"
+                    href="/legal/privacy"
                     className="text-blue-600 dark:text-blue-400 hover:underline"
                   >
                     隐私政策
@@ -347,6 +348,8 @@ export default function TermsPage() {
               </div>
             </section>
           </div>
+          {/* 法律页面导航 */}
+          <LegalNavigation currentPage="terms" />
         </div>
       </Layout>
     </>

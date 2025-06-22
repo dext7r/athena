@@ -824,14 +824,14 @@ export default function LoginModal({
             <p className="text-xs text-gray-500 dark:text-gray-400">
               {authMode === "register" ? "注册" : "登录"}即表示您同意我们的{" "}
               <a
-                href="/terms"
+                href="/legal/terms"
                 className="text-blue-600 dark:text-blue-400 hover:underline"
               >
                 服务条款
               </a>{" "}
               和{" "}
               <a
-                href="/privacy"
+                href="/legal/privacy"
                 className="text-blue-600 dark:text-blue-400 hover:underline"
               >
                 隐私政策

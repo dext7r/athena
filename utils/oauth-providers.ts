@@ -97,7 +97,9 @@ export abstract class BaseOAuthProvider {
     }
 
     if (!this.config.clientSecret) {
-      errors.push(`${this.config.name.toUpperCase()}_CLIENT_SECRET is required`);
+      errors.push(
+        `${this.config.name.toUpperCase()}_CLIENT_SECRET is required`,
+      );
     }
 
     return {
@@ -244,11 +246,14 @@ export class GiteeOAuthProvider extends BaseOAuthProvider {
   }
 
   async fetchUser(accessToken: string): Promise<GiteeUser> {
-    const response = await fetch(`${this.config.userApiUrl}?access_token=${accessToken}`, {
-      headers: {
-        "User-Agent": "Athena",
+    const response = await fetch(
+      `${this.config.userApiUrl}?access_token=${accessToken}`,
+      {
+        headers: {
+          "User-Agent": "Athena",
+        },
       },
-    });
+    );
 
     if (!response.ok) {
       throw new Error(`Failed to fetch user info: ${response.statusText}`);

@@ -53,7 +53,7 @@ export enum AuditEventType {
 export interface AuditLogEntry {
   id: string;
   timestamp: Date;
-  userId?: number;
+  userId?: string;
   username?: string;
   eventType: AuditEventType;
   level: AuditLevel;
@@ -68,7 +68,7 @@ export interface AuditLogEntry {
 
 // 审计日志查询参数
 export interface AuditLogQuery {
-  userId?: number;
+  userId?: string;
   eventType?: AuditEventType;
   level?: AuditLevel;
   startDate?: Date;
@@ -98,7 +98,7 @@ export function logAuditEvent(
   level: AuditLevel,
   message: string,
   options: {
-    userId?: number;
+    userId?: string;
     username?: string;
     details?: Record<string, unknown>;
     ipAddress?: string;
@@ -264,7 +264,7 @@ export function cleanupOldAuditLogs(daysToKeep: number = 90): number {
  * 记录登录成功事件
  */
 export function logLoginSuccess(
-  userId: number,
+  userId: string,
   username: string,
   ipAddress: string,
   userAgent: string,
@@ -312,7 +312,7 @@ export function logLoginFailed(
  * 记录登出事件
  */
 export function logLogout(
-  userId: number,
+  userId: string,
   username: string,
   ipAddress: string,
   sessionId?: string,
@@ -340,7 +340,7 @@ export function logMFAEvent(
     | AuditEventType.MFA_DISABLED
     | AuditEventType.MFA_VERIFY_SUCCESS
     | AuditEventType.MFA_VERIFY_FAILED,
-  userId: number,
+  userId: string,
   username: string,
   ipAddress: string,
   details?: Record<string, unknown>,
@@ -378,7 +378,7 @@ export function logSuspiciousActivity(
   description: string,
   ipAddress: string,
   userAgent?: string,
-  userId?: number,
+  userId?: string,
   username?: string,
   details?: Record<string, unknown>,
 ): void {

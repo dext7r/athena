@@ -12,15 +12,15 @@ export const handler = {
     try {
       // 获取所有可用的提供商
       const availableProviders = OAuthProviderFactory.getAvailableProviders();
-      
+
       // 获取已配置的提供商
       const configuredProviders = OAuthProviderFactory.getConfiguredProviders();
-      
+
       // 构建提供商信息列表
       const providers = availableProviders.map((provider) => {
         const config = OAUTH_PROVIDERS[provider];
         const isConfigured = configuredProviders.includes(provider);
-        
+
         return {
           name: provider,
           displayName: config.displayName,
@@ -32,7 +32,7 @@ export const handler = {
       });
 
       // 只返回已配置的提供商
-      const enabledProviders = providers.filter(p => p.available);
+      const enabledProviders = providers.filter((p) => p.available);
 
       return new Response(
         JSON.stringify({
@@ -52,7 +52,7 @@ export const handler = {
       );
     } catch (error) {
       console.error("Failed to get OAuth providers:", error);
-      
+
       return new Response(
         JSON.stringify({
           success: false,
