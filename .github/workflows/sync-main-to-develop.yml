@@ -148,45 +148,7 @@ jobs:
         with:
           script: |
             const title = `🚨 Main to Develop 同步冲突 - ${new Date().toISOString().split('T')[0]}`;
-            const body = `
-            ## 同步冲突通知
-            
-            在尝试将 \`main\` 分支同步到 \`develop\` 分支时发生了合并冲突。
-            
-            ### 详细信息
-            - **触发提交**: ${{ github.sha }}
-            - **提交信息**: ${{ github.event.head_commit.message }}
-            - **提交作者**: ${{ github.event.head_commit.author.name }}
-            - **时间**: ${new Date().toISOString()}
-            
-            ### 需要手动操作
-            请按照以下步骤手动解决冲突：
-            
-            1. 本地切换到 develop 分支：
-               \`\`\`bash
-               git checkout develop
-               git pull origin develop
-               \`\`\`
-            
-            2. 合并 main 分支：
-               \`\`\`bash
-               git merge origin/main
-               \`\`\`
-            
-            3. 解决冲突后提交：
-               \`\`\`bash
-               git add .
-               git commit -m "resolve: 解决 main 到 develop 的合并冲突"
-               git push origin develop
-               \`\`\`
-            
-            ### 相关链接
-            - [触发的工作流运行](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            - [冲突的提交](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
-            
-            ---
-            *此 Issue 由 GitHub Actions 自动创建*
-            `;
+            const body = `## 同步冲突通知\n\n在尝试将 \`main\` 分支同步到 \`develop\` 分支时发生了合并冲突。\n\n### 详细信息\n- **触发提交**: ${{ github.sha }}\n- **提交信息**: ${{ github.event.head_commit.message }}\n- **提交作者**: ${{ github.event.head_commit.author.name }}\n- **时间**: ${new Date().toISOString()}\n\n### 需要手动操作\n请按照以下步骤手动解决冲突：\n\n1. 本地切换到 develop 分支：\n   \`\`\`bash\n   git checkout develop\n   git pull origin develop\n   \`\`\`\n\n2. 合并 main 分支：\n   \`\`\`bash\n   git merge origin/main\n   \`\`\`\n\n3. 解决冲突后提交：\n   \`\`\`bash\n   git add .\n   git commit -m "resolve: 解决 main 到 develop 的合并冲突"\n   git push origin develop\n   \`\`\`\n\n### 相关链接\n- [触发的工作流运行](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})\n- [冲突的提交](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})\n\n---\n*此 Issue 由 GitHub Actions 自动创建*`;
             
             await github.rest.issues.create({
               owner: context.repo.owner,
