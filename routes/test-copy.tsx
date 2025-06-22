@@ -1,8 +1,9 @@
+import CodeBlock from "@islands/CodeBlock.tsx";
+import CopyButton from "@islands/CopyButton.tsx";
+import EnvironmentInfo from "@islands/EnvironmentInfo.tsx";
 import { PageProps } from "fresh";
-import CopyButton from "../islands/CopyButton.tsx";
-import CodeBlock from "../islands/CodeBlock.tsx";
 
-export default function TestCopyPage(props: PageProps) {
+export default function TestCopyPage(_props: PageProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,20 +24,24 @@ export default function TestCopyPage(props: PageProps) {
             </h2>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <span className="text-gray-700 dark:text-gray-300">简单文本:</span>
-                <CopyButton 
-                  text="Hello, World!" 
+                <span className="text-gray-700 dark:text-gray-300">
+                  简单文本:
+                </span>
+                <CopyButton
+                  text="Hello, World!"
                   variant="default"
                   size="md"
                 >
                   复制文本
                 </CopyButton>
               </div>
-              
+
               <div className="flex items-center gap-4">
-                <span className="text-gray-700 dark:text-gray-300">长文本:</span>
-                <CopyButton 
-                  text="这是一段很长的文本，用来测试复制功能是否能正确处理较长的内容。包含中文字符、标点符号和换行符。\n第二行内容\n第三行内容" 
+                <span className="text-gray-700 dark:text-gray-300">
+                  长文本:
+                </span>
+                <CopyButton
+                  text="这是一段很长的文本，用来测试复制功能是否能正确处理较长的内容。包含中文字符、标点符号和换行符。\n第二行内容\n第三行内容"
                   variant="outline"
                   size="md"
                 >
@@ -45,8 +50,10 @@ export default function TestCopyPage(props: PageProps) {
               </div>
 
               <div className="flex items-center gap-4">
-                <span className="text-gray-700 dark:text-gray-300">代码片段:</span>
-                <CopyButton 
+                <span className="text-gray-700 dark:text-gray-300">
+                  代码片段:
+                </span>
+                <CopyButton
                   text={`function hello() {
   console.log("Hello, World!");
   return "success";
@@ -59,9 +66,11 @@ export default function TestCopyPage(props: PageProps) {
               </div>
 
               <div className="flex items-center gap-4">
-                <span className="text-gray-700 dark:text-gray-300">空内容测试:</span>
-                <CopyButton 
-                  text="" 
+                <span className="text-gray-700 dark:text-gray-300">
+                  空内容测试:
+                </span>
+                <CopyButton
+                  text=""
                   variant="default"
                   size="md"
                 >
@@ -102,8 +111,8 @@ export function ExampleComponent() {
 }`}
               language="typescript"
               title="useCopy Hook 使用示例"
-              showLineNumbers={true}
-              copyable={true}
+              showLineNumbers
+              copyable
             />
           </div>
 
@@ -112,18 +121,13 @@ export function ExampleComponent() {
             <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
               环境信息
             </h2>
-            <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-              <p><strong>用户代理:</strong> <span id="user-agent"></span></p>
-              <p><strong>是否支持 Clipboard API:</strong> <span id="clipboard-support"></span></p>
-              <p><strong>是否支持 execCommand:</strong> <span id="execcommand-support"></span></p>
-              <p><strong>是否为 HTTPS:</strong> <span id="https-status"></span></p>
-            </div>
+            <EnvironmentInfo />
           </div>
         </div>
 
         <div className="mt-12 text-center">
-          <a 
-            href="/" 
+          <a
+            href="/"
             className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             返回首页
@@ -131,22 +135,7 @@ export function ExampleComponent() {
         </div>
       </div>
 
-      <script dangerouslySetInnerHTML={{
-        __html: `
-          // 显示环境信息
-          document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('user-agent').textContent = navigator.userAgent;
-            document.getElementById('clipboard-support').textContent = 
-              (typeof navigator !== 'undefined' && 'clipboard' in navigator && 'writeText' in navigator.clipboard) 
-                ? '✅ 支持' : '❌ 不支持';
-            document.getElementById('execcommand-support').textContent = 
-              (typeof document !== 'undefined' && 'execCommand' in document) 
-                ? '✅ 支持' : '❌ 不支持';
-            document.getElementById('https-status').textContent = 
-              location.protocol === 'https:' ? '✅ HTTPS' : '❌ HTTP';
-          });
-        `
-      }} />
+      {/* 环境信息将通过客户端 JavaScript 填充 */}
     </div>
   );
 }
