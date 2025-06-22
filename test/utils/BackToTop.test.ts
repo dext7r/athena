@@ -205,6 +205,7 @@ Deno.test("BackToTop Utils - 滚动容器检测", () => {
 // 防抖工具函数测试
 Deno.test("BackToTop Utils - 防抖函数", async () => {
   // 防抖函数实现
+  // deno-lint-ignore no-explicit-any
   const debounce = <T extends (...args: any[]) => any>(
     func: T,
     delay: number,
@@ -252,6 +253,7 @@ Deno.test("BackToTop Utils - 防抖函数", async () => {
 // 节流工具函数测试
 Deno.test("BackToTop Utils - 节流函数", async () => {
   // 节流函数实现
+  // deno-lint-ignore no-explicit-any
   const throttle = <T extends (...args: any[]) => any>(
     func: T,
     delay: number,

@@ -2,17 +2,36 @@
 
 # 🏛️ Athena
 
+<!-- 版本和技术栈徽章 -->
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.0.1-blue.svg" alt="Version">
-  <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
-  <img src="https://img.shields.io/badge/deno-2.0+-black.svg" alt="Deno">
-  <img src="https://img.shields.io/badge/fresh-1.7.3-yellow.svg" alt="Fresh">
-  <img src="https://github.com/dext7r/athena/actions/workflows/ci.yml/badge.svg" alt="CI">
-  <img src="https://github.com/dext7r/athena/actions/workflows/test.yml/badge.svg" alt="Tests">
-  <img src="https://github.com/dext7r/athena/actions/workflows/deploy.yml/badge.svg" alt="Deploy">
+  <img src="https://img.shields.io/github/v/release/dext7r/athena?style=flat&color=brightgreen&logo=github&label=Latest%20Release" alt="Latest Release">
+  <img src="https://img.shields.io/github/release-date/dext7r/athena?style=flat&color=blue&logo=calendar&label=Release%20Date" alt="Release Date">
+  <img src="https://img.shields.io/badge/Deno-2.0+-000000?style=flat&logo=deno&logoColor=white" alt="Deno">
+  <img src="https://img.shields.io/badge/Fresh-1.7.3-00D2FF?style=flat&logo=fresh&logoColor=white" alt="Fresh">
+  <img src="https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=flat&logo=typescript&logoColor=white" alt="TypeScript">
+</p>
+
+<p align="center">
+  <img src="https://github.com/dext7r/athena/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI Status">
+  <img src="https://github.com/dext7r/athena/actions/workflows/test.yml/badge.svg?branch=main" alt="Test Status">
+  <img src="https://github.com/dext7r/athena/actions/workflows/release.yml/badge.svg" alt="Release Status">
   <img src="https://codecov.io/gh/dext7r/athena/branch/main/graph/badge.svg" alt="Coverage">
+  <img src="https://img.shields.io/github/languages/top/dext7r/athena?style=flat&color=blue" alt="Top Language">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/github/license/dext7r/athena?style=flat&color=green&logo=license" alt="License">
+  <img src="https://img.shields.io/github/stars/dext7r/athena?style=flat&color=yellow&logo=star" alt="Stars">
+  <img src="https://img.shields.io/github/forks/dext7r/athena?style=flat&color=blue&logo=fork" alt="Forks">
+  <img src="https://img.shields.io/github/issues/dext7r/athena?style=flat&color=red&logo=github" alt="Issues">
+  <img src="https://img.shields.io/github/downloads/dext7r/athena/total?style=flat&color=purple&logo=download" alt="Downloads">
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/GitHub%20Pages-121013?style=flat&logo=github&logoColor=white" alt="GitHub Pages">
-  <img src="https://img.shields.io/website?url=https%3A//dext7r.github.io/athena&label=Coverage%20Report" alt="Coverage Report">
+  <img src="https://img.shields.io/website?url=https%3A//athena.deno.dev&style=flat&logo=vercel&label=Live%20Demo" alt="Live Demo">
+  <img src="https://img.shields.io/website?url=https%3A//dext7r.github.io/athena&label=Coverage%20Report&style=flat&logo=codecov" alt="Coverage Report">
+  <img src="https://img.shields.io/badge/Deno%20Deploy-Ready-00ADD8?style=flat&logo=deno" alt="Deno Deploy">
 </p>
 
 <p align="center">
@@ -23,6 +42,7 @@
 <p align="center">
   <a href="https://athena.deno.dev">🌐 在线演示</a> •
   <a href="https://github.com/dext7r/athena">📦 GitHub</a> •
+  <a href="https://github.com/dext7r/athena/releases">🚀 Releases</a> •
   <a href="https://athena.deno.dev/docs">📚 文档</a> •
   <a href="https://dext7r.github.io/athena/html/index.html">📊 测试报告</a> •
   <a href="https://github.com/dext7r/athena/issues">🐛 问题反馈</a>

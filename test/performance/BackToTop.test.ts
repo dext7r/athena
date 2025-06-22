@@ -318,7 +318,7 @@ Deno.test("BackToTop - 并发滚动事件测试", async () => {
   const maxConcurrentTimers = 10;
 
   // 模拟并发滚动事件处理
-  const handleConcurrentScroll = async (scrollValue: number): Promise<void> => {
+  const handleConcurrentScroll = (_scrollValue: number): Promise<void> => {
     return new Promise((resolve) => {
       if (concurrentTimers < maxConcurrentTimers) {
         concurrentTimers++;
