@@ -1,10 +1,4 @@
-/// <reference no-default-lib="true" />
-/// <reference lib="dom" />
-/// <reference lib="dom.iterable" />
-/// <reference lib="dom.asynciterable" />
-/// <reference lib="deno.ns" />
-
-import { start } from "$fresh/server.ts";
+import { start } from "fresh";
 import { initDevelopmentEnvironment } from "@utils/env.ts";
 import config from "./fresh.config.ts";
 import manifest from "./fresh.gen.ts";

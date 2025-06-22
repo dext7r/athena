@@ -6,9 +6,12 @@
 import { clearAuthCookie } from "@utils/jwt.ts";
 import { getAuthContext } from "@utils/middleware.ts";
 import { deleteSession } from "@utils/session.ts";
+import { FreshContext } from "fresh";
 
 export const handler = {
-  async POST(req: Request): Promise<Response> {
+  async POST(ctx: FreshContext): Promise<Response> {
+    const req = ctx.req;
+
     try {
       // 获取认证上下文
       const authContext = await getAuthContext(req);
@@ -63,7 +66,9 @@ export const handler = {
   },
 
   // 支持 GET 请求进行重定向退出
-  GET(req: Request): Response {
+  GET(ctx: FreshContext): Response {
+    const req = ctx.req;
+
     try {
       const url = new URL(req.url);
       const redirectTo = url.searchParams.get("redirect") || "/";

@@ -3,7 +3,7 @@
  * 用于保护需要认证的路由
  */
 
-import { HandlerContext } from "$fresh/server.ts";
+import { HandlerContext } from "fresh";
 import type { AppUser } from "./auth.ts";
 import {
   extractTokenFromRequest,

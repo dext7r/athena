@@ -3,7 +3,7 @@
  * 处理账户锁定和解锁操作
  */
 
-import { HandlerContext } from "$fresh/server.ts";
+import { HandlerContext } from "fresh";
 import { getAuthContext, validateUserId } from "@utils/middleware.ts";
 import { getClientIP } from "@utils/session.ts";
 import {
@@ -17,7 +17,9 @@ import {
 
 export const handler = {
   // 获取账户锁定状态
-  async GET(req: Request, ctx: HandlerContext): Promise<Response> {
+  async GET(ctx: HandlerContext): Promise<Response> {
+    const req = ctx.req;
+
     try {
       const authContext = await getAuthContext(req);
 
@@ -56,7 +58,9 @@ export const handler = {
   },
 
   // 紧急锁定账户
-  async POST(req: Request, ctx: HandlerContext): Promise<Response> {
+  async POST(ctx: HandlerContext): Promise<Response> {
+    const req = ctx.req;
+
     try {
       const authContext = await getAuthContext(req);
 
@@ -119,7 +123,9 @@ export const handler = {
   },
 
   // 解锁账户
-  async DELETE(req: Request, ctx: HandlerContext): Promise<Response> {
+  async DELETE(ctx: HandlerContext): Promise<Response> {
+    const req = ctx.req;
+
     try {
       const authContext = await getAuthContext(req);
 

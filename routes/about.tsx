@@ -1,4 +1,4 @@
-import { Head } from "$fresh/runtime.ts";
+import { Head } from "fresh/runtime";
 import Layout from "@components/layout/Layout.tsx";
 import Button from "@components/ui/Button.tsx";
 import Card, {

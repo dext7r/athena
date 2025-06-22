@@ -2,7 +2,7 @@
  * 认证系统接入指南
  */
 
-import { Head } from "$fresh/runtime.ts";
+import { Head } from "fresh/runtime";
 import Layout from "@components/layout/Layout.tsx";
 
 export default function AuthDocsPage() {

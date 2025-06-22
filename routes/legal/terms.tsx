@@ -2,7 +2,7 @@
  * 服务条款页面
  */
 
-import { Head } from "$fresh/runtime.ts";
+import { Head } from "fresh/runtime";
 import Layout from "@components/layout/Layout.tsx";
 import LegalNavigation from "@components/legal/LegalNavigation.tsx";
 

@@ -3,8 +3,8 @@
  * 只有管理员才能访问
  */
 
-import { Head } from "$fresh/runtime.ts";
-import { HandlerContext, PageProps } from "$fresh/server.ts";
+import { Head } from "fresh/runtime";
+import { HandlerContext, PageProps } from "fresh";
 import Layout from "@components/layout/Layout.tsx";
 import { getAuthContext } from "@utils/middleware.ts";
 import type { AppUser } from "@utils/auth.ts";
@@ -17,7 +17,8 @@ interface AdminPageProps {
 }
 
 export const handler = {
-  async GET(req: Request, ctx: HandlerContext) {
+  async GET(ctx: HandlerContext) {
+    const req = ctx.req;
     const authContext = await getAuthContext(req);
 
     if (!authContext.isAuthenticated || !authContext.user) {

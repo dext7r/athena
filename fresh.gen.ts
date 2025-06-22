@@ -63,7 +63,7 @@ import * as $SimpleStateDemo from "./islands/SimpleStateDemo.tsx";
 import * as $StateDemo from "./islands/StateDemo.tsx";
 import * as $StatusDropdown from "./islands/StatusDropdown.tsx";
 import * as $ThemeToggle from "./islands/ThemeToggle.tsx";
-import type { Manifest } from "$fresh/server.ts";
+import type { Manifest } from "fresh";
 
 const manifest = {
   routes: {
