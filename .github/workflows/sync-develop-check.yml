@@ -1,0 +1,97 @@
+name: Develop Sync Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+
+jobs:
+  check-sync-needed:
+    name: Check if develop sync is needed
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Check if PR is from develop
+        id: check_source
+        run: |
+          SOURCE_BRANCH="${{ github.head_ref }}"
+          echo "source_branch=$SOURCE_BRANCH" >> $GITHUB_OUTPUT
+          
+          if [[ "$SOURCE_BRANCH" == "develop" ]]; then
+            echo "is_from_develop=true" >> $GITHUB_OUTPUT
+            echo "🔍 检测到来自 develop 分支的 PR"
+          else
+            echo "is_from_develop=false" >> $GITHUB_OUTPUT
+            echo "🔍 PR 来自分支: $SOURCE_BRANCH"
+          fi
+      
+      - name: Add no-sync label for develop PRs
+        if: steps.check_source.outputs.is_from_develop == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['🚫 no-sync']
+            });
+            
+            // 添加评论说明
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '🤖 **自动检测**: 此 PR 来自 `develop` 分支，合并后将跳过自动同步以防止循环。\n\n📋 **标签说明**: 已自动添加 `🚫 no-sync` 标签。'
+            });
+      
+      - name: Check develop sync status
+        if: steps.check_source.outputs.is_from_develop == 'false'
+        id: check_develop
+        run: |
+          # 检查 develop 分支是否落后于 main
+          git fetch origin main develop
+
+          MAIN_COMMIT=$(git rev-parse origin/main)
+          DEVELOP_COMMIT=$(git rev-parse origin/develop)
+
+          # 检查 develop 是否包含 main 的所有提交
+          if git merge-base --is-ancestor origin/main origin/develop; then
+            echo "✅ develop 分支包含 main 的所有提交"
+            echo "sync_needed=false" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️  develop 分支落后于 main"
+            echo "sync_needed=true" >> $GITHUB_OUTPUT
+
+            # 计算落后的提交数
+            BEHIND_COUNT=$(git rev-list --count origin/develop..origin/main)
+            echo "behind_count=$BEHIND_COUNT" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Comment sync status
+        if: steps.check_source.outputs.is_from_develop == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const syncNeeded = '${{ steps.check_develop.outputs.sync_needed }}' === 'true';
+            const behindCount = '${{ steps.check_develop.outputs.behind_count }}';
+            
+            let message;
+            if (syncNeeded) {
+              message = `📊 **分支同步状态**\n\n⚠️  \`develop\` 分支落后于 \`main\` 分支 ${behindCount} 个提交。\n\n🔄 **建议**: 此 PR 合并后，\`develop\` 分支将自动同步最新的 \`main\` 分支代码。\n\n📋 如需跳过自动同步，请添加 \`🚫 no-sync\` 标签。`;
+            } else {
+              message = `📊 **分支同步状态**\n\n✅ \`develop\` 分支已包含 \`main\` 分支的所有提交，无需同步。`;
+            }
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: message
+            });

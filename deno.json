@@ -1,7 +1,7 @@
 {
   "lock": false,
   "name": "athena",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "一个现代化的 React + Deno 全栈开发模板， 集成了 TailwindCSS + Sass + Zustand， 为您提供完整的项目基础架构。",
   "keywords": [
     "React",
@@ -27,7 +27,9 @@
     "type": "git",
     "url": "https://github.com/dext7r/athena.git"
   },
-  "bugs": { "url": "https://github.com/dext7r/athena/issues" },
+  "bugs": {
+    "url": "https://github.com/dext7r/athena/issues"
+  },
   "issues": "https://github.com/dext7r/athena/issues",
   "homepage": "https://athena.deno.dev",
   "tasks": {
@@ -70,15 +72,44 @@
         "no-unused-vars",
         "prefer-const"
       ],
-      "tags": ["fresh", "recommended"]
+      "tags": [
+        "fresh",
+        "recommended"
+      ]
     },
-    "include": ["**/*.ts", "**/*.tsx"],
-    "exclude": ["**/_fresh/*", "**/.git", "**/.vscode", "**/.github", "**/*.md"]
+    "include": [
+      "**/*.ts",
+      "**/*.tsx"
+    ],
+    "exclude": [
+      "**/_fresh/*",
+      "**/.git",
+      "**/.vscode",
+      "**/.github",
+      "**/*.md"
+    ]
   },
-  "exclude": ["**/_fresh/*", "**/.git/*", "**/.vscode/*", "**/.github/*", "**/*.md", "**/node_modules/*"],
+  "exclude": [
+    "**/_fresh/*",
+    "**/.git/*",
+    "**/.vscode/*",
+    "**/.github/*",
+    "**/*.md",
+    "**/node_modules/*"
+  ],
   "fmt": {
-    "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
-    "exclude": ["**/_fresh/*", "**/*.md", "**/node_modules/*", "**/coverage/*"]
+    "include": [
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.js",
+      "**/*.jsx"
+    ],
+    "exclude": [
+      "**/_fresh/*",
+      "**/*.md",
+      "**/node_modules/*",
+      "**/coverage/*"
+    ]
   },
   "imports": {
     "@fresh/plugin-tailwind": "jsr:@fresh/plugin-tailwind@^0.0.1-alpha.7",
@@ -106,11 +137,16 @@
     "@static/": "./static/",
     "fresh": "jsr:@fresh/core@^2.0.0-alpha.34"
   },
-  "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  },
   "nodeModulesDir": "auto",
   "deploy": {
     "project": "f95080ed-9b8c-4d2f-ac7a-07bf7571416a",
-    "exclude": ["**/node_modules"],
+    "exclude": [
+      "**/node_modules"
+    ],
     "include": [],
     "entrypoint": "main.ts"
   }

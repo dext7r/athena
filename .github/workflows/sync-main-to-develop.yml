@@ -1,0 +1,172 @@
+name: Sync Main to Develop
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  sync:
+    name: Sync main branch to develop
+    runs-on: ubuntu-latest
+    
+    # 跳过来自 develop 分支的 PR 合并，防止无限循环
+    if: |
+      github.event_name == 'workflow_dispatch' || (
+        !contains(github.event.head_commit.message, 'Merge pull request') ||
+        !contains(github.event.head_commit.message, 'develop')
+      )
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Check if sync should be skipped
+        id: check_skip
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // 检查最近的 PR 是否有 no-sync 标签
+            const commitMessage = '${{ github.event.head_commit.message }}';
+
+            // 如果是 PR 合并提交，提取 PR 号码
+            const prMatch = commitMessage.match(/Merge pull request #(\d+)/);
+
+            if (prMatch) {
+              const prNumber = parseInt(prMatch[1]);
+              console.log(`检测到 PR 合并: #${prNumber}`);
+
+              try {
+                const pr = await github.rest.pulls.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: prNumber
+                });
+
+                const hasNoSyncLabel = pr.data.labels.some(label =>
+                  label.name.includes('no-sync') || label.name.includes('🚫')
+                );
+
+                const isFromDevelop = pr.data.head.ref === 'develop' ||
+                                    pr.data.head.ref.includes('develop');
+
+                if (hasNoSyncLabel || isFromDevelop) {
+                  console.log('跳过同步: PR 包含 no-sync 标签或来自 develop 分支');
+                  core.setOutput('skip', 'true');
+                  return;
+                }
+              } catch (error) {
+                console.log('无法获取 PR 信息，继续执行同步');
+              }
+            }
+
+            core.setOutput('skip', 'false');
+      
+      - name: Skip sync notification
+        if: steps.check_skip.outputs.skip == 'true'
+        run: |
+          echo "⏭️  跳过同步: 检测到 no-sync 标签或来自 develop 分支的 PR"
+          echo "## ⏭️ 同步已跳过" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🚫 检测到以下条件之一，已跳过自动同步:" >> $GITHUB_STEP_SUMMARY
+          echo "- PR 包含 \\\`no-sync\\\` 标签" >> $GITHUB_STEP_SUMMARY
+          echo "- PR 来自 \\\`develop\\\` 分支" >> $GITHUB_STEP_SUMMARY
+
+      - name: Check if develop branch exists
+        if: steps.check_skip.outputs.skip == 'false'
+        id: check_develop
+        run: |
+          if git show-ref --verify --quiet refs/remotes/origin/develop; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create develop branch if not exists
+        if: steps.check_skip.outputs.skip == 'false' && steps.check_develop.outputs.exists == 'false'
+        run: |
+          git checkout -b develop
+          git push origin develop
+          echo "✅ Created develop branch from main"
+      
+      - name: Sync main to develop
+        if: steps.check_skip.outputs.skip == 'false' && steps.check_develop.outputs.exists == 'true'
+        run: |
+          # 切换到 develop 分支
+          git checkout develop
+          git pull origin develop
+          
+          # 获取当前 commit 信息
+          MAIN_COMMIT=$(git rev-parse origin/main)
+          DEVELOP_COMMIT=$(git rev-parse HEAD)
+          
+          # 检查是否已经是最新的
+          if [ "$MAIN_COMMIT" = "$DEVELOP_COMMIT" ]; then
+            echo "✅ develop 分支已经是最新的，无需同步"
+            exit 0
+          fi
+          
+          # 尝试合并 main 分支
+          echo "🔄 开始同步 main 分支到 develop..."
+          
+          if git merge origin/main --no-edit; then
+            # 合并成功
+            git push origin develop
+            echo "✅ 成功同步 main 分支到 develop"
+            
+            # 输出同步信息
+            echo "📊 同步详情:"
+            echo "- Main commit: $MAIN_COMMIT"
+            echo "- Previous develop commit: $DEVELOP_COMMIT"
+            echo "- New develop commit: $(git rev-parse HEAD)"
+          else
+            # 合并冲突
+            echo "❌ 合并时发生冲突，需要手动解决"
+            echo "冲突文件:"
+            git status --porcelain | grep "^UU" || true
+            
+            # 中止合并
+            git merge --abort
+            
+            # 创建 Issue 通知冲突
+            echo "🔔 将创建 Issue 通知合并冲突"
+            exit 1
+          fi
+      
+      - name: Create conflict issue
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = `🚨 Main to Develop 同步冲突 - ${new Date().toISOString().split('T')[0]}`;
+            const body = `## 同步冲突通知\n\n在尝试将 \`main\` 分支同步到 \`develop\` 分支时发生了合并冲突。\n\n### 详细信息\n- **触发提交**: ${{ github.sha }}\n- **提交信息**: ${{ github.event.head_commit.message }}\n- **提交作者**: ${{ github.event.head_commit.author.name }}\n- **时间**: ${new Date().toISOString()}\n\n### 需要手动操作\n请按照以下步骤手动解决冲突：\n\n1. 本地切换到 develop 分支：\n   \`\`\`bash\n   git checkout develop\n   git pull origin develop\n   \`\`\`\n\n2. 合并 main 分支：\n   \`\`\`bash\n   git merge origin/main\n   \`\`\`\n\n3. 解决冲突后提交：\n   \`\`\`bash\n   git add .\n   git commit -m "resolve: 解决 main 到 develop 的合并冲突"\n   git push origin develop\n   \`\`\`\n\n### 相关链接\n- [触发的工作流运行](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})\n- [冲突的提交](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})\n\n---\n*此 Issue 由 GitHub Actions 自动创建*`;
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['🚨 conflict', '🔄 sync', '⚡ urgent']
+            });
+      
+      - name: Summary
+        if: success() && steps.check_skip.outputs.skip == 'false'
+        run: |
+          echo "## 🎉 同步完成" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ 成功将 \\\`main\\\` 分支同步到 \\\`develop\\\` 分支" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 详细信息" >> $GITHUB_STEP_SUMMARY
+          echo "- **触发提交**: \\\`${{ github.sha }}\\\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **提交信息**: ${{ github.event.head_commit.message }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **提交作者**: ${{ github.event.head_commit.author.name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **同步时间**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
