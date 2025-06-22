@@ -24,7 +24,7 @@ export default function StatusDropdown(
 
   // 获取当前路径
   useEffect(() => {
-    setCurrentPath(window.location.pathname);
+    setCurrentPath(globalThis.location.pathname);
   }, []);
 
   // 检查菜单项是否为激活状态
@@ -75,7 +75,7 @@ export default function StatusDropdown(
     // 延迟导航，让关闭动画完成
     closeDropdown();
     setTimeout(() => {
-      window.location.href = href;
+      globalThis.location.href = href;
     }, 100);
   };
 

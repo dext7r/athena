@@ -197,7 +197,7 @@ export default function HooksPage() {
                   </h3>
                   <CodeBlock
                     filePath="/examples/useLocalStorage.ts"
-                    showLineNumbers={true}
+                    showLineNumbers
                   />
                 </div>
 
@@ -207,7 +207,7 @@ export default function HooksPage() {
                   </h3>
                   <CodeBlock
                     filePath="/examples/useDebounce.ts"
-                    showLineNumbers={true}
+                    showLineNumbers
                   />
                 </div>
               </div>
@@ -228,7 +228,7 @@ export default function HooksPage() {
             <div className="max-w-4xl mx-auto">
               <CodeBlock
                 filePath="/examples/hooks-usage.tsx"
-                showLineNumbers={true}
+                showLineNumbers
               />
             </div>
           </section>

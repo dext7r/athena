@@ -224,7 +224,7 @@ export default function StatePage() {
                   </h3>
                   <CodeBlock
                     filePath="/examples/counter-store.ts"
-                    showLineNumbers={true}
+                    showLineNumbers
                   />
                 </div>
 
@@ -234,7 +234,7 @@ export default function StatePage() {
                   </h3>
                   <CodeBlock
                     filePath="/examples/counter-component.tsx"
-                    showLineNumbers={true}
+                    showLineNumbers
                   />
                 </div>
               </div>

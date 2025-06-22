@@ -19,7 +19,7 @@ interface ButtonProps
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   loading?: boolean;
   disabled?: boolean;
-  children: JSX.Element | string;
+  children: JSX.Element | JSX.Element[] | string;
   icon?: JSX.Element;
   iconPosition?: "left" | "right";
   fullWidth?: boolean;

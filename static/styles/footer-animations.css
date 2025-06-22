@@ -22,7 +22,6 @@
 
 /* 浮动动画 */
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0px) scale(1);
@@ -36,7 +35,6 @@
 }
 
 @keyframes float-delayed {
-
   0%,
   100% {
     transform: translateY(0px) scale(1);
@@ -74,7 +72,6 @@
 
 /* 发光脉冲效果 */
 @keyframes glow-pulse {
-
   0%,
   100% {
     box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
@@ -93,7 +90,6 @@
 
 /* 弹性缩放动画 */
 @keyframes bounce-scale {
-
   0%,
   100% {
     transform: scale(1);
@@ -168,7 +164,6 @@
 
 /* 文字渐变动画 */
 @keyframes text-gradient {
-
   0%,
   100% {
     background-position: 0% 50%;
@@ -200,7 +195,6 @@
 
 /* 响应式动画优化 */
 @media (prefers-reduced-motion: reduce) {
-
   .animate-gradient-flow,
   .animate-float,
   .animate-float-delayed,
@@ -273,9 +267,7 @@
 
 .hover-lift-enhanced:hover {
   transform: translateY(-3px) scale(1.02);
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.08),
-    0 8px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.06);
 }
 
 /* 移动端优化 */

@@ -217,13 +217,13 @@ export default function CustomCursor() {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768 || "ontouchstart" in window);
+      setIsMobile(globalThis.innerWidth <= 768 || "ontouchstart" in window);
     };
 
     checkMobile();
-    window.addEventListener("resize", checkMobile);
+    globalThis.addEventListener("resize", checkMobile);
 
-    return () => window.removeEventListener("resize", checkMobile);
+    return () => globalThis.removeEventListener("resize", checkMobile);
   }, []);
 
   // 移动设备不显示自定义光标

@@ -18,7 +18,7 @@ export default function MyComponent() {
     }
   }, [debouncedSearchTerm]);
 
-  const performSearch = async (term: string) => {
+  const performSearch = (term: string) => {
     console.log("搜索:", term);
     // 这里执行实际的搜索逻辑
   };

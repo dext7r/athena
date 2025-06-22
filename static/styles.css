@@ -1,6 +1,6 @@
 /* 引入现代化字体 */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -36,7 +36,11 @@
   --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  --gradient-glass: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
 
   /* 阴影 */
   --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -174,7 +178,8 @@
   /* 按钮基础样式 */
   button {
     @apply transition-all duration-200;
-    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500
+      focus:ring-offset-2;
     @apply dark:focus:ring-offset-neutral-900;
   }
 
@@ -221,7 +226,6 @@
 
 /* 组件样式 */
 @layer components {
-
   /* 玻璃拟态效果 */
   .glass {
     background: rgba(255, 255, 255, 0.1);
@@ -335,7 +339,6 @@
 
 /* 工具类 */
 @layer utilities {
-
   /* 动画延迟 */
   .animate-delay-100 {
     animation-delay: 100ms;
