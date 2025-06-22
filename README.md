@@ -24,7 +24,7 @@
   <a href="https://athena.deno.dev">🌐 在线演示</a> •
   <a href="https://github.com/dext7r/athena">📦 GitHub</a> •
   <a href="https://athena.deno.dev/docs">📚 文档</a> •
-  <a href="https://dext7r.github.io/athena">📊 测试报告</a> •
+  <a href="https://dext7r.github.io/athena/html/index.html">📊 测试报告</a> •
   <a href="https://github.com/dext7r/athena/issues">🐛 问题反馈</a>
 </p>
 
@@ -50,6 +50,10 @@
 <tr>
 <td><strong>📖 文档</strong></td>
 <td><a href="https://athena.deno.dev/docs">athena.deno.dev/docs</a></td>
+</tr>
+<tr>
+<td><strong>📊 测试报告</strong></td>
+<td><a href="https://dext7r.github.io/athena/html/index.html">测试覆盖率报告</a></td>
 </tr>
 </table>
 

@@ -47,6 +47,13 @@ deno task test:coverage
 deno task test:coverage-report
 ```
 
+### 📊 在线覆盖率报告
+
+- **实时报告**: [https://dext7r.github.io/athena/html/index.html](https://dext7r.github.io/athena/html/index.html)
+- **项目首页**: [https://dext7r.github.io/athena](https://dext7r.github.io/athena)
+
+> 💡 每次推送到 `main` 分支后，覆盖率报告会自动更新
+
 ### 分类测试
 
 ```bash
