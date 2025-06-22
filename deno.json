@@ -1,7 +1,7 @@
 {
   "lock": false,
   "name": "athena",
-  "version": "0.3.0",
+  "version": "0.0.1",
   "description": "一个现代化的 React + Deno 全栈开发模板， 集成了 TailwindCSS + Sass + Zustand， 为您提供完整的项目基础架构。",
   "keywords": [
     "React",
@@ -76,15 +76,36 @@
         "fresh",
         "recommended"
       ]
-    }
+    },
+    "include": [
+      "**/*.ts",
+      "**/*.tsx"
+    ],
+    "exclude": [
+      "**/_fresh/*",
+      "**/.git",
+      "**/.vscode",
+      "**/.github",
+      "**/*.md"
+    ]
   },
   "exclude": [
     "**/_fresh/*",
     "**/.git",
     "**/.vscode",
     "**/.github",
-    "**/.md"
+    "**/*/.md"
   ],
+  "fmt": {
+    "include": [
+      "src/",
+      "scripts/"
+    ],
+    "exclude": [
+      "**/_fresh/*",
+      "**/*/.md"
+    ]
+  },
   "imports": {
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "preact": "https://esm.sh/preact@10.22.0",
