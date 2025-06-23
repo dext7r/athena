@@ -45,6 +45,17 @@ export default function App({ Component }: PageProps) {
         <script>
           {`LA.init({id:"Kr9tLzI2sYFaBhD8",ck:"Kr9tLzI2sYFaBhD8",autoTrack:true,hashMode:true,screenRecord:true})`}
         </script>
+        <script>
+          {`
+          var _hmt = _hmt || [];
+          (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?fb5594b323c07150e5b02e962afff5a5";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+          `}
+        </script>
 
         {/* Google Analytics */}
         <script
