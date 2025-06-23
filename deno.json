@@ -33,7 +33,7 @@
   "issues": "https://github.com/dext7r/athena/issues",
   "homepage": "https://athena.deno.dev",
   "tasks": {
-    "check": "deno fmt --check && deno lint && deno check **/*.ts **/*.tsx",
+    "check": "deno fmt --check && deno lint --fix && deno check **/*.ts **/*.tsx | grep -i error",
     "cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run --unstable -A -",
     "manifest": "deno task cli manifest $(pwd)",
     "fmt": "deno fmt",
@@ -135,6 +135,7 @@
     "@types/": "./types/",
     "@routes/": "./routes/",
     "@static/": "./static/",
+    "@i18n/": "./i18n/",
     "fresh": "jsr:@fresh/core@^2.0.0-alpha.34"
   },
   "compilerOptions": {

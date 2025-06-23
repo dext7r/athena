@@ -1,6 +1,7 @@
 // Head component is now handled in _app.tsx in Fresh V2
 import Layout from "@components/layout/Layout.tsx";
 import Button from "@components/ui/Button.tsx";
+import { ClientTranslatedText } from "@islands/ClientTranslatedText.tsx";
 import CounterDemo from "@islands/CounterDemo.tsx";
 import ThemeToggle from "@islands/ThemeToggle.tsx";
 
@@ -63,11 +64,11 @@ export default function Home() {
               <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 backdrop-blur-sm rounded-full text-blue-800 dark:text-blue-200 text-sm font-semibold border border-blue-200/50 dark:border-blue-700/50 shadow-lg">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse">
                 </div>
-                <span>🚀 现代化全栈开发模板</span>
+                <ClientTranslatedText i18nKey="home.hero.badge" />
                 <div className="w-1 h-4 bg-blue-300 dark:bg-blue-600 rounded-full">
                 </div>
                 <span className="text-green-600 dark:text-green-400 font-bold">
-                  v2.0
+                  <ClientTranslatedText i18nKey="home.hero.version" />
                 </span>
               </div>
 
@@ -81,21 +82,14 @@ export default function Home() {
                       animation: "gradient-flow 6s ease-in-out infinite",
                     }}
                   >
-                    Athena
+                    <ClientTranslatedText i18nKey="home.hero.title" />
                   </span>
                 </h1>
 
                 <p className="text-xl md:text-2xl lg:text-3xl text-gray-700 dark:text-gray-200 max-w-5xl mx-auto leading-relaxed font-medium">
-                  基于{" "}
-                  <span className="font-bold text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text">
-                    Fresh + Deno
-                  </span>{" "}
-                  的现代化全栈开发模板
+                  <ClientTranslatedText i18nKey="home.hero.subtitle" />
                   <br className="hidden md:block" />
-                  集成{" "}
-                  <span className="font-bold text-transparent bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text">
-                    TailwindCSS + Zustand
-                  </span>， 为您的下一个项目提供完美起点
+                  <ClientTranslatedText i18nKey="home.hero.description" />
                 </p>
               </div>
 
@@ -156,7 +150,9 @@ export default function Home() {
                     <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent group-hover:animate-shimmer">
                     </div>
 
-                    <span className="relative z-10">开始探索</span>
+                    <span className="relative z-10">
+                      <ClientTranslatedText i18nKey="home.hero.cta.explore" />
+                    </span>
                     <svg
                       className="relative z-10 w-6 h-6 group-hover:translate-x-1 transition-transform duration-300"
                       fill="none"
@@ -190,7 +186,9 @@ export default function Home() {
                     >
                       <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                     </svg>
-                    <span>查看源码</span>
+                    <span>
+                      <ClientTranslatedText i18nKey="home.hero.cta.viewSource" />
+                    </span>
                   </button>
                 </a>
               </div>
@@ -201,13 +199,10 @@ export default function Home() {
           <section className="space-y-16">
             <div className="text-center space-y-4">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
-                为什么选择{" "}
-                <span className="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
-                  Athena
-                </span>
+                <ClientTranslatedText i18nKey="home.features.title" />
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                集成最新技术栈，提供开箱即用的现代化开发体验
+                <ClientTranslatedText i18nKey="home.features.subtitle" />
               </p>
             </div>
 
@@ -222,25 +217,25 @@ export default function Home() {
                       🚀
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                      现代化技术栈
+                      <ClientTranslatedText i18nKey="home.features.modernStack.title" />
                     </h3>
                   </div>
                   <div className="space-y-4">
                     {[
                       {
-                        name: "Fresh (Deno + Preact)",
+                        key: "fresh",
                         color: "from-emerald-500 to-teal-500",
                       },
                       {
-                        name: "TailwindCSS + Sass",
+                        key: "tailwind",
                         color: "from-cyan-500 to-blue-500",
                       },
                       {
-                        name: "Zustand 状态管理",
+                        key: "zustand",
                         color: "from-orange-500 to-red-500",
                       },
                       {
-                        name: "TypeScript 支持",
+                        key: "typescript",
                         color: "from-blue-500 to-indigo-500",
                       },
                     ].map((item, index) => (
@@ -250,7 +245,9 @@ export default function Home() {
                         >
                         </div>
                         <span className="text-gray-700 dark:text-gray-300 font-medium group-hover/item:text-gray-900 dark:group-hover/item:text-white transition-colors">
-                          {item.name}
+                          <ClientTranslatedText
+                            i18nKey={`home.features.modernStack.items.${item.key}`}
+                          />
                         </span>
                       </div>
                     ))}
@@ -268,25 +265,25 @@ export default function Home() {
                       🎨
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                      丰富的组件库
+                      <ClientTranslatedText i18nKey="home.features.richComponents.title" />
                     </h3>
                   </div>
                   <div className="space-y-4">
                     {[
                       {
-                        name: "按钮、卡片、输入框",
+                        key: "basic",
                         color: "from-pink-500 to-rose-500",
                       },
                       {
-                        name: "模态框、侧边栏",
+                        key: "layout",
                         color: "from-rose-500 to-orange-500",
                       },
                       {
-                        name: "主题切换支持",
+                        key: "theme",
                         color: "from-orange-500 to-amber-500",
                       },
                       {
-                        name: "响应式设计",
+                        key: "responsive",
                         color: "from-amber-500 to-yellow-500",
                       },
                     ].map((item, index) => (
@@ -296,7 +293,9 @@ export default function Home() {
                         >
                         </div>
                         <span className="text-gray-700 dark:text-gray-300 font-medium group-hover/item:text-gray-900 dark:group-hover/item:text-white transition-colors">
-                          {item.name}
+                          <ClientTranslatedText
+                            i18nKey={`home.features.richComponents.items.${item.key}`}
+                          />
                         </span>
                       </div>
                     ))}
@@ -314,22 +313,25 @@ export default function Home() {
                       🔧
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                      实用 Hooks
+                      <ClientTranslatedText i18nKey="home.features.usefulHooks.title" />
                     </h3>
                   </div>
                   <div className="space-y-4">
                     {[
                       {
-                        name: "useLocalStorage",
+                        key: "localStorage",
                         color: "from-emerald-500 to-teal-500",
                       },
                       {
-                        name: "useDebounce",
+                        key: "debounce",
                         color: "from-teal-500 to-cyan-500",
                       },
-                      { name: "useFetch", color: "from-cyan-500 to-blue-500" },
                       {
-                        name: "useMediaQuery",
+                        key: "fetch",
+                        color: "from-cyan-500 to-blue-500",
+                      },
+                      {
+                        key: "mediaQuery",
                         color: "from-blue-500 to-indigo-500",
                       },
                     ].map((item, index) => (
@@ -339,7 +341,9 @@ export default function Home() {
                         >
                         </div>
                         <span className="text-gray-700 dark:text-gray-300 font-medium group-hover/item:text-gray-900 dark:group-hover/item:text-white transition-colors">
-                          {item.name}
+                          <ClientTranslatedText
+                            i18nKey={`home.features.usefulHooks.items.${item.key}`}
+                          />
                         </span>
                       </div>
                     ))}
@@ -353,13 +357,10 @@ export default function Home() {
           <section className="space-y-16">
             <div className="text-center space-y-4">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
-                在线体验{" "}
-                <span className="text-transparent bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text">
-                  演示
-                </span>
+                <ClientTranslatedText i18nKey="home.demo.title" />
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                实时体验组件效果和交互功能
+                <ClientTranslatedText i18nKey="home.demo.subtitle" />
               </p>
             </div>
 
@@ -375,11 +376,11 @@ export default function Home() {
                         🎯
                       </div>
                       <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                        计数器演示
+                        <ClientTranslatedText i18nKey="home.demo.counter.title" />
                       </h3>
                     </div>
                     <p className="text-gray-600 dark:text-gray-300">
-                      体验状态管理和交互效果
+                      <ClientTranslatedText i18nKey="home.demo.counter.description" />
                     </p>
                   </div>
                   <CounterDemo />
@@ -397,36 +398,50 @@ export default function Home() {
                         🎨
                       </div>
                       <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                        按钮组件演示
+                        <ClientTranslatedText i18nKey="home.demo.buttons.title" />
                       </h3>
                     </div>
                     <p className="text-gray-600 dark:text-gray-300">
-                      多种样式和状态的按钮组件
+                      <ClientTranslatedText i18nKey="home.demo.buttons.description" />
                     </p>
                   </div>
                   <div className="space-y-8">
                     <div>
                       <h4 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-4 flex items-center gap-2">
                         <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                        基础样式
+                        <ClientTranslatedText i18nKey="home.demo.buttons.basic" />
                       </h4>
                       <div className="flex flex-wrap gap-4">
-                        <Button variant="primary">主要按钮</Button>
-                        <Button variant="secondary">次要按钮</Button>
-                        <Button variant="outline">边框按钮</Button>
-                        <Button variant="ghost">幽灵按钮</Button>
+                        <Button variant="primary">
+                          <ClientTranslatedText i18nKey="home.demo.buttons.variants.primary" />
+                        </Button>
+                        <Button variant="secondary">
+                          <ClientTranslatedText i18nKey="home.demo.buttons.variants.secondary" />
+                        </Button>
+                        <Button variant="outline">
+                          <ClientTranslatedText i18nKey="home.demo.buttons.variants.outline" />
+                        </Button>
+                        <Button variant="ghost">
+                          <ClientTranslatedText i18nKey="home.demo.buttons.variants.ghost" />
+                        </Button>
                       </div>
                     </div>
                     <div>
                       <h4 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-4 flex items-center gap-2">
                         <div className="w-2 h-2 bg-purple-500 rounded-full">
                         </div>
-                        特殊效果
+                        <ClientTranslatedText i18nKey="home.demo.buttons.special" />
                       </h4>
                       <div className="flex flex-wrap gap-4">
-                        <Button variant="gradient">渐变按钮</Button>
-                        <Button variant="glass">玻璃态按钮</Button>
-                        <Button loading>加载中...</Button>
+                        <Button variant="gradient">
+                          <ClientTranslatedText i18nKey="home.demo.buttons.variants.gradient" />
+                        </Button>
+                        <Button variant="glass">
+                          <ClientTranslatedText i18nKey="home.demo.buttons.variants.glass" />
+                        </Button>
+                        <Button loading>
+                          <ClientTranslatedText i18nKey="home.demo.buttons.variants.loading" />
+                        </Button>
                       </div>
                     </div>
                     <div className="pt-6 border-t border-gray-200/60 dark:border-gray-700/60">
@@ -434,7 +449,7 @@ export default function Home() {
                         <span className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                           <div className="w-2 h-2 bg-green-500 rounded-full">
                           </div>
-                          主题切换：
+                          <ClientTranslatedText i18nKey="home.demo.buttons.theme" />
                         </span>
                         <ThemeToggle />
                       </div>
@@ -453,17 +468,19 @@ export default function Home() {
               <div className="space-y-8">
                 <div className="space-y-4">
                   <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
-                    准备好开始了吗？
+                    <ClientTranslatedText i18nKey="home.quickStart.title" />
                   </h2>
                   <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                    探索更多功能和组件演示，开始您的现代化开发之旅
+                    <ClientTranslatedText i18nKey="home.quickStart.subtitle" />
                   </p>
                 </div>
 
                 <div className="flex flex-col sm:flex-row justify-center gap-6">
                   <a href="/components" className="group">
                     <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-lg rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center gap-3 mx-auto">
-                      <span>查看组件</span>
+                      <span>
+                        <ClientTranslatedText i18nKey="home.quickStart.actions.viewComponents" />
+                      </span>
                       <svg
                         className="w-5 h-5 group-hover:translate-x-1 transition-transform"
                         fill="none"
@@ -481,12 +498,12 @@ export default function Home() {
                   </a>
                   <a href="/hooks" className="group">
                     <button className="px-8 py-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm text-gray-900 dark:text-white font-bold text-lg rounded-2xl border-2 border-gray-200/60 dark:border-gray-700/60 hover:border-blue-300 dark:hover:border-blue-600 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-                      Hooks演示
+                      <ClientTranslatedText i18nKey="home.quickStart.actions.hooksDemo" />
                     </button>
                   </a>
                   <a href="/state" className="group">
                     <button className="px-8 py-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm text-gray-900 dark:text-white font-bold text-lg rounded-2xl border-2 border-gray-200/60 dark:border-gray-700/60 hover:border-purple-300 dark:hover:border-purple-600 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-                      状态管理
+                      <ClientTranslatedText i18nKey="home.quickStart.actions.stateManagement" />
                     </button>
                   </a>
                 </div>

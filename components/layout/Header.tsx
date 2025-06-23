@@ -1,5 +1,6 @@
 import Button from "@components/ui/Button.tsx";
 import AuthMenuIsland from "@islands/AuthMenu.tsx";
+import HeaderLanguageSwitcher from "@islands/HeaderLanguageSwitcher.tsx";
 import HeaderNavigationIsland from "@islands/HeaderNavigation.tsx";
 import ThemeToggleIsland from "@islands/ThemeToggle.tsx";
 import { JSX } from "preact";
@@ -10,6 +11,7 @@ interface HeaderProps {
   onSidebarToggle?: () => void;
   showThemeToggle?: boolean;
   showUserMenu?: boolean;
+  showLanguageSwitcher?: boolean;
   className?: string;
   children?: JSX.Element | JSX.Element[];
 }
@@ -20,6 +22,7 @@ const Header = ({
   onSidebarToggle,
   showThemeToggle = true,
   showUserMenu = true,
+  showLanguageSwitcher = true,
   className = "",
   children,
 }: HeaderProps) => {
@@ -115,10 +118,17 @@ const Header = ({
 
           {/* 功能按钮区域 */}
           <div className="
-            flex items-center gap-3 
+            flex items-center gap-3
             pl-4 border-l border-neutral-200/60 dark:border-neutral-700/60
             animate-fade-in animate-delay-300
           ">
+            {/* 语言切换器 */}
+            {showLanguageSwitcher && (
+              <div className="magnetic-element">
+                <HeaderLanguageSwitcher size="md" />
+              </div>
+            )}
+
             {/* 主题切换按钮 */}
             {showThemeToggle && (
               <div className="magnetic-element">
@@ -138,7 +148,21 @@ const Header = ({
 
       {/* 响应式移动端导航 */}
       <div className="lg:hidden mt-4 pt-4 border-t border-neutral-200/60 dark:border-neutral-700/60 animate-slide-up animate-delay-100">
-        <HeaderNavigationIsland />
+        <div className="flex items-center justify-between mb-4">
+          <HeaderNavigationIsland />
+
+          {/* 移动端功能按钮 */}
+          <div className="flex items-center gap-3">
+            {showLanguageSwitcher && (
+              <HeaderLanguageSwitcher
+                size="sm"
+                showText={false}
+                variant="toggle"
+              />
+            )}
+            {showThemeToggle && <ThemeToggleIsland />}
+          </div>
+        </div>
       </div>
     </header>
   );
