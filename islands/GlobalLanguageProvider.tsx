@@ -27,7 +27,17 @@ const LanguageContext = createContext<LanguageContextType | null>(null);
 // 翻译缓存
 const translationCache = new Map<string, TranslationResource>();
 
-// 简单的翻译函数
+/**
+ * Retrieves a localized string for the given key from the specified namespace, performing parameter interpolation if needed.
+ *
+ * If the key or namespace is missing, or the resolved value is not a string, returns the key itself.
+ *
+ * @param key - The translation key, supporting dot notation for nested lookups
+ * @param translations - The loaded translation resources, organized by namespace
+ * @param params - Optional parameters for interpolation within the translation string
+ * @param namespace - The namespace to search within, defaults to "common"
+ * @returns The localized string with parameters interpolated, or the key if not found
+ */
 function simpleTranslate(
   key: string,
   translations: Record<string, TranslationResource>,
@@ -66,7 +76,15 @@ function simpleTranslate(
   return value;
 }
 
-// 加载翻译资源
+/**
+ * Loads translation resources for a given language and namespace.
+ *
+ * Fetches the translation JSON file from the server, caches the result to avoid redundant requests, and returns the translation object. Returns an empty object if loading fails.
+ *
+ * @param language - The language code for which to load translations
+ * @param namespace - The namespace of the translation resource
+ * @returns The loaded translation resource object, or an empty object if loading fails
+ */
 async function loadTranslation(
   language: SupportedLanguage,
   namespace: string,
@@ -95,7 +113,13 @@ async function loadTranslation(
   }
 }
 
-// 全局语言提供者组件
+/**
+ * Provides global language state and translation utilities to the application.
+ *
+ * Initializes and manages the current language, loads translation resources for fixed namespaces, and exposes a translation function and language switching capability to all descendant components via context.
+ *
+ * @param children - The components that will have access to the language context.
+ */
 export function GlobalLanguageProvider(
   { children }: { children: ComponentChildren },
 ) {
@@ -178,7 +202,12 @@ export function GlobalLanguageProvider(
   );
 }
 
-// 使用语言上下文的 Hook
+/**
+ * Provides access to the global language context.
+ *
+ * Throws an error if used outside of a GlobalLanguageProvider.
+ * @returns The current language context, including language state, translation resources, and utilities.
+ */
 export function useGlobalLanguage(): LanguageContextType {
   const context = useContext(LanguageContext);
   if (!context) {
@@ -189,7 +218,14 @@ export function useGlobalLanguage(): LanguageContextType {
   return context;
 }
 
-// 简化的翻译 Hook
+/**
+ * Provides translation utilities scoped to a specific namespace, along with global language state.
+ *
+ * Returns an object containing a translation function for the given namespace, the current language, a method to change the language, and a loading status flag.
+ *
+ * @param namespace - The translation namespace to use. Defaults to "common".
+ * @returns An object with a namespaced translation function, current language, language change method, and loading status.
+ */
 export function useGlobalTranslation(namespace = "common") {
   const { t, currentLanguage, changeLanguage, isLoading } = useGlobalLanguage();
 

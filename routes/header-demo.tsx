@@ -7,6 +7,11 @@ import Header from "@components/layout/Header.tsx";
 import GlobalLanguageProvider from "@islands/GlobalLanguageProvider.tsx";
 import { PageProps } from "fresh";
 
+/**
+ * Renders a demonstration page showcasing the Header component with integrated language switcher functionality.
+ *
+ * The page includes feature descriptions, usage instructions, technical highlights, and a navigation link to a full internationalization demo. It is styled with responsive layouts and supports both light and dark modes.
+ */
 export default function HeaderDemoPage(_props: PageProps) {
   return (
     <GlobalLanguageProvider>

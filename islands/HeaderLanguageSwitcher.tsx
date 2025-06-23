@@ -14,6 +14,17 @@ interface HeaderLanguageSwitcherProps {
   variant?: "dropdown" | "toggle";
 }
 
+/**
+ * Renders a compact, accessible language switcher for the website header, supporting both dropdown and toggle variants.
+ *
+ * Displays the current language with flag and optional name, allowing users to switch languages in real time. In toggle mode with two languages, provides a direct toggle button; otherwise, shows a dropdown menu listing all available languages. Handles server-side rendering loading state, click-outside detection for dropdown closure, and includes visual and accessibility enhancements.
+ *
+ * @param className - Optional additional CSS classes for the component container.
+ * @param showText - Whether to display the language name alongside the flag.
+ * @param size - Size of the switcher ("sm", "md", or "lg").
+ * @param variant - Display style: "dropdown" for a menu or "toggle" for a button.
+ * @returns The language switcher UI element.
+ */
 export default function HeaderLanguageSwitcher({
   className = "",
   showText = false,
@@ -314,7 +325,10 @@ export default function HeaderLanguageSwitcher({
 }
 
 /**
- * 获取尺寸相关的 CSS 类
+ * Returns the appropriate text size CSS class for the given size option.
+ *
+ * @param size - The desired size, either "sm", "md", or "lg"
+ * @returns The corresponding CSS class for text size
  */
 function getSizeClasses(size: "sm" | "md" | "lg"): string {
   switch (size) {

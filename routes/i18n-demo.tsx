@@ -9,6 +9,11 @@ import I18nButton from "@islands/I18nButton.tsx";
 import I18nDemo from "@islands/I18nDemo.tsx";
 import { PageProps } from "fresh";
 
+/**
+ * Renders an internationalization demonstration page showcasing the usage of internationalized button components.
+ *
+ * The page includes examples of basic operation buttons, status buttons with loading states, and traditional buttons for backward compatibility. It provides usage instructions with code snippets and an interactive demo section. The entire page is wrapped in a global language provider to enable language context.
+ */
 export default function I18nDemoPage(_props: PageProps) {
   return (
     <GlobalLanguageProvider>

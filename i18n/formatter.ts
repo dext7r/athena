@@ -259,7 +259,11 @@ export class PluralRules {
   }
 }
 
-// 便捷函数
+/**
+ * Formats a Date object into a localized date string for the specified locale.
+ *
+ * @returns The formatted date string
+ */
 export function formatDate(
   date: Date,
   locale: SupportedLanguage,
@@ -268,6 +272,14 @@ export function formatDate(
   return DateFormatter.format(date, locale, options);
 }
 
+/**
+ * Formats a date as a localized relative time string (e.g., "3 days ago" or "in 2 hours") based on the difference from a base date.
+ *
+ * @param date - The target date to compare
+ * @param locale - The locale code for formatting
+ * @param baseDate - The reference date to compare against; defaults to the current date and time if not provided
+ * @returns The formatted relative time string
+ */
 export function formatRelativeTime(
   date: Date,
   locale: SupportedLanguage,
@@ -276,6 +288,11 @@ export function formatRelativeTime(
   return DateFormatter.formatRelative(date, locale, baseDate);
 }
 
+/**
+ * Formats a number according to the specified locale and formatting options.
+ *
+ * @returns The localized string representation of the number.
+ */
 export function formatNumber(
   number: number,
   locale: SupportedLanguage,
@@ -284,6 +301,14 @@ export function formatNumber(
   return NumberFormatter.format(number, locale, options);
 }
 
+/**
+ * Formats a number as a localized currency string for the specified locale and currency.
+ *
+ * @param amount - The numeric value to format as currency
+ * @param locale - The locale code to use for formatting
+ * @param currency - Optional ISO 4217 currency code; uses the locale's default if not provided
+ * @returns The formatted currency string
+ */
 export function formatCurrency(
   amount: number,
   locale: SupportedLanguage,
@@ -292,6 +317,12 @@ export function formatCurrency(
   return NumberFormatter.formatCurrency(amount, locale, currency);
 }
 
+/**
+ * Formats a number as a localized percentage string.
+ *
+ * @param value - The numeric value to format as a percentage
+ * @returns The formatted percentage string according to the specified locale
+ */
 export function formatPercent(
   value: number,
   locale: SupportedLanguage,
@@ -300,6 +331,13 @@ export function formatPercent(
   return NumberFormatter.formatPercent(value, locale, options);
 }
 
+/**
+ * Formats a byte count into a localized, human-readable file size string.
+ *
+ * @param bytes - The number of bytes to format
+ * @param binary - Whether to use binary (1024-based) units instead of decimal (1000-based)
+ * @returns The formatted file size string with appropriate unit
+ */
 export function formatFileSize(
   bytes: number,
   locale: SupportedLanguage,
@@ -308,6 +346,13 @@ export function formatFileSize(
   return NumberFormatter.formatFileSize(bytes, locale, binary);
 }
 
+/**
+ * Formats an array of strings into a localized list according to the specified locale and list type.
+ *
+ * @param items - The array of strings to format as a list
+ * @param type - The type of list formatting to use: "conjunction", "disjunction", or "unit"
+ * @returns The formatted list string in the given locale
+ */
 export function formatList(
   items: string[],
   locale: SupportedLanguage,
@@ -316,6 +361,16 @@ export function formatList(
   return ListFormatter.format(items, locale, type);
 }
 
+/**
+ * Returns a localized pluralized string for the given count using the provided translations and locale.
+ *
+ * Replaces all `{{count}}` placeholders in the selected translation with the actual count value.
+ *
+ * @param count - The numeric value to determine the plural form
+ * @param translations - An object mapping plural categories to translation strings
+ * @param locale - The locale to use for pluralization rules
+ * @returns The formatted pluralized string with the count substituted
+ */
 export function formatPlural(
   count: number,
   translations: Record<string, string>,

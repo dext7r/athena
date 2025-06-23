@@ -201,29 +201,52 @@ export const CONFIG = {
   error: ERROR_CONFIG,
 } as const;
 
-// 工具函数：检查语言是否支持
+/**
+ * Determines whether the given language code is supported by the application.
+ *
+ * @param lang - The language code to check
+ * @returns True if the language code is supported; otherwise, false
+ */
 export function isSupportedLanguage(lang: string): lang is SupportedLanguage {
   return SUPPORTED_LANGUAGES.includes(lang as SupportedLanguage);
 }
 
-// 工具函数：获取语言配置
+/**
+ * Retrieves the configuration object for a given supported language.
+ *
+ * @param lang - The language code for which to obtain the configuration
+ * @returns The configuration details for the specified language
+ */
 export function getLanguageConfig(lang: SupportedLanguage): LanguageConfig {
   return LANGUAGE_CONFIGS[lang];
 }
 
-// 工具函数：获取所有语言配置
+/**
+ * Returns an array of all supported language configurations.
+ *
+ * @returns An array containing the configuration objects for each supported language.
+ */
 export function getAllLanguageConfigs(): LanguageConfig[] {
   return SUPPORTED_LANGUAGES.map((lang) => LANGUAGE_CONFIGS[lang]);
 }
 
-// 工具函数：检查命名空间是否有效
+/**
+ * Determines whether a given string is a valid translation namespace.
+ *
+ * @param namespace - The namespace string to validate
+ * @returns True if the namespace is supported; otherwise, false
+ */
 export function isValidNamespace(
   namespace: string,
 ): namespace is TranslationNamespace {
   return TRANSLATION_NAMESPACES.includes(namespace as TranslationNamespace);
 }
 
-// 工具函数：获取浏览器语言偏好
+/**
+ * Returns the browser's preferred language if it is supported; otherwise returns the default language.
+ *
+ * If the `navigator` object is unavailable (such as in server-side environments), the default language is returned.
+ */
 export function getBrowserLanguage(): SupportedLanguage {
   if (typeof navigator === "undefined") {
     return DEFAULT_LANGUAGE;
@@ -233,7 +256,13 @@ export function getBrowserLanguage(): SupportedLanguage {
   return isSupportedLanguage(browserLang) ? browserLang : DEFAULT_LANGUAGE;
 }
 
-// 工具函数：获取语言的本地化名称
+/**
+ * Returns the display name of a language, either in its native form or in English.
+ *
+ * @param lang - The language code to display
+ * @param displayLang - The language code in which to display the name; if omitted or equal to `lang`, returns the native name
+ * @returns The display name of the language in the specified display language
+ */
 export function getLanguageDisplayName(
   lang: SupportedLanguage,
   displayLang: SupportedLanguage = lang,

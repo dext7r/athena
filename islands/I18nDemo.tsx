@@ -15,6 +15,11 @@ import {
 import I18nButton from "@islands/I18nButton.tsx";
 import { useEffect, useState } from "preact/hooks";
 
+/**
+ * Displays a comprehensive demo of client-side internationalization features, including language switching, dynamic translated text, and internationalized buttons.
+ *
+ * Renders a language switcher, various translated text elements, and interactive buttons with internationalized labels. Shows a loading skeleton during server-side rendering and supports dynamic content updates based on the selected language.
+ */
 export default function I18nDemo() {
   const [mounted, setMounted] = useState(false);
   const { currentLanguage, changeLanguage } = useGlobalLanguage();
