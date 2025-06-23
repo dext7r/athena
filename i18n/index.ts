@@ -5,61 +5,69 @@
 
 // 类型定义
 export type {
-  SupportedLanguage,
-  TranslationNamespace,
-  TranslationResource,
-  TranslationFunction,
-  TranslationParams,
-  LanguageConfig,
-  I18nConfig,
-  LanguageDetectionResult,
-  TranslationLoadState,
-  I18nContext,
   DateFormatOptions,
+  I18nConfig,
+  I18nContext,
+  LanguageConfig,
+  LanguageDetectionResult,
   NumberFormatOptions,
+  SupportedLanguage,
+  TranslationFunction,
+  TranslationLoadState,
+  TranslationNamespace,
+  TranslationParams,
+  TranslationResource,
 } from "./types.ts";
 
 // 配置
 export {
   DEFAULT_LANGUAGE,
   FALLBACK_LANGUAGE,
-  SUPPORTED_LANGUAGES,
-  LANGUAGE_CONFIGS,
-  I18N_CONFIG,
-  isSupportedLanguage,
-  getLanguageConfig,
   getAllLanguageConfigs,
   getBrowserLanguage,
+  getLanguageConfig,
   getLanguageDisplayName,
+  I18N_CONFIG,
+  isSupportedLanguage,
+  LANGUAGE_CONFIGS,
+  SUPPORTED_LANGUAGES,
 } from "./config.ts";
 
 // 语言检测
 export {
+  clearStoredLanguage,
+  detectLanguage,
+  getStoredLanguage,
+  languageDetector,
   LanguageDetectorImpl,
   ServerLanguageDetector,
-  languageDetector,
-  detectLanguage,
   setLanguage,
-  getStoredLanguage,
-  clearStoredLanguage,
 } from "./detector.ts";
 
 // 资源加载
 export {
-  TranslationLoaderImpl,
-  translationLoader,
+  clearTranslationCache,
   loadNamespace,
   preloadNamespaces,
-  clearTranslationCache,
+  translationLoader,
+  TranslationLoaderImpl,
 } from "./loader.ts";
 
 // 状态管理
 export {
-  useI18nStore,
   useCurrentLanguage,
-  useTranslation,
+  useI18nStore,
   useLanguageList,
+  useTranslation,
 } from "@stores/useI18nStore.ts";
+
+// 导入用于便捷函数
+import { useI18nStore } from "@stores/useI18nStore.ts";
+import type {
+  SupportedLanguage,
+  TranslationNamespace,
+  TranslationParams,
+} from "./types.ts";
 
 // 便捷函数
 export function initializeI18n() {
@@ -78,7 +86,7 @@ export function changeLanguage(language: SupportedLanguage): Promise<void> {
 export function translate(
   key: string,
   params?: TranslationParams,
-  namespace?: TranslationNamespace
+  namespace?: TranslationNamespace,
 ): string {
   return useI18nStore.getState().t(key, params, namespace);
 }

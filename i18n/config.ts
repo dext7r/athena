@@ -52,24 +52,24 @@ export const I18N_CONFIG: I18nConfig = {
   supportedLanguages: SUPPORTED_LANGUAGES,
   fallbackLanguage: FALLBACK_LANGUAGE,
   namespaces: TRANSLATION_NAMESPACES,
-  
+
   // 插值配置
   interpolation: {
     prefix: "{{",
     suffix: "}}",
   },
-  
+
   // 语言检测配置
   detection: {
     // 检测顺序：本地存储 -> 查询参数 -> 浏览器语言 -> HTTP头部
     order: ["localStorage", "querystring", "navigator", "header"],
-    
+
     // 缓存策略
     caches: ["localStorage"],
-    
+
     // 查询参数名称
     lookupQuerystring: "lang",
-    
+
     // 本地存储键名
     lookupLocalStorage: "athena_language",
   },
@@ -79,10 +79,10 @@ export const I18N_CONFIG: I18nConfig = {
 export const TRANSLATION_PATHS = {
   // 翻译文件基础路径
   basePath: "/i18n/locales",
-  
+
   // 文件扩展名
   extension: ".json",
-  
+
   // 获取翻译文件路径
   getPath: (language: SupportedLanguage, namespace: TranslationNamespace) =>
     `${TRANSLATION_PATHS.basePath}/${language}/${namespace}${TRANSLATION_PATHS.extension}`,
@@ -92,13 +92,13 @@ export const TRANSLATION_PATHS = {
 export const CACHE_CONFIG = {
   // 缓存键前缀
   prefix: "athena_i18n_",
-  
+
   // 缓存过期时间（毫秒）
   ttl: 24 * 60 * 60 * 1000, // 24小时
-  
+
   // 最大缓存条目数
   maxEntries: 100,
-  
+
   // 是否启用缓存
   enabled: true,
 };
@@ -107,13 +107,13 @@ export const CACHE_CONFIG = {
 export const DEV_CONFIG = {
   // 是否显示缺失的翻译键
   showMissingKeys: true,
-  
+
   // 是否在控制台输出调试信息
   debug: false,
-  
+
   // 是否启用翻译键验证
   validateKeys: true,
-  
+
   // 缺失翻译的占位符
   missingKeyPlaceholder: (key: string) => `[Missing: ${key}]`,
 };
@@ -131,7 +131,7 @@ export const FORMAT_CONFIG = {
       timeStyle: "short" as const,
     },
   },
-  
+
   // 数字格式化默认选项
   numberFormat: {
     zh: {
@@ -145,7 +145,7 @@ export const FORMAT_CONFIG = {
       maximumFractionDigits: 2,
     },
   },
-  
+
   // 货币格式化默认选项
   currencyFormat: {
     zh: {
@@ -163,13 +163,13 @@ export const FORMAT_CONFIG = {
 export const PERFORMANCE_CONFIG = {
   // 是否启用懒加载
   lazyLoading: true,
-  
+
   // 预加载的命名空间
   preloadNamespaces: ["common"] as TranslationNamespace[],
-  
+
   // 资源加载超时时间（毫秒）
   loadTimeout: 5000,
-  
+
   // 并发加载限制
   maxConcurrentLoads: 3,
 };
@@ -178,13 +178,13 @@ export const PERFORMANCE_CONFIG = {
 export const ERROR_CONFIG = {
   // 是否在翻译失败时抛出错误
   throwOnMissingKey: false,
-  
+
   // 是否在加载失败时使用回退语言
   useFallbackOnLoadError: true,
-  
+
   // 错误重试次数
   maxRetries: 3,
-  
+
   // 重试延迟（毫秒）
   retryDelay: 1000,
 };
@@ -213,11 +213,13 @@ export function getLanguageConfig(lang: SupportedLanguage): LanguageConfig {
 
 // 工具函数：获取所有语言配置
 export function getAllLanguageConfigs(): LanguageConfig[] {
-  return SUPPORTED_LANGUAGES.map(lang => LANGUAGE_CONFIGS[lang]);
+  return SUPPORTED_LANGUAGES.map((lang) => LANGUAGE_CONFIGS[lang]);
 }
 
 // 工具函数：检查命名空间是否有效
-export function isValidNamespace(namespace: string): namespace is TranslationNamespace {
+export function isValidNamespace(
+  namespace: string,
+): namespace is TranslationNamespace {
   return TRANSLATION_NAMESPACES.includes(namespace as TranslationNamespace);
 }
 
@@ -226,7 +228,7 @@ export function getBrowserLanguage(): SupportedLanguage {
   if (typeof navigator === "undefined") {
     return DEFAULT_LANGUAGE;
   }
-  
+
   const browserLang = navigator.language.split("-")[0];
   return isSupportedLanguage(browserLang) ? browserLang : DEFAULT_LANGUAGE;
 }
@@ -234,7 +236,7 @@ export function getBrowserLanguage(): SupportedLanguage {
 // 工具函数：获取语言的本地化名称
 export function getLanguageDisplayName(
   lang: SupportedLanguage,
-  displayLang: SupportedLanguage = lang
+  displayLang: SupportedLanguage = lang,
 ): string {
   const config = getLanguageConfig(lang);
   return displayLang === lang ? config.nativeName : config.name;

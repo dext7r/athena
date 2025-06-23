@@ -4,9 +4,9 @@
  */
 
 import type {
-  SupportedLanguage,
   DateFormatOptions,
   NumberFormatOptions,
+  SupportedLanguage,
 } from "./types.ts";
 import { FORMAT_CONFIG } from "./config.ts";
 
@@ -20,7 +20,7 @@ export class DateFormatter {
   static format(
     date: Date,
     locale: SupportedLanguage,
-    options?: DateFormatOptions
+    options?: DateFormatOptions,
   ): string {
     const defaultOptions = FORMAT_CONFIG.dateFormat[locale];
     const formatOptions = { ...defaultOptions, ...options };
@@ -39,45 +39,47 @@ export class DateFormatter {
   static formatRelative(
     date: Date,
     locale: SupportedLanguage,
-    baseDate: Date = new Date()
+    baseDate: Date = new Date(),
   ): string {
-    const diffInSeconds = Math.floor((baseDate.getTime() - date.getTime()) / 1000);
+    const diffInSeconds = Math.floor(
+      (baseDate.getTime() - date.getTime()) / 1000,
+    );
 
     try {
-      const rtf = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' });
+      const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "auto" });
 
       // 秒
       if (Math.abs(diffInSeconds) < 60) {
-        return rtf.format(-diffInSeconds, 'second');
+        return rtf.format(-diffInSeconds, "second");
       }
 
       // 分钟
       const diffInMinutes = Math.floor(diffInSeconds / 60);
       if (Math.abs(diffInMinutes) < 60) {
-        return rtf.format(-diffInMinutes, 'minute');
+        return rtf.format(-diffInMinutes, "minute");
       }
 
       // 小时
       const diffInHours = Math.floor(diffInMinutes / 60);
       if (Math.abs(diffInHours) < 24) {
-        return rtf.format(-diffInHours, 'hour');
+        return rtf.format(-diffInHours, "hour");
       }
 
       // 天
       const diffInDays = Math.floor(diffInHours / 24);
       if (Math.abs(diffInDays) < 30) {
-        return rtf.format(-diffInDays, 'day');
+        return rtf.format(-diffInDays, "day");
       }
 
       // 月
       const diffInMonths = Math.floor(diffInDays / 30);
       if (Math.abs(diffInMonths) < 12) {
-        return rtf.format(-diffInMonths, 'month');
+        return rtf.format(-diffInMonths, "month");
       }
 
       // 年
       const diffInYears = Math.floor(diffInMonths / 12);
-      return rtf.format(-diffInYears, 'year');
+      return rtf.format(-diffInYears, "year");
     } catch (error) {
       console.error("Relative time formatting error:", error);
       return this.format(date, locale);
@@ -91,7 +93,7 @@ export class DateFormatter {
     startDate: Date,
     endDate: Date,
     locale: SupportedLanguage,
-    options?: DateFormatOptions
+    options?: DateFormatOptions,
   ): string {
     const defaultOptions = FORMAT_CONFIG.dateFormat[locale];
     const formatOptions = { ...defaultOptions, ...options };
@@ -99,11 +101,13 @@ export class DateFormatter {
     try {
       return new Intl.DateTimeFormat(locale, formatOptions).formatRange(
         startDate,
-        endDate
+        endDate,
       );
     } catch (error) {
       console.error("Date range formatting error:", error);
-      return `${this.format(startDate, locale)} - ${this.format(endDate, locale)}`;
+      return `${this.format(startDate, locale)} - ${
+        this.format(endDate, locale)
+      }`;
     }
   }
 }
@@ -118,7 +122,7 @@ export class NumberFormatter {
   static format(
     number: number,
     locale: SupportedLanguage,
-    options?: NumberFormatOptions
+    options?: NumberFormatOptions,
   ): string {
     const defaultOptions = FORMAT_CONFIG.numberFormat[locale];
     const formatOptions = { ...defaultOptions, ...options };
@@ -137,14 +141,14 @@ export class NumberFormatter {
   static formatCurrency(
     amount: number,
     locale: SupportedLanguage,
-    currency?: string
+    currency?: string,
   ): string {
     const defaultCurrency = FORMAT_CONFIG.currencyFormat[locale].currency;
     const currencyCode = currency || defaultCurrency;
 
     try {
       return new Intl.NumberFormat(locale, {
-        style: 'currency',
+        style: "currency",
         currency: currencyCode,
       }).format(amount);
     } catch (error) {
@@ -159,11 +163,11 @@ export class NumberFormatter {
   static formatPercent(
     value: number,
     locale: SupportedLanguage,
-    options?: Omit<NumberFormatOptions, 'style'>
+    options?: Omit<NumberFormatOptions, "style">,
   ): string {
     try {
       return new Intl.NumberFormat(locale, {
-        style: 'percent',
+        style: "percent",
         ...options,
       }).format(value);
     } catch (error) {
@@ -178,14 +182,14 @@ export class NumberFormatter {
   static formatFileSize(
     bytes: number,
     locale: SupportedLanguage,
-    binary = false
+    binary = false,
   ): string {
     const base = binary ? 1024 : 1000;
     const units = binary
-      ? ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB']
-      : ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+      ? ["B", "KiB", "MiB", "GiB", "TiB", "PiB"]
+      : ["B", "KB", "MB", "GB", "TB", "PB"];
 
-    if (bytes === 0) return '0 B';
+    if (bytes === 0) return "0 B";
 
     const exponent = Math.floor(Math.log(bytes) / Math.log(base));
     const value = bytes / Math.pow(base, exponent);
@@ -209,13 +213,13 @@ export class ListFormatter {
   static format(
     items: string[],
     locale: SupportedLanguage,
-    type: 'conjunction' | 'disjunction' | 'unit' = 'conjunction'
+    type: "conjunction" | "disjunction" | "unit" = "conjunction",
   ): string {
     try {
       return new Intl.ListFormat(locale, { type }).format(items);
     } catch (error) {
       console.error("List formatting error:", error);
-      return items.join(', ');
+      return items.join(", ");
     }
   }
 }
@@ -229,13 +233,13 @@ export class PluralRules {
    */
   static select(
     count: number,
-    locale: SupportedLanguage
+    locale: SupportedLanguage,
   ): Intl.LDMLPluralRule {
     try {
       return new Intl.PluralRules(locale).select(count);
     } catch (error) {
       console.error("Plural rules error:", error);
-      return count === 1 ? 'one' : 'other';
+      return count === 1 ? "one" : "other";
     }
   }
 
@@ -245,11 +249,11 @@ export class PluralRules {
   static formatPlural(
     count: number,
     translations: Record<string, string>,
-    locale: SupportedLanguage
+    locale: SupportedLanguage,
   ): string {
     const rule = this.select(count, locale);
-    const translation = translations[rule] || translations.other || '';
-    
+    const translation = translations[rule] || translations.other || "";
+
     // 替换 {{count}} 占位符
     return translation.replace(/\{\{count\}\}/g, count.toString());
   }
@@ -259,7 +263,7 @@ export class PluralRules {
 export function formatDate(
   date: Date,
   locale: SupportedLanguage,
-  options?: DateFormatOptions
+  options?: DateFormatOptions,
 ): string {
   return DateFormatter.format(date, locale, options);
 }
@@ -267,7 +271,7 @@ export function formatDate(
 export function formatRelativeTime(
   date: Date,
   locale: SupportedLanguage,
-  baseDate?: Date
+  baseDate?: Date,
 ): string {
   return DateFormatter.formatRelative(date, locale, baseDate);
 }
@@ -275,7 +279,7 @@ export function formatRelativeTime(
 export function formatNumber(
   number: number,
   locale: SupportedLanguage,
-  options?: NumberFormatOptions
+  options?: NumberFormatOptions,
 ): string {
   return NumberFormatter.format(number, locale, options);
 }
@@ -283,7 +287,7 @@ export function formatNumber(
 export function formatCurrency(
   amount: number,
   locale: SupportedLanguage,
-  currency?: string
+  currency?: string,
 ): string {
   return NumberFormatter.formatCurrency(amount, locale, currency);
 }
@@ -291,7 +295,7 @@ export function formatCurrency(
 export function formatPercent(
   value: number,
   locale: SupportedLanguage,
-  options?: Omit<NumberFormatOptions, 'style'>
+  options?: Omit<NumberFormatOptions, "style">,
 ): string {
   return NumberFormatter.formatPercent(value, locale, options);
 }
@@ -299,7 +303,7 @@ export function formatPercent(
 export function formatFileSize(
   bytes: number,
   locale: SupportedLanguage,
-  binary = false
+  binary = false,
 ): string {
   return NumberFormatter.formatFileSize(bytes, locale, binary);
 }
@@ -307,7 +311,7 @@ export function formatFileSize(
 export function formatList(
   items: string[],
   locale: SupportedLanguage,
-  type?: 'conjunction' | 'disjunction' | 'unit'
+  type?: "conjunction" | "disjunction" | "unit",
 ): string {
   return ListFormatter.format(items, locale, type);
 }
@@ -315,7 +319,7 @@ export function formatList(
 export function formatPlural(
   count: number,
   translations: Record<string, string>,
-  locale: SupportedLanguage
+  locale: SupportedLanguage,
 ): string {
   return PluralRules.formatPlural(count, translations, locale);
 }

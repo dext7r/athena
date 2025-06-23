@@ -6,28 +6,28 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type {
-  SupportedLanguage,
-  TranslationNamespace,
-  TranslationResource,
-  TranslationFunction,
-  TranslationParams,
-  TranslationLoadState,
   LanguageConfig,
+  SupportedLanguage,
+  TranslationFunction,
+  TranslationLoadState,
+  TranslationNamespace,
+  TranslationParams,
+  TranslationResource,
 } from "@/i18n/types.ts";
 import {
   DEFAULT_LANGUAGE,
-  SUPPORTED_LANGUAGES,
   getAllLanguageConfigs,
   I18N_CONFIG,
+  SUPPORTED_LANGUAGES,
 } from "@/i18n/config.ts";
 import {
   detectLanguage,
   setLanguage as setStoredLanguage,
 } from "@/i18n/detector.ts";
 import {
+  clearTranslationCache,
   loadNamespace,
   preloadNamespaces,
-  clearTranslationCache,
 } from "@/i18n/loader.ts";
 
 // i18n 状态接口
@@ -58,7 +58,7 @@ export interface I18nState {
  */
 function createTranslationFunction(
   currentLanguage: SupportedLanguage,
-  translations: Record<string, TranslationResource>
+  translations: Record<string, TranslationResource>,
 ): TranslationFunction {
   return (key: string, params?: TranslationParams, namespace = "common") => {
     const namespaceKey = `${currentLanguage}_${namespace}`;
@@ -71,9 +71,11 @@ function createTranslationFunction(
 
     // 获取翻译值
     const translation = getNestedValue(resource, key);
-    
+
     if (translation === undefined) {
-      console.warn(`Translation key not found: ${key} in namespace ${namespace}`);
+      console.warn(
+        `Translation key not found: ${key} in namespace ${namespace}`,
+      );
       return key;
     }
 
@@ -91,8 +93,8 @@ function createTranslationFunction(
  * 获取嵌套对象的值
  */
 function getNestedValue(obj: TranslationResource, path: string): unknown {
-  return path.split('.').reduce((current, key) => {
-    if (current && typeof current === 'object' && key in current) {
+  return path.split(".").reduce((current, key) => {
+    if (current && typeof current === "object" && key in current) {
       return (current as Record<string, unknown>)[key];
     }
     return undefined;
@@ -102,15 +104,23 @@ function getNestedValue(obj: TranslationResource, path: string): unknown {
 /**
  * 字符串插值
  */
-function interpolateString(template: string, params: TranslationParams): string {
+function interpolateString(
+  template: string,
+  params: TranslationParams,
+): string {
   const { prefix, suffix } = I18N_CONFIG.interpolation;
-  
+
   return template.replace(
-    new RegExp(`${escapeRegExp(prefix)}([^${escapeRegExp(suffix)}]+)${escapeRegExp(suffix)}`, 'g'),
+    new RegExp(
+      `${escapeRegExp(prefix)}([^${escapeRegExp(suffix)}]+)${
+        escapeRegExp(suffix)
+      }`,
+      "g",
+    ),
     (match, key) => {
       const value = params[key.trim()];
       return value !== undefined ? String(value) : match;
-    }
+    },
   );
 }
 
@@ -118,7 +128,7 @@ function interpolateString(template: string, params: TranslationParams): string 
  * 转义正则表达式特殊字符
  */
 function escapeRegExp(string: string): string {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 /**
@@ -144,7 +154,7 @@ export const useI18nStore = create<I18nState>()(
         const state = get();
         const translationFn = createTranslationFunction(
           state.currentLanguage,
-          state.translations
+          state.translations,
         );
         return translationFn(key, params, namespace);
       },
@@ -157,15 +167,15 @@ export const useI18nStore = create<I18nState>()(
         }
 
         const state = get();
-        
+
         // 如果语言没有变化，直接返回
         if (state.currentLanguage === language) {
           return;
         }
 
-        set({ 
+        set({
           currentLanguage: language,
-          loadState: { ...state.loadState, isLoading: true, error: null }
+          loadState: { ...state.loadState, isLoading: true, error: null },
         });
 
         try {
@@ -175,21 +185,21 @@ export const useI18nStore = create<I18nState>()(
           // 预加载常用命名空间
           await get().preloadNamespaces(["common"]);
 
-          set(state => ({
+          set((state) => ({
             loadState: {
               ...state.loadState,
               isLoading: false,
               error: null,
-            }
+            },
           }));
         } catch (error) {
           console.error("Failed to change language:", error);
-          set(state => ({
+          set((state) => ({
             loadState: {
               ...state.loadState,
               isLoading: false,
               error: error instanceof Error ? error.message : "Unknown error",
-            }
+            },
           }));
         }
       },
@@ -204,18 +214,21 @@ export const useI18nStore = create<I18nState>()(
           return;
         }
 
-        set(state => ({
+        set((state) => ({
           loadState: {
             ...state.loadState,
             isLoading: true,
             error: null,
-          }
+          },
         }));
 
         try {
-          const resource = await loadNamespace(state.currentLanguage, namespace);
-          
-          set(state => ({
+          const resource = await loadNamespace(
+            state.currentLanguage,
+            namespace,
+          );
+
+          set((state) => ({
             translations: {
               ...state.translations,
               [namespaceKey]: resource,
@@ -223,17 +236,20 @@ export const useI18nStore = create<I18nState>()(
             loadState: {
               ...state.loadState,
               isLoading: false,
-              loadedNamespaces: [...state.loadState.loadedNamespaces, namespace],
-            }
+              loadedNamespaces: [
+                ...state.loadState.loadedNamespaces,
+                namespace,
+              ],
+            },
           }));
         } catch (error) {
           console.error(`Failed to load namespace ${namespace}:`, error);
-          set(state => ({
+          set((state) => ({
             loadState: {
               ...state.loadState,
               isLoading: false,
               error: error instanceof Error ? error.message : "Unknown error",
-            }
+            },
           }));
         }
       },
@@ -241,40 +257,40 @@ export const useI18nStore = create<I18nState>()(
       // 预加载多个命名空间
       preloadNamespaces: async (namespaces: TranslationNamespace[]) => {
         const state = get();
-        
-        set(state => ({
+
+        set((state) => ({
           loadState: {
             ...state.loadState,
             isLoading: true,
             error: null,
-          }
+          },
         }));
 
         try {
           await preloadNamespaces(state.currentLanguage, namespaces);
-          
+
           // 加载所有命名空间到状态中
-          const loadPromises = namespaces.map(namespace => 
+          const loadPromises = namespaces.map((namespace) =>
             get().loadNamespace(namespace)
           );
-          
+
           await Promise.all(loadPromises);
 
-          set(state => ({
+          set((state) => ({
             loadState: {
               ...state.loadState,
               isLoading: false,
               isLoaded: true,
-            }
+            },
           }));
         } catch (error) {
           console.error("Failed to preload namespaces:", error);
-          set(state => ({
+          set((state) => ({
             loadState: {
               ...state.loadState,
               isLoading: false,
               error: error instanceof Error ? error.message : "Unknown error",
-            }
+            },
           }));
         }
       },
@@ -289,21 +305,21 @@ export const useI18nStore = create<I18nState>()(
             isLoaded: false,
             error: null,
             loadedNamespaces: [],
-          }
+          },
         });
       },
 
       // 初始化
       initialize: async () => {
         const state = get();
-        
+
         if (state.isInitialized) {
           return;
         }
 
         // 检测语言
         const detection = detectLanguage();
-        
+
         set({
           currentLanguage: detection.language,
           isInitialized: true,
@@ -319,20 +335,20 @@ export const useI18nStore = create<I18nState>()(
       },
 
       setTranslations: (namespace: string, resource: TranslationResource) => {
-        set(state => ({
+        set((state) => ({
           translations: {
             ...state.translations,
             [namespace]: resource,
-          }
+          },
         }));
       },
 
       setLoadState: (newState: Partial<TranslationLoadState>) => {
-        set(state => ({
+        set((state) => ({
           loadState: {
             ...state.loadState,
             ...newState,
-          }
+          },
         }));
       },
     }),
@@ -342,25 +358,25 @@ export const useI18nStore = create<I18nState>()(
         currentLanguage: state.currentLanguage,
         // 不持久化翻译资源，每次重新加载
       }),
-    }
-  )
+    },
+  ),
 );
 
 // 便捷 Hooks
 export function useCurrentLanguage() {
-  return useI18nStore(state => state.currentLanguage);
+  return useI18nStore((state) => state.currentLanguage);
 }
 
 export function useTranslation(namespace: TranslationNamespace = "common") {
   const store = useI18nStore();
-  
+
   // 确保命名空间已加载
   if (!store.translations[`${store.currentLanguage}_${namespace}`]) {
     store.loadNamespace(namespace);
   }
 
   return {
-    t: (key: string, params?: TranslationParams) => 
+    t: (key: string, params?: TranslationParams) =>
       store.t(key, params, namespace),
     currentLanguage: store.currentLanguage,
     changeLanguage: store.changeLanguage,
@@ -370,5 +386,5 @@ export function useTranslation(namespace: TranslationNamespace = "common") {
 }
 
 export function useLanguageList() {
-  return useI18nStore(state => state.availableLanguages);
+  return useI18nStore((state) => state.availableLanguages);
 }

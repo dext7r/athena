@@ -1,0 +1,233 @@
+{
+  "button": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "submit": "Submit",
+    "reset": "Reset",
+    "confirm": "Confirm",
+    "close": "Close",
+    "open": "Open",
+    "view": "View",
+    "download": "Download",
+    "upload": "Upload",
+    "share": "Share",
+    "copy": "Copy",
+    "paste": "Paste",
+    "cut": "Cut",
+    "undo": "Undo",
+    "redo": "Redo",
+    "refresh": "Refresh",
+    "reload": "Reload",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "export": "Export",
+    "import": "Import",
+    "print": "Print",
+    "help": "Help",
+    "settings": "Settings",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "finish": "Finish",
+    "skip": "Skip",
+    "retry": "Retry",
+    "continue": "Continue"
+  },
+  "input": {
+    "placeholder": {
+      "search": "Enter search keywords...",
+      "email": "Enter email address",
+      "password": "Enter password",
+      "name": "Enter name",
+      "phone": "Enter phone number",
+      "address": "Enter address",
+      "comment": "Enter comment...",
+      "message": "Enter message...",
+      "title": "Enter title",
+      "description": "Enter description",
+      "url": "Enter URL",
+      "code": "Enter code",
+      "amount": "Enter amount",
+      "quantity": "Enter quantity"
+    },
+    "label": {
+      "email": "Email Address",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "name": "Name",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "phone": "Phone Number",
+      "address": "Address",
+      "city": "City",
+      "country": "Country",
+      "zipCode": "ZIP Code",
+      "title": "Title",
+      "description": "Description",
+      "content": "Content",
+      "category": "Category",
+      "tags": "Tags",
+      "date": "Date",
+      "time": "Time",
+      "url": "URL",
+      "file": "File",
+      "image": "Image",
+      "video": "Video",
+      "audio": "Audio"
+    }
+  },
+  "modal": {
+    "title": {
+      "confirm": "Confirm Action",
+      "warning": "Warning",
+      "error": "Error",
+      "info": "Information",
+      "success": "Success",
+      "delete": "Confirm Delete",
+      "edit": "Edit",
+      "create": "Create",
+      "settings": "Settings",
+      "help": "Help",
+      "about": "About"
+    },
+    "message": {
+      "confirmDelete": "Are you sure you want to delete this item? This action cannot be undone.",
+      "confirmAction": "Are you sure you want to perform this action?",
+      "unsavedChanges": "You have unsaved changes. Are you sure you want to leave?",
+      "success": "Operation completed successfully!",
+      "error": "Operation failed. Please try again.",
+      "loading": "Processing, please wait...",
+      "networkError": "Network connection error. Please check your network settings.",
+      "serverError": "Server error. Please try again later.",
+      "unauthorized": "You don't have permission to perform this action.",
+      "sessionExpired": "Session has expired. Please log in again."
+    }
+  },
+  "table": {
+    "header": {
+      "actions": "Actions",
+      "status": "Status",
+      "name": "Name",
+      "title": "Title",
+      "description": "Description",
+      "date": "Date",
+      "time": "Time",
+      "author": "Author",
+      "category": "Category",
+      "tags": "Tags",
+      "size": "Size",
+      "type": "Type",
+      "count": "Count",
+      "price": "Price",
+      "total": "Total"
+    },
+    "action": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete",
+      "copy": "Copy",
+      "download": "Download",
+      "share": "Share",
+      "archive": "Archive",
+      "restore": "Restore",
+      "approve": "Approve",
+      "reject": "Reject",
+      "publish": "Publish",
+      "unpublish": "Unpublish"
+    },
+    "empty": {
+      "title": "No Data",
+      "description": "No data available to display",
+      "action": "Add Data"
+    },
+    "loading": {
+      "title": "Loading...",
+      "description": "Fetching data, please wait"
+    },
+    "error": {
+      "title": "Loading Failed",
+      "description": "Unable to fetch data, please try again",
+      "action": "Reload"
+    }
+  },
+  "form": {
+    "validation": {
+      "required": "This field is required",
+      "email": "Please enter a valid email address",
+      "password": "Password must be at least 8 characters",
+      "confirmPassword": "Passwords do not match",
+      "minLength": "Must be at least {{min}} characters",
+      "maxLength": "Cannot exceed {{max}} characters",
+      "pattern": "Invalid format",
+      "number": "Please enter a valid number",
+      "integer": "Please enter an integer",
+      "positive": "Please enter a positive number",
+      "url": "Please enter a valid URL",
+      "phone": "Please enter a valid phone number",
+      "date": "Please select a valid date",
+      "time": "Please select a valid time",
+      "file": "Please select a file",
+      "image": "Please select an image file",
+      "fileSize": "File size cannot exceed {{size}}",
+      "fileType": "Unsupported file type"
+    },
+    "message": {
+      "saved": "Saved successfully",
+      "updated": "Updated successfully",
+      "deleted": "Deleted successfully",
+      "created": "Created successfully",
+      "error": "Operation failed",
+      "loading": "Saving...",
+      "uploading": "Uploading...",
+      "processing": "Processing..."
+    }
+  },
+  "navigation": {
+    "breadcrumb": {
+      "home": "Home",
+      "back": "Back",
+      "current": "Current Page"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "first": "First",
+      "last": "Last",
+      "page": "Page {{current}}",
+      "of": "of {{total}}",
+      "showing": "Showing {{start}} to {{end}} of {{total}} entries",
+      "perPage": "{{count}} per page"
+    },
+    "menu": {
+      "toggle": "Toggle Menu",
+      "close": "Close Menu",
+      "open": "Open Menu"
+    }
+  },
+  "status": {
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "uploading": "Uploading...",
+    "processing": "Processing...",
+    "connecting": "Connecting...",
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Information",
+    "completed": "Completed",
+    "pending": "Pending",
+    "failed": "Failed",
+    "cancelled": "Cancelled",
+    "timeout": "Timeout",
+    "offline": "Offline",
+    "online": "Online"
+  }
+}

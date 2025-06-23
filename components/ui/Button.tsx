@@ -1,3 +1,4 @@
+import type { TranslationNamespace, TranslationParams } from "@/i18n/types.ts";
 import { JSX } from "preact";
 import { forwardRef } from "preact/compat";
 
@@ -19,12 +20,22 @@ interface ButtonProps
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   loading?: boolean;
   disabled?: boolean;
-  children: JSX.Element | JSX.Element[] | string;
+  children?: JSX.Element | JSX.Element[] | string;
   icon?: JSX.Element;
   iconPosition?: "left" | "right";
   fullWidth?: boolean;
   animate?: boolean;
   magnetic?: boolean;
+
+  // 国际化相关属性
+  i18nKey?: string;
+  i18nParams?: TranslationParams;
+  i18nNamespace?: TranslationNamespace;
+  i18nFallback?: string;
+
+  // 加载状态文本国际化
+  loadingText?: string;
+  loadingI18nKey?: string;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
@@ -39,8 +50,36 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   animate = true,
   magnetic = false,
   className = "",
+
+  // 国际化属性
+  i18nKey,
+  i18nParams,
+  i18nNamespace = "components",
+  i18nFallback,
+  loadingText,
+  loadingI18nKey = "status.loading",
+
   ...props
 }, ref) => {
+  // 简化的文本处理（避免服务端 Hook 问题）
+  const getButtonText = () => {
+    // 如果有 i18nKey，在服务端使用回退文本
+    if (i18nKey) {
+      return i18nFallback || i18nKey;
+    }
+
+    // 否则使用 children
+    return children;
+  };
+
+  // 获取加载状态文本
+  const getLoadingText = () => {
+    if (loadingText) return loadingText;
+    return "Loading..."; // 简单的加载文本
+  };
+
+  const buttonText = getButtonText();
+  const loadingDisplayText = getLoadingText();
   const baseClasses = `
     inline-flex items-center justify-center gap-2 
     font-medium tracking-wide
@@ -231,7 +270,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
             : ""
         }`}
       >
-        {children}
+        {loading ? loadingDisplayText : buttonText}
       </span>
 
       {/* 右侧图标 */}

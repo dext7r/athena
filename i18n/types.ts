@@ -7,11 +7,11 @@
 export type SupportedLanguage = "zh" | "en";
 
 // 翻译命名空间类型
-export type TranslationNamespace = 
-  | "common" 
-  | "auth" 
-  | "components" 
-  | "pages" 
+export type TranslationNamespace =
+  | "common"
+  | "auth"
+  | "components"
+  | "pages"
   | "errors";
 
 // 翻译键值类型（支持嵌套）
@@ -69,7 +69,7 @@ export interface LanguageDetectionResult {
 export type TranslationFunction = (
   key: TranslationKey,
   params?: TranslationParams,
-  namespace?: TranslationNamespace
+  namespace?: TranslationNamespace,
 ) => string;
 
 // 格式化选项接口
@@ -125,11 +125,11 @@ export interface I18nContext {
 export interface TranslationLoader {
   loadNamespace: (
     language: SupportedLanguage,
-    namespace: TranslationNamespace
+    namespace: TranslationNamespace,
   ) => Promise<TranslationResource>;
   preloadNamespaces: (
     language: SupportedLanguage,
-    namespaces: TranslationNamespace[]
+    namespaces: TranslationNamespace[],
   ) => Promise<void>;
   clearCache: () => void;
 }
@@ -154,7 +154,7 @@ export class I18nError extends Error {
   constructor(
     message: string,
     public code: string,
-    public context?: any
+    public context?: Record<string, unknown>,
   ) {
     super(message);
     this.name = "I18nError";

@@ -4,15 +4,15 @@
  */
 
 import type {
-  SupportedLanguage,
   LanguageDetectionResult,
   LanguageDetector,
+  SupportedLanguage,
 } from "./types.ts";
 import {
-  I18N_CONFIG,
   DEFAULT_LANGUAGE,
-  isSupportedLanguage,
   getBrowserLanguage,
+  I18N_CONFIG,
+  isSupportedLanguage,
 } from "./config.ts";
 
 /**
@@ -106,9 +106,7 @@ export class LanguageDetectorImpl implements LanguageDetector {
    */
   private detectFromLocalStorage(): LanguageDetectionResult | null {
     const language = this.getFromLocalStorage();
-    return language
-      ? { language, source: "localStorage" }
-      : null;
+    return language ? { language, source: "localStorage" } : null;
   }
 
   /**
@@ -116,9 +114,7 @@ export class LanguageDetectorImpl implements LanguageDetector {
    */
   private detectFromSessionStorage(): LanguageDetectionResult | null {
     const language = this.getFromSessionStorage();
-    return language
-      ? { language, source: "localStorage" }
-      : null;
+    return language ? { language, source: "localStorage" } : null;
   }
 
   /**
@@ -127,7 +123,7 @@ export class LanguageDetectorImpl implements LanguageDetector {
   private detectFromQueryString(): LanguageDetectionResult | null {
     if (typeof window === "undefined") return null;
 
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(globalThis.location.search);
     const langParam = urlParams.get(this.config.lookupQuerystring);
 
     if (langParam && isSupportedLanguage(langParam)) {
@@ -216,7 +212,9 @@ export class ServerLanguageDetector {
   static detectFromRequest(request: Request): LanguageDetectionResult {
     // 1. 检查查询参数
     const url = new URL(request.url);
-    const langParam = url.searchParams.get(I18N_CONFIG.detection.lookupQuerystring);
+    const langParam = url.searchParams.get(
+      I18N_CONFIG.detection.lookupQuerystring,
+    );
     if (langParam && isSupportedLanguage(langParam)) {
       return { language: langParam, source: "querystring" };
     }
@@ -237,10 +235,12 @@ export class ServerLanguageDetector {
   /**
    * 解析 Accept-Language 头部
    */
-  private static parseAcceptLanguage(acceptLanguage: string): SupportedLanguage | null {
+  private static parseAcceptLanguage(
+    acceptLanguage: string,
+  ): SupportedLanguage | null {
     const languages = acceptLanguage
       .split(",")
-      .map(lang => {
+      .map((lang) => {
         const [code, q = "1"] = lang.trim().split(";q=");
         return {
           code: code.split("-")[0].toLowerCase(),

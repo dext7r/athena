@@ -1,5 +1,6 @@
 import { type PageProps } from "fresh";
 import CustomCursor from "../islands/CustomCursor.tsx";
+import GlobalLanguageProvider from "../islands/GlobalLanguageProvider.tsx";
 
 export default function App({ Component }: PageProps) {
   return (
@@ -136,21 +137,23 @@ export default function App({ Component }: PageProps) {
         </style>
       </head>
       <body className="font-sans antialiased bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 transition-colors duration-300">
-        {/* 页面加载动画 */}
-        <div id="page-loading" className="page-loading">
-          <div className="loading-content">
-            <div className="loading-spinner"></div>
-            <div className="loading-text">Athena 正在加载...</div>
+        <GlobalLanguageProvider>
+          {/* 页面加载动画 */}
+          <div id="page-loading" className="page-loading">
+            <div className="loading-content">
+              <div className="loading-spinner"></div>
+              <div className="loading-text">Athena 正在加载...</div>
+            </div>
           </div>
-        </div>
 
-        {/* 页面内容 */}
-        <div id="page-content" className="page-content">
-          <Component />
-        </div>
+          {/* 页面内容 */}
+          <div id="page-content" className="page-content">
+            <Component />
+          </div>
 
-        {/* 自定义光标 */}
-        <CustomCursor />
+          {/* 自定义光标 */}
+          <CustomCursor />
+        </GlobalLanguageProvider>
 
         {/* 页面加载完成脚本 */}
         <script>
