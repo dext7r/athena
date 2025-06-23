@@ -69,20 +69,41 @@ import type {
   TranslationParams,
 } from "./types.ts";
 
-// 便捷函数
+/**
+ * Initializes the i18n store and prepares internationalization resources for use.
+ */
 export function initializeI18n() {
   const store = useI18nStore.getState();
   return store.initialize();
 }
 
+/**
+ * Returns the currently active language from the i18n store.
+ *
+ * @returns The language code representing the current language.
+ */
 export function getCurrentLanguage(): SupportedLanguage {
   return useI18nStore.getState().currentLanguage;
 }
 
+/**
+ * Asynchronously changes the current language in the i18n store.
+ *
+ * @param language - The language to switch to
+ * @returns A promise that resolves when the language change is complete
+ */
 export function changeLanguage(language: SupportedLanguage): Promise<void> {
   return useI18nStore.getState().changeLanguage(language);
 }
 
+/**
+ * Translates a given key using the current language, with optional parameters and namespace.
+ *
+ * @param key - The translation key to look up
+ * @param params - Optional parameters for interpolation in the translation string
+ * @param namespace - Optional namespace to scope the translation key
+ * @returns The translated string for the specified key
+ */
 export function translate(
   key: string,
   params?: TranslationParams,

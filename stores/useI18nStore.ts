@@ -54,7 +54,11 @@ export interface I18nState {
 }
 
 /**
- * 翻译函数实现
+ * Creates a translation function for the specified language and loaded translations.
+ *
+ * The returned function retrieves translation strings by key from the given namespace, supports nested key lookup, and performs parameter interpolation if needed. If the namespace or key is missing, it logs a warning and returns the key as a fallback.
+ *
+ * @returns A function that translates keys using the current language and loaded resources.
  */
 function createTranslationFunction(
   currentLanguage: SupportedLanguage,
@@ -90,7 +94,11 @@ function createTranslationFunction(
 }
 
 /**
- * 获取嵌套对象的值
+ * Retrieves a nested value from a translation resource object using a dot-separated key path.
+ *
+ * @param obj - The translation resource object to search within
+ * @param path - Dot-separated string representing the nested key path (e.g., "greeting.hello")
+ * @returns The value at the specified path, or `undefined` if not found
  */
 function getNestedValue(obj: TranslationResource, path: string): unknown {
   return path.split(".").reduce((current, key) => {
@@ -102,7 +110,13 @@ function getNestedValue(obj: TranslationResource, path: string): unknown {
 }
 
 /**
- * 字符串插值
+ * Performs string interpolation by replacing placeholders in the template with values from the provided parameters.
+ *
+ * Placeholders are defined by the configured prefix and suffix in the i18n settings. If a parameter is missing, the original placeholder is retained.
+ *
+ * @param template - The translation string containing placeholders
+ * @param params - An object mapping placeholder keys to their replacement values
+ * @returns The interpolated string with placeholders replaced by parameter values
  */
 function interpolateString(
   template: string,
@@ -125,7 +139,10 @@ function interpolateString(
 }
 
 /**
- * 转义正则表达式特殊字符
+ * Escapes special characters in a string for use in a regular expression.
+ *
+ * @param string - The input string to escape
+ * @returns The escaped string safe for use in regular expressions
  */
 function escapeRegExp(string: string): string {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -362,11 +379,23 @@ export const useI18nStore = create<I18nState>()(
   ),
 );
 
-// 便捷 Hooks
+/**
+ * Returns the currently selected language from the i18n store.
+ *
+ * Useful for accessing the active language in React components.
+ */
 export function useCurrentLanguage() {
   return useI18nStore((state) => state.currentLanguage);
 }
 
+/**
+ * Provides translation utilities and language controls scoped to a specific namespace.
+ *
+ * Ensures the specified translation namespace is loaded, and returns a translation function, the current language, a method to change the language, loading status, and any error encountered during loading.
+ *
+ * @param namespace - The translation namespace to use. Defaults to "common".
+ * @returns An object containing the translation function (`t`), current language, language change method, loading status, and error message.
+ */
 export function useTranslation(namespace: TranslationNamespace = "common") {
   const store = useI18nStore();
 
@@ -385,6 +414,11 @@ export function useTranslation(namespace: TranslationNamespace = "common") {
   };
 }
 
+/**
+ * Returns the list of available language configurations supported by the application.
+ *
+ * @returns An array of language configuration objects.
+ */
 export function useLanguageList() {
   return useI18nStore((state) => state.availableLanguages);
 }

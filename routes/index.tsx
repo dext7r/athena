@@ -5,6 +5,11 @@ import { ClientTranslatedText } from "@islands/ClientTranslatedText.tsx";
 import CounterDemo from "@islands/CounterDemo.tsx";
 import ThemeToggle from "@islands/ThemeToggle.tsx";
 
+/**
+ * Renders the homepage layout with hero, features, demo, and quick start sections.
+ *
+ * The page includes a visually rich hero area, feature highlights, interactive demos, and quick navigation actions. All visible text is internationalized using translation keys. The layout is responsive, supports dark mode, and uses animated backgrounds and transitions for enhanced user experience.
+ */
 export default function Home() {
   return (
     <>

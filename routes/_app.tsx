@@ -2,6 +2,14 @@ import { type PageProps } from "fresh";
 import CustomCursor from "../islands/CustomCursor.tsx";
 import GlobalLanguageProvider from "../islands/GlobalLanguageProvider.tsx";
 
+/**
+ * Root layout component for the application, rendering the full HTML structure with global providers, styles, analytics scripts, and loading animation.
+ *
+ * Wraps the main page content and custom cursor inside a global language provider, sets up meta tags, fonts, and analytics, and manages a loading overlay with animated transitions.
+ *
+ * @param Component - The page component to render as the main content
+ * @returns The complete HTML document structure for the application
+ */
 export default function App({ Component }: PageProps) {
   return (
     <html lang="zh-CN" className="scroll-smooth">

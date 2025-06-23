@@ -73,7 +73,13 @@ export interface UseTranslationOptions {
 }
 
 /**
- * 主要的翻译 Hook
+ * Provides a translation function and locale-aware formatting utilities scoped to a specific namespace.
+ *
+ * Returns translation and formatting utilities for the given namespace, along with language management, loading state, and right-to-left language detection. Supports automatic namespace loading, fallback translations, and debug warnings for missing keys.
+ *
+ * @param namespace - The translation namespace to use (defaults to "common").
+ * @param options - Optional settings for auto-loading, fallback text, and debug mode.
+ * @returns An object containing the translation function, formatting utilities, language management, and state indicators.
  */
 export function useTranslation(
   namespace: TranslationNamespace = "common",
@@ -186,7 +192,9 @@ export function useTranslation(
 }
 
 /**
- * 简化的翻译 Hook（仅返回翻译函数）
+ * Returns a translation function scoped to the specified namespace.
+ *
+ * @returns The translation function for the given namespace
  */
 export function useT(
   namespace: TranslationNamespace = "common",
@@ -196,7 +204,11 @@ export function useT(
 }
 
 /**
- * 多命名空间翻译 Hook
+ * Placeholder hook intended to provide translation functions for multiple namespaces.
+ *
+ * Currently returns an empty object due to hook rules; not yet implemented.
+ *
+ * @returns An object mapping each namespace to its translation function.
  */
 export function useMultipleTranslations(
   namespaces: TranslationNamespace[],
@@ -211,7 +223,14 @@ export function useMultipleTranslations(
 }
 
 /**
- * 条件翻译 Hook（根据条件选择不同的翻译）
+ * Returns a translation hook scoped to one of two namespaces based on a boolean condition.
+ *
+ * Selects the translation namespace according to the provided condition and returns the corresponding translation utilities.
+ *
+ * @param condition - If true, uses `trueNamespace`; otherwise, uses `falseNamespace`
+ * @param trueNamespace - Namespace to use when the condition is true
+ * @param falseNamespace - Namespace to use when the condition is false (defaults to "common")
+ * @returns Translation utilities for the selected namespace
  */
 export function useConditionalTranslation(
   condition: boolean,
@@ -223,7 +242,11 @@ export function useConditionalTranslation(
 }
 
 /**
- * 懒加载翻译 Hook（仅在需要时加载）
+ * Provides a translation hook that loads translations for a namespace only when explicitly triggered.
+ *
+ * Returns a tuple containing the translation hook result (or `null` if not yet loaded) and a function to initiate loading.
+ *
+ * @returns A tuple: the translation hook result for the namespace (or `null` if not loaded), and a function to trigger loading.
  */
 export function useLazyTranslation(
   namespace: TranslationNamespace,
@@ -241,7 +264,9 @@ export function useLazyTranslation(
 }
 
 /**
- * 翻译预加载 Hook
+ * Preloads translation resources for the specified namespaces.
+ *
+ * Triggers loading of translation data for the given namespaces when the component mounts or when the namespaces change.
  */
 export function usePreloadTranslations(namespaces: TranslationNamespace[]) {
   const { preloadNamespaces } = useI18nStore();
@@ -252,7 +277,12 @@ export function usePreloadTranslations(namespaces: TranslationNamespace[]) {
 }
 
 /**
- * 翻译键值验证 Hook（开发模式）
+ * Validates that all required translation keys exist in the specified namespace for the current language during development.
+ *
+ * Logs a warning in the console if any required keys are missing from the loaded translations.
+ *
+ * @param namespace - The translation namespace to validate.
+ * @param requiredKeys - An array of translation keys that must be present.
  */
 export function useTranslationValidation(
   namespace: TranslationNamespace,
@@ -283,7 +313,11 @@ export function useTranslationValidation(
 }
 
 /**
- * 获取嵌套对象的值
+ * Retrieves the value at a given dot-separated path from a nested object.
+ *
+ * @param obj - The object to query
+ * @param path - Dot-separated string representing the path to the desired value
+ * @returns The value at the specified path, or `undefined` if any key is missing
  */
 function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
   return path.split(".").reduce((current: unknown, key: string) => {

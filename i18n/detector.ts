@@ -262,19 +262,36 @@ export class ServerLanguageDetector {
 // 创建默认的语言检测器实例
 export const languageDetector = new LanguageDetectorImpl();
 
-// 便捷函数
+/**
+ * Detects the user's language preference using the configured detection strategies.
+ *
+ * @returns The result of the language detection process, including the detected language and detection source.
+ */
 export function detectLanguage(): LanguageDetectionResult {
   return languageDetector.detect();
 }
 
+/**
+ * Stores the specified language preference in all configured client-side caches.
+ *
+ * @param language - The language code to set as the user's preference
+ */
 export function setLanguage(language: SupportedLanguage): void {
   languageDetector.setLanguage(language);
 }
 
+/**
+ * Retrieves the user's stored language preference from available caches.
+ *
+ * @returns The stored supported language, or `null` if none is found.
+ */
 export function getStoredLanguage(): SupportedLanguage | null {
   return languageDetector.getStoredLanguage();
 }
 
+/**
+ * Removes any stored language preference from all configured client-side caches.
+ */
 export function clearStoredLanguage(): void {
   languageDetector.clearStoredLanguage();
 }

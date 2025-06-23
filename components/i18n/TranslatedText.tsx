@@ -59,7 +59,9 @@ export interface TranslatedTextProps {
 }
 
 /**
- * 翻译文本组件
+ * Renders translated text for a given key, with optional parameters, namespace, fallback, and HTML tag.
+ *
+ * If translation is unavailable or loading, displays the provided fallback text if specified. Supports wrapping child elements with a translated title attribute, and disables raw HTML injection for security.
  */
 export function TranslatedText({
   i18nKey,
@@ -128,6 +130,11 @@ export interface TranslatedButtonProps extends TranslatedTextProps {
   type?: "button" | "submit" | "reset";
 }
 
+/**
+ * Renders a styled, internationalized button with translation, variant, size, and loading/disabled support.
+ *
+ * Applies appropriate CSS classes based on the specified variant and size, and disables the button if `disabled` or `loading` is true.
+ */
 export function TranslatedButton({
   variant = "primary",
   size = "md",
@@ -185,6 +192,11 @@ export interface TranslatedLinkProps extends TranslatedTextProps {
   rel?: string;
 }
 
+/**
+ * Renders a translated anchor element with localized text and accessible, styled link behavior.
+ *
+ * Applies default link styling and ensures safe `rel` attributes for external links. Accepts all standard link and translation properties.
+ */
 export function TranslatedLink({
   href,
   target,
@@ -218,6 +230,13 @@ export interface TranslatedHeadingProps extends TranslatedTextProps {
   level: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
+/**
+ * Renders a translated heading element at the specified level with appropriate styling.
+ *
+ * Applies size and font weight classes based on the heading level, and renders the translated text using the provided translation key and options.
+ *
+ * @param level - The heading level (1 to 6) determining the HTML tag and styling.
+ */
 export function TranslatedHeading({
   level,
   className = "",
@@ -256,6 +275,14 @@ export interface TranslatedListProps {
   as?: "span" | "div" | "p";
 }
 
+/**
+ * Renders a localized, formatted list of strings using the specified conjunction, disjunction, or unit style.
+ *
+ * @param items - The array of strings to format and display as a localized list.
+ * @param type - The list formatting style ("conjunction", "disjunction", or "unit").
+ * @param as - The HTML tag to render as (defaults to "span").
+ * @returns The formatted list rendered inside the specified component.
+ */
 export function TranslatedList({
   items,
   namespace = "common",
@@ -287,6 +314,18 @@ export interface TranslatedPluralProps {
   as?: keyof JSX.IntrinsicElements;
 }
 
+/**
+ * Renders a localized pluralized string based on the provided count and translation key.
+ *
+ * Selects the appropriate plural form from the translation resources and displays it within the specified HTML element.
+ *
+ * @param count - The numeric value used to determine the plural form
+ * @param i18nKey - The base translation key for pluralization
+ * @param namespace - The translation namespace to use (defaults to "common")
+ * @param className - Optional CSS classes to apply
+ * @param as - The HTML tag or component to render as (defaults to "span")
+ * @returns The pluralized and localized string rendered in the chosen element
+ */
 export function TranslatedPlural({
   count,
   i18nKey,
@@ -325,6 +364,13 @@ export interface TranslationErrorBoundaryProps {
   fallback?: JSX.Element | string;
 }
 
+/**
+ * Renders child components and displays a fallback UI if a rendering error occurs.
+ *
+ * If an error is thrown while rendering the children, logs the error and renders the provided fallback content instead.
+ *
+ * @param fallback - Optional fallback UI or string to display on error (defaults to "Translation Error")
+ */
 export function TranslationErrorBoundary({
   children,
   fallback = "Translation Error",
