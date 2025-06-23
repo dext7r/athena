@@ -50,7 +50,18 @@ export interface ClientTranslatedTextProps {
 }
 
 /**
- * 客户端翻译文本组件
+ * Renders translated text on the client using a specified translation key and optional parameters.
+ *
+ * If a fallback is provided, it is displayed while the translation is loading or if the translation is missing. Supports rendering as any HTML tag via the `as` prop, and can wrap child elements with a translated title attribute. For security, HTML injection is disabled even if `dangerouslySetInnerHTML` is requested.
+ *
+ * @param i18nKey - The translation key to look up.
+ * @param params - Optional parameters for interpolation in the translation.
+ * @param namespace - Optional translation namespace; defaults to "common".
+ * @param fallback - Optional fallback text if the translation is unavailable.
+ * @param as - The HTML tag or component to render as; defaults to "span".
+ * @param dangerouslySetInnerHTML - If true, attempts to render HTML content, but is disabled for security.
+ * @param children - Optional child elements to wrap with the translated title.
+ * @returns The translated text or fallback, rendered as the specified HTML element.
  */
 export function ClientTranslatedText({
   i18nKey,
@@ -116,6 +127,13 @@ export interface ClientTranslatedHeadingProps
   level: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
+/**
+ * Renders a translated heading element (`h1`–`h6`) with appropriate styling and accessibility support.
+ *
+ * Applies font size and weight classes based on the specified heading level, and passes all translation and HTML props to the underlying translation component.
+ *
+ * @param level - The heading level (1–6) determining the HTML tag and styling
+ */
 export function ClientTranslatedHeading({
   level,
   className = "",

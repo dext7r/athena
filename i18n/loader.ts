@@ -247,7 +247,11 @@ export class TranslationLoaderImpl implements TranslationLoader {
 // 创建默认的翻译加载器实例
 export const translationLoader = new TranslationLoaderImpl();
 
-// 便捷函数
+/**
+ * Loads a translation resource for the specified language and namespace.
+ *
+ * @returns A promise that resolves to the loaded translation resource object.
+ */
 export function loadNamespace(
   language: SupportedLanguage,
   namespace: TranslationNamespace,
@@ -255,6 +259,14 @@ export function loadNamespace(
   return translationLoader.loadNamespace(language, namespace);
 }
 
+/**
+ * Preloads multiple translation namespaces for a given language.
+ *
+ * Loads the specified namespaces in controlled concurrent batches to optimize resource fetching and caching.
+ *
+ * @param language - The target language for which to preload translations
+ * @param namespaces - An array of namespaces to preload
+ */
 export function preloadNamespaces(
   language: SupportedLanguage,
   namespaces: TranslationNamespace[],
@@ -262,6 +274,9 @@ export function preloadNamespaces(
   return translationLoader.preloadNamespaces(language, namespaces);
 }
 
+/**
+ * Clears all cached translation resources and ongoing loading promises.
+ */
 export function clearTranslationCache(): void {
   translationLoader.clearCache();
 }

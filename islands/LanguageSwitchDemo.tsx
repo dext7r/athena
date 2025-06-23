@@ -10,6 +10,11 @@ import {
 } from "@islands/GlobalLanguageProvider.tsx";
 import { LANGUAGE_CONFIGS, SUPPORTED_LANGUAGES } from "@/i18n/config.ts";
 
+/**
+ * Demonstrates real-time language switching with dynamic UI updates and translation samples.
+ *
+ * Renders a language switcher interface that allows users to change the application's language instantly, displaying current language status, translated text examples, feature highlights, and performance metrics. The component shows a loading skeleton before mounting and updates content in real time as the language changes.
+ */
 export default function LanguageSwitchDemo() {
   const [mounted, setMounted] = useState(false);
   const { currentLanguage, changeLanguage, isLoading } = useGlobalLanguage();

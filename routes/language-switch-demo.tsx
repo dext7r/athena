@@ -9,6 +9,11 @@ import GlobalLanguageProvider from "@islands/GlobalLanguageProvider.tsx";
 import I18nButton from "@islands/I18nButton.tsx";
 import LanguageSwitchDemo from "@islands/LanguageSwitchDemo.tsx";
 
+/**
+ * Renders a demonstration page for real-time language switching without page refresh.
+ *
+ * The page showcases global language state management, instant translation updates, and internationalized UI components. It includes interactive demos, usage instructions, and various styled buttons to illustrate dynamic translation capabilities.
+ */
 export default function LanguageSwitchDemoPage(_props: PageProps) {
   return (
     <GlobalLanguageProvider>

@@ -36,6 +36,11 @@ interface I18nButtonProps {
   onClick?: () => void;
 }
 
+/**
+ * Renders a button with its label translated according to the current language context.
+ *
+ * Displays a loading or fallback text during server-side rendering or while translations are loading. Once translations are ready, the button label is translated using the provided key, parameters, and namespace, with optional fallback text if the translation is unavailable. All additional props are forwarded to the underlying Button component.
+ */
 export default function I18nButton({
   i18nKey,
   i18nParams,

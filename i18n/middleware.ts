@@ -32,7 +32,12 @@ interface I18nFreshContext extends FreshContext {
 const serverTranslationCache = new Map<string, Record<string, unknown>>();
 
 /**
- * 创建服务端翻译函数
+ * Creates a server-side translation function for the specified language.
+ *
+ * Preloads configured translation namespaces, loads and caches translation resources, and returns a function that retrieves and interpolates translation strings for the given language. If loading fails, returns a fallback function that returns keys as-is.
+ *
+ * @param language - The language for which to create the translation function
+ * @returns A translation function that retrieves and interpolates translation strings for the specified language
  */
 async function createServerTranslationFunction(
   language: SupportedLanguage,
@@ -95,7 +100,11 @@ async function createServerTranslationFunction(
 }
 
 /**
- * 获取嵌套对象的值
+ * Retrieves a nested value from an object using a dot-separated path.
+ *
+ * @param obj - The object to query
+ * @param path - Dot-separated string representing the path to the desired value
+ * @returns The value at the specified path, or undefined if not found
  */
 function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
   return path.split(".").reduce((current: unknown, key: string) => {
@@ -107,7 +116,13 @@ function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
 }
 
 /**
- * 字符串插值
+ * Replaces placeholders in a template string with corresponding values from the provided parameters.
+ *
+ * Placeholders in the template should be in the form `{{key}}`. If a key is not found in the parameters, the placeholder remains unchanged.
+ *
+ * @param template - The template string containing placeholders
+ * @param params - An object mapping placeholder keys to their replacement values
+ * @returns The interpolated string with placeholders replaced by parameter values
  */
 function interpolateString(
   template: string,
@@ -120,8 +135,9 @@ function interpolateString(
 }
 
 /**
- * i18n 中间件
- * 在每个请求中检测语言并提供翻译功能
+ * Middleware that detects the user's language for each request and provides translation and formatting utilities in the request context.
+ *
+ * Adds an `i18n` object to `ctx.state` containing the detected language, translation function, and localized date and number formatting functions. Sets the `Content-Language` header on the response. Falls back to default language and identity functions if detection or setup fails.
  */
 export function i18nMiddleware() {
   return async function middleware(ctx: I18nFreshContext) {
@@ -184,8 +200,11 @@ export function i18nMiddleware() {
 }
 
 /**
- * 页面级 i18n 中间件
- * 为特定页面提供额外的翻译命名空间
+ * Middleware to preload additional translation namespaces for a specific page.
+ *
+ * Ensures that page-specific translation resources are loaded and updates the translation function in the i18n context to include these namespaces. Logs a warning if the i18n context is missing and continues processing.
+ *
+ * @param namespaces - Additional translation namespaces to preload for the page
  */
 export function pageI18nMiddleware(namespaces: string[] = []) {
   return async function middleware(ctx: I18nFreshContext) {
@@ -224,8 +243,9 @@ export function pageI18nMiddleware(namespaces: string[] = []) {
 }
 
 /**
- * API 路由 i18n 中间件
- * 为 API 响应提供国际化支持
+ * Middleware that enhances API JSON responses with i18n metadata.
+ *
+ * If the response is JSON, adds an `_i18n` field containing the detected language and a timestamp. If the i18n context is missing or the response is not JSON, the response is returned unchanged.
  */
 export function apiI18nMiddleware() {
   return async function middleware(ctx: I18nFreshContext) {
@@ -276,8 +296,9 @@ export function apiI18nMiddleware() {
 }
 
 /**
- * 静态资源 i18n 中间件
- * 为静态资源添加语言相关的缓存策略
+ * Middleware that applies caching headers to static translation resource files.
+ *
+ * Adds appropriate cache control and language negotiation headers to responses for requests under `/i18n/locales/`.
  */
 export function staticI18nMiddleware() {
   return async function middleware(ctx: I18nFreshContext) {
@@ -301,7 +322,9 @@ export function staticI18nMiddleware() {
 }
 
 /**
- * 获取请求的 i18n 上下文
+ * Retrieves the i18n context from the request state.
+ *
+ * @returns The i18n middleware context if present, or `null` if not available.
  */
 export function getI18nContext(
   ctx: I18nFreshContext,
@@ -310,7 +333,11 @@ export function getI18nContext(
 }
 
 /**
- * 设置响应的语言头
+ * Sets the `Content-Language` and `Vary: Accept-Language` headers on the response for proper language negotiation.
+ *
+ * @param response - The HTTP response to modify
+ * @param language - The language code to set in the `Content-Language` header
+ * @returns The response with updated language headers
  */
 export function setLanguageHeaders(
   response: Response,
@@ -322,7 +349,12 @@ export function setLanguageHeaders(
 }
 
 /**
- * 重定向到本地化 URL
+ * Returns a redirect response to the specified URL with the language query parameter set.
+ *
+ * @param url - The original URL to redirect to
+ * @param language - The language code to set in the `lang` query parameter
+ * @param status - The HTTP status code for the redirect (default is 302)
+ * @returns A Response object with the `Location` header set to the localized URL
  */
 export function redirectToLocalizedUrl(
   url: string,
@@ -341,14 +373,16 @@ export function redirectToLocalizedUrl(
 }
 
 /**
- * 清除服务端翻译缓存
+ * Clears all entries from the server-side translation cache.
  */
 export function clearServerTranslationCache(): void {
   serverTranslationCache.clear();
 }
 
 /**
- * 获取服务端翻译缓存统计
+ * Returns statistics about the server-side translation cache.
+ *
+ * @returns An object containing the cache size and an array of cache keys.
  */
 export function getServerCacheStats() {
   return {
