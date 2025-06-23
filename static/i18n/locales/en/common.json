@@ -14,6 +14,83 @@
     "admin": "Admin",
     "docs": "Documentation"
   },
+  "home": {
+    "hero": {
+      "badge": "🚀 Modern Full-Stack Development Template",
+      "version": "v2.0",
+      "title": "Athena",
+      "subtitle": "Modern full-stack development template based on Fresh + Deno",
+      "description": "Integrated with TailwindCSS + Zustand, providing the perfect starting point for your next project",
+      "cta": {
+        "explore": "Start Exploring",
+        "viewSource": "View Source"
+      }
+    },
+    "features": {
+      "title": "Why Choose Athena",
+      "subtitle": "Integrated with the latest tech stack, providing out-of-the-box modern development experience",
+      "modernStack": {
+        "title": "Modern Tech Stack",
+        "items": {
+          "fresh": "Fresh (Deno + Preact)",
+          "tailwind": "TailwindCSS + Sass",
+          "zustand": "Zustand State Management",
+          "typescript": "TypeScript Support"
+        }
+      },
+      "richComponents": {
+        "title": "Rich Component Library",
+        "items": {
+          "basic": "Buttons, Cards, Inputs",
+          "layout": "Modals, Sidebars",
+          "theme": "Theme Toggle Support",
+          "responsive": "Responsive Design"
+        }
+      },
+      "usefulHooks": {
+        "title": "Useful Hooks",
+        "items": {
+          "localStorage": "useLocalStorage",
+          "debounce": "useDebounce",
+          "fetch": "useFetch",
+          "mediaQuery": "useMediaQuery"
+        }
+      }
+    },
+    "demo": {
+      "title": "Live Experience Demo",
+      "subtitle": "Experience component effects and interactive features in real-time",
+      "counter": {
+        "title": "Counter Demo",
+        "description": "Experience state management and interactive effects"
+      },
+      "buttons": {
+        "title": "Button Component Demo",
+        "description": "Various styles and states of button components",
+        "basic": "Basic Styles",
+        "special": "Special Effects",
+        "theme": "Theme Toggle:",
+        "variants": {
+          "primary": "Primary Button",
+          "secondary": "Secondary Button",
+          "outline": "Outline Button",
+          "ghost": "Ghost Button",
+          "gradient": "Gradient Button",
+          "glass": "Glass Button",
+          "loading": "Loading..."
+        }
+      }
+    },
+    "quickStart": {
+      "title": "Ready to Get Started?",
+      "subtitle": "Explore more features and component demos, start your modern development journey",
+      "actions": {
+        "viewComponents": "View Components",
+        "hooksDemo": "Hooks Demo",
+        "stateManagement": "State Management"
+      }
+    }
+  },
   "actions": {
     "save": "Save",
     "cancel": "Cancel",

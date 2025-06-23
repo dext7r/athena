@@ -14,6 +14,83 @@
     "admin": "管理",
     "docs": "文档"
   },
+  "home": {
+    "hero": {
+      "badge": "🚀 现代化全栈开发模板",
+      "version": "v2.0",
+      "title": "Athena",
+      "subtitle": "基于 Fresh + Deno 的现代化全栈开发模板",
+      "description": "集成 TailwindCSS + Zustand， 为您的下一个项目提供完美起点",
+      "cta": {
+        "explore": "开始探索",
+        "viewSource": "查看源码"
+      }
+    },
+    "features": {
+      "title": "为什么选择 Athena",
+      "subtitle": "集成最新技术栈，提供开箱即用的现代化开发体验",
+      "modernStack": {
+        "title": "现代化技术栈",
+        "items": {
+          "fresh": "Fresh (Deno + Preact)",
+          "tailwind": "TailwindCSS + Sass",
+          "zustand": "Zustand 状态管理",
+          "typescript": "TypeScript 支持"
+        }
+      },
+      "richComponents": {
+        "title": "丰富的组件库",
+        "items": {
+          "basic": "按钮、卡片、输入框",
+          "layout": "模态框、侧边栏",
+          "theme": "主题切换支持",
+          "responsive": "响应式设计"
+        }
+      },
+      "usefulHooks": {
+        "title": "实用 Hooks",
+        "items": {
+          "localStorage": "useLocalStorage",
+          "debounce": "useDebounce",
+          "fetch": "useFetch",
+          "mediaQuery": "useMediaQuery"
+        }
+      }
+    },
+    "demo": {
+      "title": "在线体验 演示",
+      "subtitle": "实时体验组件效果和交互功能",
+      "counter": {
+        "title": "计数器演示",
+        "description": "体验状态管理和交互效果"
+      },
+      "buttons": {
+        "title": "按钮组件演示",
+        "description": "多种样式和状态的按钮组件",
+        "basic": "基础样式",
+        "special": "特殊效果",
+        "theme": "主题切换：",
+        "variants": {
+          "primary": "主要按钮",
+          "secondary": "次要按钮",
+          "outline": "边框按钮",
+          "ghost": "幽灵按钮",
+          "gradient": "渐变按钮",
+          "glass": "玻璃态按钮",
+          "loading": "加载中..."
+        }
+      }
+    },
+    "quickStart": {
+      "title": "准备好开始了吗？",
+      "subtitle": "探索更多功能和组件演示，开始您的现代化开发之旅",
+      "actions": {
+        "viewComponents": "查看组件",
+        "hooksDemo": "Hooks演示",
+        "stateManagement": "状态管理"
+      }
+    }
+  },
   "actions": {
     "save": "保存",
     "cancel": "取消",
